@@ -1,8 +1,10 @@
-package com.example.aleph_tea_activities;
+package es.aleph_tea.teabuddy;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import es.aleph_tea.teabuddy.R;
 
 public class ListActivity extends AppCompatActivity {
 

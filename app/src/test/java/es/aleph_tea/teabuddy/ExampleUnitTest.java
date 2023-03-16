@@ -1,4 +1,4 @@
-package com.example.aleph_tea_activities;
+package es.aleph_tea.teabuddy;
 
 import org.junit.Test;
 

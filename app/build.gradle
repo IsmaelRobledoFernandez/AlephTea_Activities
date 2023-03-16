@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.aleph_tea_activities'
+    namespace 'es.aleph_tea.teabuddy'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.aleph_tea_activities"
+        applicationId "es.aleph_tea.teabuddy"
         minSdk 29
         targetSdk 33
         versionCode 1

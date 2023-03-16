@@ -1,7 +1,8 @@
-package com.example.aleph_tea_activities;
+package es.aleph_tea.teabuddy;
 
 import android.os.Bundle;
 
+import es.aleph_tea.teabuddy.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.aleph_tea_activities.databinding.ActivityMainBinding;
+import es.aleph_tea.teabuddy.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
