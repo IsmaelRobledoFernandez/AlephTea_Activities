@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "488891878835",
+    "project_id": "aleph-472ca",
+    "storage_bucket": "aleph-472ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488891878835:android:5dce704d372fa4bb068fc6",
+        "android_client_info": {
+          "package_name": "com.aleph.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488891878835-el0o1i7tevca8tjddesvdtmfji3lahu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyJgucKKc5VI5g0C4WexZQ30fjD7Rftto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488891878835-el0o1i7tevca8tjddesvdtmfji3lahu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488891878835:android:c69b0a6d0e0c340e068fc6",
+        "android_client_info": {
+          "package_name": "com.example.aleph_tea_activities"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488891878835-el0o1i7tevca8tjddesvdtmfji3lahu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyJgucKKc5VI5g0C4WexZQ30fjD7Rftto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488891878835-el0o1i7tevca8tjddesvdtmfji3lahu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
