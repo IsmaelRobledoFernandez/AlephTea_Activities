@@ -1,13 +1,14 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    namespace 'com.example.aleph_tea_activities'
+    namespace 'es.aleph_tea.teabuddy'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.aleph_tea_activities"
+        applicationId "es.aleph_tea.teabuddy"
         minSdk 29
         targetSdk 33
         versionCode 1
@@ -32,6 +33,10 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-tasks:18.0.2'
+    implementation 'com.google.firebase:firebase-auth:21.1.0'
+    implementation 'com.google.firebase:firebase-database:20.0.4'
+    implementation 'com.google.firebase:firebase-firestore:24.4.4'
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
