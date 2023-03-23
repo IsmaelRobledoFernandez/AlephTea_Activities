@@ -24,5 +24,5 @@ Hemos puesto colores corporativos y hemos puesto los logos en formato svg.
 
 | Negro  | Blanco |
 | ------------- | ------------- |
-| ![image](https://user-images.githubusercontent.com/67373943/227150758-ccadf856-66b1-4574-8908-3de049fc524c.png)  | ![image](https://user-images.githubusercontent.com/67373943/227150938-841a8477-9748-454e-a05f-eb0768693561.png))  |
+| ![image](https://user-images.githubusercontent.com/67373943/227150758-ccadf856-66b1-4574-8908-3de049fc524c.png)  | ![image](https://user-images.githubusercontent.com/67373943/227150938-841a8477-9748-454e-a05f-eb0768693561.png)  |
 
