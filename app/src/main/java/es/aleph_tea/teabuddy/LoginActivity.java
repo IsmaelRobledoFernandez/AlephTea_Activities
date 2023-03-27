@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             gestionLogin();
             registro_usuario();
         }else{
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(),  ActivitiesListActivity.class));
         }
     }
 
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
                         finish();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
                         Log.d("SIGN IN", "Usuario ha hecho login correctamente");
                     }
                     else{
