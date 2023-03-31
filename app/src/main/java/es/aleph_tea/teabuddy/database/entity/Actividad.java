@@ -3,14 +3,14 @@ package es.aleph_tea.teabuddy.database.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "actividades")
-public class Actividades {
+@Entity(tableName = "actividad")
+public class Actividad {
 
     @PrimaryKey(autoGenerate = true)
     int actividadId;
     String nombre;
     String descripcion;
-    String fechaHora;
+    Long fechaHora;
     String localizacion;
     boolean estaInscrito;
 
@@ -38,11 +38,11 @@ public class Actividades {
         this.descripcion = descripcion;
     }
 
-    public String getFechaHora() {
+    public Long getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(String fechaHora) {
+    public void setFechaHora(Long fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -54,7 +54,7 @@ public class Actividades {
         this.localizacion = localizacion;
     }
 
-    public boolean isEstaInscrito() {
+    public boolean getEstaInscrito() {
         return estaInscrito;
     }
 
