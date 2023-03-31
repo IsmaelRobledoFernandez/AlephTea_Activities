@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HOLA MUNDO"
+        android:textSize="50dp"
+        android:textColor="@color/yellow_100"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <Button
+        android:id="@+id/btn_borrar_cuenta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Borrar cuenta"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_cambiar_pass"
+        android:padding="20dp"
+        />
+    <Button
+        android:id="@+id/btn_cambiar_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cambiar contraseña"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_cerrar_sesion"
+        android:padding="20dp"
+        />
+    <Button
+        android:id="@+id/btn_cerrar_sesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cerrar sesion"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="20dp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

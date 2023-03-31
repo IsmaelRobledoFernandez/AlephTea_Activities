@@ -22,6 +22,16 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".CambiarPass"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ModificarPass"
+            android:exported="false" />
+        <activity
+            android:name=".ListActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait">
