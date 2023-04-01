@@ -8,6 +8,8 @@ public interface ActividadRepository {
 
     List<Actividad> getAllActividades();
 
+    void deleteAllActividades();
+
     List<Actividad> getActividadesInscritas();
 
     Actividad findById(int actividadId);

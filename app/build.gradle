@@ -33,11 +33,16 @@ android {
 }
 
 dependencies {
+    // Servicios de Google
     implementation 'com.google.android.gms:play-services-tasks:18.0.2'
+
+    // Dependencias Firebase
     implementation 'com.google.firebase:firebase-auth:21.1.0'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.google.firebase:firebase-firestore:24.4.4'
 
+    // Bibliotecas Android
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -47,7 +52,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
 
     // Implementacion de la BBDD ROOM
-
     def room_version = "2.5.0"
 
     implementation "androidx.room:room-runtime:$room_version"

@@ -19,6 +19,12 @@ public class ActividadRepositoryImpl implements ActividadRepository{
     }
 
     @Override
+    public void deleteAllActividades() {
+        dao.deleteAll();
+        dao.resetTable();
+    }
+
+    @Override
     public List<Actividad> getActividadesInscritas() {
         return dao.getInscritas();
     }

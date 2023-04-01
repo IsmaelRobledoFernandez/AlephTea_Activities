@@ -16,6 +16,13 @@ public interface ActividadDAO {
     @Query("select * from Actividad")
     List<Actividad> getAll();
 
+    @Query("delete from Actividad")
+    void deleteAll();
+
+    // Consulta alternativa: update sqlite_sequence set seq=0 where name='Actividad'
+    @Query("delete from sqlite_sequence")
+    void resetTable();
+
     @Query("select * from Actividad where estaInscrito = 1")
     List<Actividad> getInscritas();
 
