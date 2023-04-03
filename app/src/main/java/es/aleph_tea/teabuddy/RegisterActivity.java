@@ -1,5 +1,6 @@
 package es.aleph_tea.teabuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,9 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -59,18 +62,20 @@ public class RegisterActivity extends AppCompatActivity {
                 fecha_nacimiento = fecha_nacimientoETXT.getText().toString().trim();
                 email = emailETXT.getText().toString().trim();
                 password = passwordETXT.getText().toString();
-                if(email.length()==0||password.length()==0||nombre.length()==0||apellido.length()==0||n_telefono.length()==0||fecha_nacimiento.length()==0){
+                //if(email.length()==0||password.length()==0||nombre.length()==0||apellido.length()==0||n_telefono.length()==0||fecha_nacimiento.length()==0){
+                if(email.length()==0||password.length()==0){
                     Toast.makeText(getApplicationContext(), "Completa los campos", Toast.LENGTH_SHORT).show();
                     Log.d("SIGN IN", "No se han completado las credenciales");
                 }else {
-                    createAccount(email, password);
+                    Usuario user = new Usuario(email, password, n_telefono, fecha_nacimiento, apellido, nombre);
+                    createAccount(user);
                 }
             }
         });
     }
 
-    private void createAccount(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
+    private void createAccount(Usuario user){
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -81,24 +86,32 @@ public class RegisterActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 Log.d("EMAIL", "EMAIL ENVIADO.");
-                                                Map<String, Object> user = new HashMap<>();
-                                                user.put("nombre", nombre);
-                                                user.put("apellido", apellido);
-                                                user.put("fecha nacimiento", fecha_nacimiento);
-                                                user.put("email", email);
-                                                db.collection("users").add(user).addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Log.w("FALLO", "Fallo al subir los datos del usuario");
-                                                    }
-                                                });
+
+                                                Map<String, Object> usuario = new HashMap<>();
+                                                usuario.put("nombre", user.getNombre());
+                                                usuario.put("apellidos", user.getApellido());
+                                                usuario.put("fecha_nacimiento", user.getFecha_nacimiento());
+                                                usuario.put("numero_telefono", user.getN_telefono());
+
+                                                // Add a new document with a generated ID
+                                                db.collection("users")
+                                                        .add(usuario)
+                                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                            @Override
+                                                            public void onSuccess(DocumentReference documentReference) {
+                                                                Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.w("TAG", "Error adding document", e);
+                                                            }
+                                                        });
+
                                                 Toast.makeText(RegisterActivity.this, "Registro correcto. Por favor, revise su mail", Toast.LENGTH_SHORT).show();
-                                                emailETXT.setText("");
-                                                passwordETXT.setText("");
-                                                nombreETXT.setText("");
-                                                apellidosETXT.setText("");
-                                                n_telefonoETXT.setText("");
-                                                fecha_nacimientoETXT.setText("");
+                                                finish();
+                                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                             }else{
                                                 Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                             }
@@ -106,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     });
                         }
                         else{
-                            Log.w("ERROR", "ERROR AL HACER CREAR LA CUENTA");
+                            Log.w("ERROR", "ERROR AL CREAR LA CUENTA");
                             Toast.makeText(RegisterActivity.this, "Auth failed", Toast.LENGTH_SHORT).show();
 
                         }

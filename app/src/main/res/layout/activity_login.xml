@@ -49,8 +49,7 @@
             android:text="Mantener sesion iniciada"
             app:layout_constraintTop_toBottomOf="@id/password"
             app:layout_constraintStart_toStartOf="parent"
-            android:checked="true"
-            />
+            android:checked="false" />
 
         <Button
             android:id="@+id/boton_login"
@@ -95,4 +94,4 @@
             />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--https://devexperto.com/temas-estilos-android/ TEMAS Y ESTILOS-->
+<!--https://devexperto.com/temas-estilos-android/ TEMAS Y ESTILOS-->

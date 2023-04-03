@@ -14,44 +14,37 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import es.aleph_tea.teabuddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
-    TextView textView;
+    TextView textView, cambiar_pass;
     Button button;
     EditText emailETXT, passwordETXT;
     String email, password;
-
     CheckBox keepLogin;
-    boolean mantenerIniciado;
-
-    String STRING_PREFERENCES = "alephapp.aleph";
-    String PREFERENCE_ESTADO_BUTTON_SESION = "estado.button.sesion";
-
-    // OK: La primera vez que hace login OK el usuario se guarda la información de que ha hecho login exitosamente
-    // TODO: Poner boton para cerrar sesión dentro de la app
-    // TODO: Poner boton para borrar cuenta y para cambiar contraseña
-    // TODO: Cambiar contraseña desde el login
+    Sesion sesion = new Sesion(false);
+    public static final String STRING_PREFERENCES = "alephapp.aleph";
+    public static final String PREFERENCE_ESTADO_BUTTON_SESION = "estado.button.sesion";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Instanciar firebase
         mAuth = FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
-        //Mostrar la vista del login (activity_main)
-        setContentView(R.layout.activity_login);
         if(!obtenerEstadoBoton()){
+            //Mostrar la vista del login (activity_main)
+            setContentView(R.layout.activity_login);
             gestionLogin();
             registro_usuario();
+            cambiar_password();
         }else{
-            startActivity(new Intent(getApplicationContext(),  ActivitiesListActivity.class));
+            finish();
+            startActivity(new Intent(getApplicationContext(), ListActivity.class));
         }
     }
 
@@ -60,23 +53,39 @@ public class LoginActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "HolaMundo", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
     }
 
+    private void cambiar_password(){
+        cambiar_pass = findViewById(R.id.cambiar_password);
+        cambiar_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), CambiarPass.class));
+            }
+        });
+    }
     private void gestionLogin(){
         //Obtener id de los elementos del login
         emailETXT = (EditText) findViewById(R.id.email);
         passwordETXT = (EditText) findViewById(R.id.password);
         button = (Button) findViewById(R.id.boton_login);
         keepLogin = (CheckBox) findViewById(R.id.checkBox);
-        //Poner un clickListener en el boton de login con el que obtener los datos del usuario
-        if(keepLogin.isChecked()){
-            // Comunicar que el usuario quiere guardar su sesion
-            mantenerIniciado = true;
-        }
+        keepLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean checked = ((CheckBox)view).isChecked();
+                if(checked){
+                    sesion.setMantenerIniciado(true);
+                }
+                else{
+                    sesion.setMantenerIniciado(false);
+                }
+                Log.d("INFO", "GUARDAR SESION: "+ checked);
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,8 +94,12 @@ public class LoginActivity extends AppCompatActivity {
                 if(email.length()==0||password.length()==0){
                     Toast.makeText(getApplicationContext(), "Completa los campos", Toast.LENGTH_SHORT).show();
                     Log.d("SIGN IN", "No se han completado las credenciales");
+                }else if(password.length()<5){
+                    Toast.makeText(getApplicationContext(), "Minimo seis caracteres de contraseña", Toast.LENGTH_SHORT).show();
+                    Log.d("SIGN IN", "Contraseña demasiado corta");
                 }else {
                     loginUser(email, password);
+                    guardarEstadoBoton();
                 }
             }
         });
@@ -98,13 +111,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     if(mAuth.getCurrentUser().isEmailVerified()){
-                        if(mantenerIniciado){
-                            // Almacenamos que el usuario ya ha hecho login correctamente
-                            guardarEstadoBoton();
+                        if(sesion.isMantenerIniciado()){
+                            // Acabamos la actividad de login
+                            finish();
                         }
                         Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
-                        finish();
-                        startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ListActivity.class));
                         Log.d("SIGN IN", "Usuario ha hecho login correctamente");
                     }
                     else{
@@ -123,15 +135,21 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void guardarEstadoBoton(){
+    protected void guardarEstadoBoton(){
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
-        preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION, mantenerIniciado).apply();
+        preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION, sesion.isMantenerIniciado()).apply();
     }
 
-    private boolean obtenerEstadoBoton(){
+    protected boolean obtenerEstadoBoton(){
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
         return preferences.getBoolean(PREFERENCE_ESTADO_BUTTON_SESION, false);
     }
+
+    // OK: La primera vez que hace login OK el usuario se guarda la información de que ha hecho login exitosamente
+    // OK: Poner boton para cerrar sesión dentro de la app
+    // OK: Poner boton para borrar cuenta y para cambiar contraseña
+    // OK: Cambiar contraseña desde el login
+
 
     // https://github.com/firebase/snippets-android/blob/7d6bff60b1f57b13edd34a794619264c14cf0b3d/auth/app/src/main/java/com/google/firebase/quickstart/auth/CustomAuthActivity.java#L54-L60
 

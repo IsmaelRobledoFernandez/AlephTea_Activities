@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModificarPass"
+    android:padding="60dp">
+
+    <ImageView
+        android:layout_height="150dp"
+        android:layout_width="250dp"
+        android:id="@+id/logo"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/aleph"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <EditText
+        android:id="@+id/new_password_ETXT"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="36dp"
+        android:hint="Nueva Contraseña"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
+
+    <Button
+        android:id="@+id/new_boton_cambioPass"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="6dp"
+        android:text="Cambiar Contraseña"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_ETXT"
+        app:layout_constraintVertical_bias="0.2"
+        android:backgroundTint="@color/yellow_100"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:textSize="15sp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
