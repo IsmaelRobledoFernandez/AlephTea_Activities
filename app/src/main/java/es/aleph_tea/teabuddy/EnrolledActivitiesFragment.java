@@ -61,7 +61,7 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflar el layout para este fragmento
-        return inflater.inflate(R.layout.fragment_dos, container, false);
+        return inflater.inflate(R.layout.fragment_enrolled_activities, container, false);
     }
 
     @Override

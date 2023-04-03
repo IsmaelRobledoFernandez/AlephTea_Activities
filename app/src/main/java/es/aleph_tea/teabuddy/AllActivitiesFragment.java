@@ -58,7 +58,7 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflar el layout para este fragmento
-        return inflater.inflate(R.layout.fragment_uno, container, false);
+        return inflater.inflate(R.layout.fragment_all_activities, container, false);
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
