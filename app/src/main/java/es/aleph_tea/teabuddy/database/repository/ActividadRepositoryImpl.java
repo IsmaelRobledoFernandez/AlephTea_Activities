@@ -1,5 +1,7 @@
 package es.aleph_tea.teabuddy.database.repository;
 
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
 
 import es.aleph_tea.teabuddy.database.dao.ActividadDAO;
@@ -46,4 +48,8 @@ public class ActividadRepositoryImpl implements ActividadRepository{
     public void deleteActividad(Actividad actividad) {
         dao.delete(actividad);
     }
+
+    public LiveData<List<Actividad>> findAllActividades() { return dao.findAll(); }
+
+   public LiveData<List<Actividad>> findActividadesInscritas() { return dao.findInscritas(); }
 }

@@ -5,12 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".DosFragment">
 
-    <TextView
+    <ListView
+        android:id="@+id/listViewIActivities"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="2"
-        android:textAlignment="center"
-        android:textSize="100dp" />
+        />
 
 </FrameLayout>

@@ -15,6 +15,11 @@ public class Actividad {
     String localizacion;
     boolean estaInscrito;
 
+    @Override
+    public String toString() {
+        return "Id: " + getActividadId() + " Nombre: " + getNombre();
+    }
+
     public int getActividadId() {
         return actividadId;
     }

@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -31,8 +34,10 @@ import es.aleph_tea.teabuddy.database.dao.ActividadDAO;
 import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.database.repository.ActividadRepository;
 import es.aleph_tea.teabuddy.database.repository.ActividadRepositoryImpl;
+import es.aleph_tea.teabuddy.inteface.ListaActividades;
+import es.aleph_tea.teabuddy.viewmodel.ActividadViewModel;
 
-public class UnoFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class UnoFragment extends Fragment implements AdapterView.OnItemClickListener, ListaActividades {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -41,15 +46,9 @@ public class UnoFragment extends Fragment implements AdapterView.OnItemClickList
 
     private ListView mListView;
 
-    private List<String> nombresActividades;
-
     private ArrayAdapter<String> mAdapter;
 
-    private DatabaseReference mDatabase;
-
-    private AppDatabase db;
-    private ActividadDAO dao;
-    private ActividadRepository repo;
+    ActividadViewModel actividadViewModel;
 
     public UnoFragment() {
         // Constructor público requerido
@@ -79,27 +78,26 @@ public class UnoFragment extends Fragment implements AdapterView.OnItemClickList
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        List<String> nombresActividades;
+
         // Inicializacion de la ListView, la lista de actividades y el adapter
-        mListView = (ListView)view.findViewById(R.id.listView);
+        mListView = (ListView)view.findViewById(R.id.listViewActivities);
         nombresActividades = new ArrayList<>();
 
-        // Inicialización FirebaseRTDB
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        // Uso de ViewModel para escuchar cambios en la ROOM BD
+        actividadViewModel = ViewModelProviders.of(this).get(ActividadViewModel.class);
+        actividadViewModel.getAll().observe(this, new Observer<List<Actividad>>() {
+            @Override
+            public void onChanged(List<Actividad> actividades) {
+                Log.d("onRoomChange", actividades.toString());
+                Log.d("onRoomChange", "Tamanio: " + actividades.size());
+                // Obtencion y printado de todos los nombres de las actividades en la lista
+                putActividades(nombresActividades,actividades);
+                setAdapterToView(nombresActividades);
+            }
+        });
 
-        // Inicialización BD ROOM
-        db = AppDatabase.getInstance(this.getContext());
-        dao = db.actividadDAO();
-        repo = new ActividadRepositoryImpl(dao);
-
-        // Obtención de datos en tiempo real guardados en ROOM dinámicamente
-        databaseRTUpdate(mDatabase,repo);
-
-        // Obtencion y printado de todos los nombres de las actividades en la lista
-        putActividades(nombresActividades);
-
-        // Seteo del adapter a la view
-        mAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, nombresActividades);
-        mListView.setAdapter(mAdapter);
+        setAdapterToView(nombresActividades);
 
         mListView.setOnItemClickListener(this);
     }
@@ -119,73 +117,14 @@ public class UnoFragment extends Fragment implements AdapterView.OnItemClickList
 
     }
 
-    private void databaseRTUpdate(DatabaseReference mDatabase, ActividadRepository repo) {
-        mDatabase.child("Actividades").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if (snapshot.exists()) {
-
-                    Snackbar.make(getView(),"Actualizando actividades...",Snackbar.LENGTH_SHORT)
-                            .show();
-
-                    Log.d("ActualizacionFB", "Hubo cambios en FBRTDB");
-
-                    // Como hay cambios en firebase, reconstruimos la tabla de actividades
-                    repo.deleteAllActividades();
-
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-
-                        // Obtenemos los valores en crudo de cada actividad
-
-                        String nombre = ds.child("nombre").getValue().toString();
-
-                        String descripcion = ds.child("descripcion").getValue().toString();
-
-                        Long fechaHora = Long.parseLong(ds.child("fechaHora")
-                                .getValue().toString());
-
-                        String localizacion = ds.child("localizacion").getValue().toString();
-
-                        boolean estaInscrito = Boolean.parseBoolean(
-                                ds.child("estaInscrito")
-                                        .getValue().toString());
-
-                        // Creamos la actividad obtenida para guardarla en la lista
-                        Actividad actividad = new Actividad();
-
-                        // Ajustamos sus valores
-                        actividad.setNombre(nombre);
-                        actividad.setDescripcion(descripcion);
-                        actividad.setFechaHora(fechaHora);
-                        actividad.setLocalizacion(localizacion);
-                        actividad.setEstaInscrito(estaInscrito);
-
-                        // Añadimos la actividad a la base de datos ROOM
-                        repo.insertActividad(actividad);
-
-                    }
-
-                    // Obtencion y printado de todos los nombres de las actividades en la lista
-                    putActividades(nombresActividades);
-
-                    // Seteo del adapter a la view
-                    mAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, nombresActividades);
-                    mListView.setAdapter(mAdapter);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    private void setAdapterToView(List<String> nombresActividades) {
+        // Seteo del adapter a la view
+        mAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, nombresActividades);
+        mListView.setAdapter(mAdapter);
     }
 
-    private void putActividades(List<String> actividades) {
+    private void putActividades(List<String> actividades,List<Actividad> actividadesTotales) {
         actividades.clear();
-        List<Actividad> actividadesTotales = repo.getAllActividades();
         for (Actividad i: actividadesTotales) {
             actividades.add(i.getNombre());
             Log.d("ListadoActividadesRoom", "Nombre=" + i.getNombre() +

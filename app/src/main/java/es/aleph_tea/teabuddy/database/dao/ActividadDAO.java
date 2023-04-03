@@ -2,6 +2,7 @@ package es.aleph_tea.teabuddy.database.dao;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -35,5 +36,10 @@ public interface ActividadDAO {
     void update (Actividad actividad);
     @Delete
     void delete(Actividad actividad);
+
+    @Query("select * from Actividad")
+    LiveData<List<Actividad>> findAll();
+    @Query("select * from Actividad where estaInscrito = 1")
+    LiveData<List<Actividad>> findInscritas();
 
 }

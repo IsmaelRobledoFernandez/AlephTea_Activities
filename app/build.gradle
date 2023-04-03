@@ -57,7 +57,13 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
+    // Implementación de software de pruebas JUnit
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Implementación de ViewModel y LiveData
+    def lifecycle_version = "2.2.0"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 }
