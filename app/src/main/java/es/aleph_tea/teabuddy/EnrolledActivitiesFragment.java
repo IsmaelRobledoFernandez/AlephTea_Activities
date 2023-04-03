@@ -18,13 +18,11 @@ import androidx.lifecycle.ViewModelProviders;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.aleph_tea.teabuddy.ActivityDetailsActivity;
-import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.database.entity.Actividad;
-import es.aleph_tea.teabuddy.inteface.ListaActividades;
-import es.aleph_tea.teabuddy.viewmodel.ActividadViewModel;
+import es.aleph_tea.teabuddy.interfaces.ListaActividades;
+import es.aleph_tea.teabuddy.models.viewmodel.ActividadViewModel;
 
-public class DosFragment extends Fragment implements AdapterView.OnItemClickListener, ListaActividades {
+public class EnrolledActivitiesFragment extends Fragment implements AdapterView.OnItemClickListener, ListaActividades {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -41,12 +39,12 @@ public class DosFragment extends Fragment implements AdapterView.OnItemClickList
 
     ActividadViewModel actividadViewModel;
 
-    public DosFragment() {
+    public EnrolledActivitiesFragment() {
         // Constructor público requerido
     }
 
-    public static DosFragment newInstance(String param1, String param2) {
-        DosFragment fragment = new DosFragment();
+    public static EnrolledActivitiesFragment newInstance(String param1, String param2) {
+        EnrolledActivitiesFragment fragment = new EnrolledActivitiesFragment();
         return fragment;
     }
 

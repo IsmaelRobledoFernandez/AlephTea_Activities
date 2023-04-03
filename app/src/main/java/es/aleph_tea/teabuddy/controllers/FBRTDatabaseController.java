@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy.controller;
+package es.aleph_tea.teabuddy.controllers;
 
 import android.content.Context;
 import android.util.Log;

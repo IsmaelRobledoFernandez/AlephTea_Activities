@@ -1,7 +1,7 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.login;
 
-import static es.aleph_tea.teabuddy.LoginActivity.PREFERENCE_ESTADO_BUTTON_SESION;
-import static es.aleph_tea.teabuddy.LoginActivity.STRING_PREFERENCES;
+import static es.aleph_tea.teabuddy.LoginMainActivity.PREFERENCE_ESTADO_BUTTON_SESION;
+import static es.aleph_tea.teabuddy.LoginMainActivity.STRING_PREFERENCES;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +18,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import es.aleph_tea.teabuddy.LoginMainActivity;
+import es.aleph_tea.teabuddy.R;
+import es.aleph_tea.teabuddy.login.ModificarPassActivity;
+
 public class ListActivity extends AppCompatActivity {
     Button btn_borrar_cuenta, btn_cambiar_pass, btn_cerrar_sesion;
     @Override
@@ -31,7 +35,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
                 ponerFalse();
             }
         });
@@ -52,12 +56,12 @@ public class ListActivity extends AppCompatActivity {
         // Abre una actividad en la que el usuario tiene que introducir su correo y contraseña y pulsar el boton
         deleteUser();
         finish();
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
     }
     protected void cambiarPass(){
         // Abre una actividad en la que el usuario tiene que introducir su correo
         finish();
-        startActivity(new Intent(getApplicationContext(), ModificarPass.class));
+        startActivity(new Intent(getApplicationContext(), ModificarPassActivity.class));
     }
 
     public void deleteUser() {

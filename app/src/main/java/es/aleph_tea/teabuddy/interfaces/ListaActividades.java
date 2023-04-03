@@ -1,14 +1,10 @@
-package es.aleph_tea.teabuddy.inteface;
+package es.aleph_tea.teabuddy.interfaces;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-
-import java.util.List;
-
-import es.aleph_tea.teabuddy.database.entity.Actividad;
 
 public interface ListaActividades {
 

@@ -23,21 +23,21 @@
             android:label="@string/title_activity_activities_list"
             android:theme="@style/Theme.MainColors.NoActionBar" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".login.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CambiarPass"
+            android:name=".login.CambiarPassActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ModificarPass"
+            android:name=".login.ModificarPassActivity"
             android:exported="false" />
         <activity
-            android:name=".ListActivity"
+            android:name=".login.ListActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginMainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

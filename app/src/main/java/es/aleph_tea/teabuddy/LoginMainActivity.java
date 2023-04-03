@@ -20,7 +20,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity {
+import es.aleph_tea.teabuddy.login.CambiarPassActivity;
+import es.aleph_tea.teabuddy.login.RegisterActivity;
+import es.aleph_tea.teabuddy.models.Sesion;
+
+public class LoginMainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     TextView textView, cambiar_pass;
     Button button;
@@ -63,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         cambiar_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), CambiarPass.class));
+                startActivity(new Intent(getApplicationContext(), CambiarPassActivity.class));
             }
         });
     }
@@ -115,21 +119,21 @@ public class LoginActivity extends AppCompatActivity {
                             // Acabamos la actividad de login
                             finish();
                         }
-                        Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginMainActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
                         Log.d("SIGN IN", "Usuario ha hecho login correctamente");
                     }
                     else{
-                        Toast.makeText(LoginActivity.this, "Revisa tu email", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginMainActivity.this, "Revisa tu email", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginMainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this, "Fallo en el inicio de sesión", Toast.LENGTH_SHORT);
+                Toast.makeText(LoginMainActivity.this, "Fallo en el inicio de sesión", Toast.LENGTH_SHORT);
                 Log.d("SIGN IN", "Fallo en el inicio de sesión");
             }
         });

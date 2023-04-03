@@ -1,8 +1,6 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.models;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class Sesion extends AppCompatActivity {
+public class Sesion {
     public static boolean mantenerIniciado;
     public Sesion(boolean mantenerIniciado){
         this.mantenerIniciado = mantenerIniciado;

@@ -3,14 +3,12 @@ package es.aleph_tea.teabuddy.ui.main;
 import android.content.Context;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import es.aleph_tea.teabuddy.DosFragment;
-import es.aleph_tea.teabuddy.R;
-import es.aleph_tea.teabuddy.UnoFragment;
+import es.aleph_tea.teabuddy.EnrolledActivitiesFragment;
+import es.aleph_tea.teabuddy.AllActivitiesFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -30,11 +28,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new UnoFragment();
+                return new AllActivitiesFragment();
             case 1:
-                return new DosFragment();
+                return new EnrolledActivitiesFragment();
             default:
-                return new UnoFragment();
+                return new AllActivitiesFragment();
         }
     }
 

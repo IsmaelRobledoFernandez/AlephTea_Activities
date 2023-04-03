@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy.viewmodel;
+package es.aleph_tea.teabuddy.models.viewmodel;
 
 import android.app.Application;
 

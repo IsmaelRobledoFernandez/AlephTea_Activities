@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ModificarPass extends AppCompatActivity {
+import es.aleph_tea.teabuddy.LoginMainActivity;
+import es.aleph_tea.teabuddy.R;
+
+public class ModificarPassActivity extends AppCompatActivity {
     EditText password_ETXT;
     Button boton_cambioPass;
     @Override
@@ -47,7 +50,7 @@ public class ModificarPass extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Contraseña cambiada", Toast.LENGTH_SHORT).show();
                             Log.d("ListActivity", "User password updated.");
                             finish();
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
                         }
                         else{
                             Toast.makeText(getApplicationContext(), "Pon una contraseña más larga", Toast.LENGTH_SHORT).show();

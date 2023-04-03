@@ -7,7 +7,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import es.aleph_tea.teabuddy.controller.FBRTDatabaseController;
+import es.aleph_tea.teabuddy.controllers.FBRTDatabaseController;
 import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
 import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
 
