@@ -1,5 +1,6 @@
 package es.aleph_tea.teabuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
 import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
 
 public class ActivitiesListActivity extends AppCompatActivity {
 
+    ImageButton ajustes;
     private ActivityActivitiesListBinding binding;
 
     @Override
@@ -34,4 +38,18 @@ public class ActivitiesListActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
     }
+
+    protected void accesoAjustes(){
+        ajustes = (ImageButton)findViewById(R.id.settingsButton);
+        ajustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(i);
+            }
+        });
+
+    }
+
+
 }
