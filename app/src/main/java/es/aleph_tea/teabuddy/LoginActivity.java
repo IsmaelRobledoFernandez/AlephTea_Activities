@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             cambiar_password();
         }else{
             finish();
-            startActivity(new Intent(getApplicationContext(), ListActivity.class));
+            startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
         }
     }
 
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         }
                         Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), ListActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
                         Log.d("SIGN IN", "Usuario ha hecho login correctamente");
                     }
                     else{
