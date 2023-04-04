@@ -3,6 +3,9 @@
 ## Semana (30-12 marzo/abril)
 ¡Gran actualización!
 Hemos trabajado en los siguientes puntos:
+
+### Login
+
 - Corrección de errores en el login.
 - Botones para que que el usuario pueda borrar su cuenta, cambiar su contraseña y cerrar su sesión (Irán implementados
   dentro de la pantalla de actividades.
@@ -10,6 +13,8 @@ Hemos trabajado en los siguientes puntos:
 | Login  | Botones |
 | ------------- | ------------- |
 | ![image](https://user-images.githubusercontent.com/67373943/227145365-9bdbf207-92ee-4ee9-9c25-2e88351d223f.png)  | ![image](https://user-images.githubusercontent.com/67373943/229128894-36b6a31b-1f82-434f-8921-22e7b7e91e23.png)  |
+
+### Actividades
 
 - Implementación de una primera estructura para las actividades en FireBase RT DB.
 - Implementación de la persistencia mediante la tecnología ROOM para guardar actividades a nivel local.
