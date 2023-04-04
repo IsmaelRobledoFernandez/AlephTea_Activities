@@ -20,9 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import es.aleph_tea.teabuddy.LoginMainActivity;
 import es.aleph_tea.teabuddy.R;
-import es.aleph_tea.teabuddy.login.ModificarPassActivity;
 
-public class ListActivity extends AppCompatActivity {
+public class AccountDetailsActivity extends AppCompatActivity {
     Button btn_borrar_cuenta, btn_cambiar_pass, btn_cerrar_sesion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

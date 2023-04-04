@@ -11,20 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import es.aleph_tea.teabuddy.controllers.FBRTDatabaseController;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 
-import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
 import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
+import es.aleph_tea.teabuddy.login.AccountDetailsActivity;
+import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
 
 public class ActivitiesListActivity extends AppCompatActivity {
 
     ImageView ajustes;
+    ImageView cuentaUsuario;
     private ActivityActivitiesListBinding binding;
 
     @Override
@@ -43,6 +41,9 @@ public class ActivitiesListActivity extends AppCompatActivity {
         // Inicializacion botón de ajustes
         accesoAjustes();
 
+        // Inicializacion del boton que hace referencia a la cuenta del usuario
+        accesoCuentaUsuario();
+
         // Inicializacion metodos de obtención de datos en tiempo real
         FBRTDatabaseController fbrt = new FBRTDatabaseController(this.getApplicationContext(),
                 binding.getRoot());
@@ -60,6 +61,16 @@ public class ActivitiesListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    protected void accesoCuentaUsuario() {
+        cuentaUsuario = (ImageView) findViewById(R.id.accountButton);
+        cuentaUsuario.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), AccountDetailsActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
 

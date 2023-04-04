@@ -31,7 +31,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/accountButton"
@@ -40,9 +40,10 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="25dp"
                     android:layout_toStartOf="@id/settingsButton"
-                    android:scaleX="1.2"
-                    android:scaleY="1.2"
-                    app:srcCompat="@android:drawable/ic_menu_share" />
+                    android:paddingEnd="20dp"
+                    android:scaleX="2.2"
+                    android:scaleY="2.3"
+                    app:srcCompat="@drawable/account_circle" />
 
                 <ImageView
                     android:id="@+id/settingsButton"
@@ -50,9 +51,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:paddingTop="1dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
+                    android:paddingEnd="12dp"
+                    android:scaleX="2.2"
+                    android:scaleY="2.2"
                     android:translationX="-10dp"
                     app:srcCompat="@drawable/ajustes" />
 
