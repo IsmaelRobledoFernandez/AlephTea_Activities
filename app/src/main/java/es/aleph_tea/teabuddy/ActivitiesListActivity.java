@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 
 import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
@@ -23,7 +24,7 @@ import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
 
 public class ActivitiesListActivity extends AppCompatActivity {
 
-    ImageButton ajustes;
+    ImageView ajustes;
     private ActivityActivitiesListBinding binding;
 
     @Override
@@ -39,7 +40,10 @@ public class ActivitiesListActivity extends AppCompatActivity {
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
 
-        // Inicializacion metodos de obtencion de datos en tiempo real
+        // Inicializacion botón de ajustes
+        accesoAjustes();
+
+        // Inicializacion metodos de obtención de datos en tiempo real
         FBRTDatabaseController fbrt = new FBRTDatabaseController(this.getApplicationContext(),
                 binding.getRoot());
 
@@ -47,7 +51,7 @@ public class ActivitiesListActivity extends AppCompatActivity {
     }
 
     protected void accesoAjustes(){
-        ajustes = (ImageButton)findViewById(R.id.settingsButton);
+        ajustes = (ImageView) findViewById(R.id.settingsButton);
         ajustes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
