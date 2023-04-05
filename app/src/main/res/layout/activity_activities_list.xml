@@ -38,10 +38,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="25dp"
-                    android:layout_toStartOf="@id/settingsButton"
-                    android:paddingEnd="20dp"
-                    android:scaleX="2.2"
+                    android:layout_marginEnd="45dp"
+                    android:layout_toLeftOf="@id/settingsButton"
+                    android:scaleX="2.3"
                     android:scaleY="2.3"
                     app:srcCompat="@drawable/account_circle" />
 
@@ -51,8 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:paddingTop="1dp"
-                    android:paddingEnd="12dp"
+                    android:layout_marginEnd="15dp"
                     android:scaleX="2.2"
                     android:scaleY="2.2"
                     android:translationX="-10dp"
