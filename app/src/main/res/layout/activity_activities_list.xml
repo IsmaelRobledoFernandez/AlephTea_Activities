@@ -53,7 +53,7 @@
                     android:paddingTop="1dp"
                     android:scaleX="1.5"
                     android:scaleY="1.5"
-                    android:translationX="-10dp"
+                    android:translationX="-15dp"
                     app:srcCompat="@drawable/ajustes" />
 
             </RelativeLayout>
