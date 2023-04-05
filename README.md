@@ -8,7 +8,7 @@ Hemos trabajado en los siguientes puntos:
 
 - Corrección de errores en el login.
 - Botones para que que el usuario pueda borrar su cuenta, cambiar su contraseña y cerrar su sesión (Irán implementados
-  dentro de la pantalla de actividades.
+  dentro de la pantalla de actividades).
 
 | Login  | Botones |
 | ------------- | ------------- |
@@ -38,8 +38,9 @@ Hemos añadido un botón para que el usuario tenga la opción de guardar su acce
 En el futuro lo cambiaremos a RealTime Database e incluiremos otro con las actividades almacenadas.
 Hemos pensado en la parte de las actividades, cómo estructurar los mockups y hemos corregido errores en las pantallas de login y registro...
 
-Se ha creado la primera versión de prueba de las vistas de las listas de actividades, con 2 tabs y el AppBar correspondiente generados para
-la vista principal de las actividades, siguiendo principalmente el esquema de actividades que debería encontrarse el usuario "Voluntario"
+Se ha creado la primera versión de prueba de las vistas de las listas de actividades: con 2 tabs y el AppBar correspondiente generados para
+la vista principal de las actividades. Este sigue principalmente el esquema de actividades que debería encontrarse el usuario "Voluntario"
+dentro del mapa mental que hemos creado para la aplicación.
 
 | Negro  | Blanco |
 | ------------- | ------------- |
@@ -60,3 +61,7 @@ Hemos puesto colores corporativos y hemos puesto los logos en formato svg.
 
 ## Semana (9-15 marzo)
 Publicamos nuestro anteproyecto.
+
+# Mapa mental de la aplicación
+
+
