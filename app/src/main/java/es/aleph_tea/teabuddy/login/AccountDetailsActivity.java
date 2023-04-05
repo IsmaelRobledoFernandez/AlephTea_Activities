@@ -26,7 +26,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_actividades);
+        setContentView(R.layout.activity_account_details);
         btn_cerrar_sesion = findViewById(R.id.btn_cerrar_sesion);
         btn_borrar_cuenta = findViewById(R.id.btn_borrar_cuenta);
         btn_cambiar_pass = findViewById(R.id.btn_cambiar_pass);
