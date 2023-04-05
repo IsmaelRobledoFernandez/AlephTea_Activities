@@ -10,10 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import es.aleph_tea.teabuddy.EnrolledActivitiesFragment;
 import es.aleph_tea.teabuddy.AllActivitiesFragment;
 
-/**
- * A [FragmentPagerAdapter] that returns a fragment corresponding to
- * one of the sections/tabs/pages.
- */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private static final String[] TAB_TITLES = new String[]{"Lista Actividades", "Actividades Inscritas"};
