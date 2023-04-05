@@ -33,9 +33,8 @@ public class AccountDetailsActivity extends AppCompatActivity {
         btn_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
                 ponerFalse();
+                restartLogin();
             }
         });
         btn_borrar_cuenta.setOnClickListener(new View.OnClickListener() {
@@ -52,10 +51,10 @@ public class AccountDetailsActivity extends AppCompatActivity {
         });
     }
     protected void borrarCuenta(){
-        // Abre una actividad en la que el usuario tiene que introducir su correo y contraseña y pulsar el boton
+        // Abre una actividad en la que el usuario tiene que introducir
+        // su correo y contraseña y pulsar el boton
         deleteUser();
-        finish();
-        startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
+        restartLogin();
     }
     protected void cambiarPass(){
         // Abre una actividad en la que el usuario tiene que introducir su correo
@@ -81,5 +80,12 @@ public class AccountDetailsActivity extends AppCompatActivity {
     protected void ponerFalse(){
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
         preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION, false).apply();
+    }
+
+    private void restartLogin() {
+        // Con este codigo, cerramos el acceso a las pantallas anteriores
+        Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }
