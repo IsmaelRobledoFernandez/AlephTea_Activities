@@ -1,13 +1,34 @@
 # Entregas semanales:
 
 ## Semana (30-12 marzo/abril)
+¡Gran actualización!
 Hemos trabajado en los siguientes puntos:
+
+### Login
+
 - Corrección de errores en el login.
-- Botones para que que el usuario pueda borrar su cuenta, cambiar su contraseña y cerrar su sesión.
+- Botones para que que el usuario pueda borrar su cuenta, cambiar su contraseña y cerrar su sesión (Irán implementados
+  dentro de la pantalla de actividades).
 
 | Login  | Botones |
 | ------------- | ------------- |
 | ![image](https://user-images.githubusercontent.com/67373943/227145365-9bdbf207-92ee-4ee9-9c25-2e88351d223f.png)  | ![image](https://user-images.githubusercontent.com/67373943/229128894-36b6a31b-1f82-434f-8921-22e7b7e91e23.png)  |
+
+### Actividades
+
+- Implementación de una primera estructura para las actividades en FireBase RT DB.
+- Implementación de la persistencia mediante la tecnología ROOM para guardar actividades a nivel local.
+- Conexión de la BD ROOM con FireBase RTDB para la obtención de los datos de las actividades asignadas a 
+  los usuarios en tiempo real.
+- Mejoras gráficas en la UI.
+- Adición del botón de ajustes: Desde aquí el usuario elegirá los diferentes settings que requiera para la aplicación.
+- Adición del botón de cuenta personal: Desde este botón se podrán acceder a los ajustes y detalles sobre la cuenta de usuario actual.
+- Solución de errores menores.
+
+| Actividades  | Detalles de una Actividad |
+| ------------- | ------------- |
+| ![Screenshot_2023-04-05-01-43-08-312_es aleph_tea teabuddy](https://user-images.githubusercontent.com/99476958/229946329-669d5c95-df61-454c-9cad-8506e035a3d5.jpg) | ![Screenshot_2023-04-05-01-43-12-535_es aleph_tea teabuddy](https://user-images.githubusercontent.com/99476958/229946373-685ce006-665b-48d8-a139-7a02363a9638.jpg) |
+
 
 ## Semana (23-29 marzo)
 Hemos mejorado la parte de login y registro de los usuarios. 
@@ -17,6 +38,9 @@ Hemos añadido un botón para que el usuario tenga la opción de guardar su acce
 En el futuro lo cambiaremos a RealTime Database e incluiremos otro con las actividades almacenadas.
 Hemos pensado en la parte de las actividades, cómo estructurar los mockups y hemos corregido errores en las pantallas de login y registro...
 
+Se ha creado la primera versión de prueba de las vistas de las listas de actividades: con 2 tabs y el AppBar correspondiente generados para
+la vista principal de las actividades. Este sigue principalmente el esquema de actividades que debería encontrarse el usuario "Voluntario"
+dentro del mapa mental que hemos creado para la aplicación.
 
 | Negro  | Blanco |
 | ------------- | ------------- |
@@ -37,3 +61,7 @@ Hemos puesto colores corporativos y hemos puesto los logos en formato svg.
 
 ## Semana (9-15 marzo)
 Publicamos nuestro anteproyecto.
+
+# Mapa mental de la aplicación
+
+

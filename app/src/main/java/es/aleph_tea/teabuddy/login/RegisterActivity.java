@@ -1,6 +1,5 @@
 package es.aleph_tea.teabuddy.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-import es.aleph_tea.teabuddy.LoginMainActivity;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.models.Usuario;
 
@@ -115,7 +113,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                                                 Toast.makeText(RegisterActivity.this, "Registro correcto. Por favor, revise su mail", Toast.LENGTH_SHORT).show();
                                                 finish();
-                                                startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
                                             }else{
                                                 Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                             }

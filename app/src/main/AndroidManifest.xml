@@ -37,7 +37,7 @@
             android:name=".login.ModificarPassActivity"
             android:exported="false" />
         <activity
-            android:name=".login.ListActivity"
+            android:name=".login.AccountDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".LoginMainActivity"

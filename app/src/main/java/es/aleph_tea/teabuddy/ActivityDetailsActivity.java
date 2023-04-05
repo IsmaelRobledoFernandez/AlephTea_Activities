@@ -1,52 +1,41 @@
 package es.aleph_tea.teabuddy;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 import es.aleph_tea.teabuddy.database.AppDatabase;
 import es.aleph_tea.teabuddy.database.dao.ActividadDAO;
 import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.database.repository.ActividadRepository;
 import es.aleph_tea.teabuddy.database.repository.ActividadRepositoryImpl;
-import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
-import es.aleph_tea.teabuddy.databinding.ActivityDetailsBinding;
+import es.aleph_tea.teabuddy.databinding.ActivityActivityDetailsBinding;
 
 public class ActivityDetailsActivity extends AppCompatActivity {
+
+    private ImageView botonAtras;
 
     private AppDatabase db;
     private ActividadDAO dao;
     private ActividadRepository repo;
-    private ActivityDetailsBinding binding;
+    private ActivityActivityDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityDetailsBinding.inflate(getLayoutInflater());
+        binding = ActivityActivityDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Recepcion del id de la actividad a detallar
         Bundle parametro = this.getIntent().getExtras();
 
-        if(parametro !=null) {
+        // Inicializacion del boton para volver a la actividad anterior
+        accesoBotonAtras();
+
+        if(parametro != null) {
 
             int actividadId = parametro.getInt("actividadId");
 
@@ -67,6 +56,17 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         }
     }
 
+    protected void accesoBotonAtras() {
+        botonAtras = binding.btnBack;
+        botonAtras.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Log.d("ActivityDetailsActivity",
+                        "Volviendo a la lista de actividades...");
+                finish();
+            }
+        });
+    }
+
     private void putActividadDetails(Actividad actividad) {
 
         binding.nombreActividad.setText(actividad.getNombre());
@@ -75,5 +75,4 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         binding.lugar.setText(actividad.getLocalizacion());
 
     }
-
 }

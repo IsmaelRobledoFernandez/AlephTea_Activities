@@ -20,23 +20,21 @@ import com.google.firebase.auth.FirebaseUser;
 
 import es.aleph_tea.teabuddy.LoginMainActivity;
 import es.aleph_tea.teabuddy.R;
-import es.aleph_tea.teabuddy.login.ModificarPassActivity;
 
-public class ListActivity extends AppCompatActivity {
+public class AccountDetailsActivity extends AppCompatActivity {
     Button btn_borrar_cuenta, btn_cambiar_pass, btn_cerrar_sesion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_actividades);
+        setContentView(R.layout.activity_account_details);
         btn_cerrar_sesion = findViewById(R.id.btn_cerrar_sesion);
         btn_borrar_cuenta = findViewById(R.id.btn_borrar_cuenta);
         btn_cambiar_pass = findViewById(R.id.btn_cambiar_pass);
         btn_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
                 ponerFalse();
+                restartLogin();
             }
         });
         btn_borrar_cuenta.setOnClickListener(new View.OnClickListener() {
@@ -53,10 +51,10 @@ public class ListActivity extends AppCompatActivity {
         });
     }
     protected void borrarCuenta(){
-        // Abre una actividad en la que el usuario tiene que introducir su correo y contraseña y pulsar el boton
+        // Abre una actividad en la que el usuario tiene que introducir
+        // su correo y contraseña y pulsar el boton
         deleteUser();
-        finish();
-        startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
+        restartLogin();
     }
     protected void cambiarPass(){
         // Abre una actividad en la que el usuario tiene que introducir su correo
@@ -82,5 +80,12 @@ public class ListActivity extends AppCompatActivity {
     protected void ponerFalse(){
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
         preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION, false).apply();
+    }
+
+    private void restartLogin() {
+        // Con este codigo, cerramos el acceso a las pantallas anteriores
+        Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

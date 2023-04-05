@@ -1,6 +1,5 @@
 package es.aleph_tea.teabuddy.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-import es.aleph_tea.teabuddy.LoginMainActivity;
 import es.aleph_tea.teabuddy.R;
 
 public class CambiarPassActivity extends AppCompatActivity {
@@ -48,7 +46,6 @@ public class CambiarPassActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Log.d("CambiarPass", "Email sent.");
                                         finish();
-                                        startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
                                     }
                                 }
                             });
