@@ -64,4 +64,5 @@ Publicamos nuestro anteproyecto.
 
 # Mapa mental de la aplicación
 
+![WhatsApp Image 2023-04-05 at 18 57 34](https://user-images.githubusercontent.com/99476958/231225667-97de7930-ad00-49bd-a38d-b3f39bc6aa39.jpeg)
 
