@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,10 +14,9 @@ import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.database.repository.ActividadRepository;
 import es.aleph_tea.teabuddy.database.repository.ActividadRepositoryImpl;
 import es.aleph_tea.teabuddy.databinding.ActivityActivityDetailsBinding;
+import es.aleph_tea.teabuddy.interfaces.SecondaryActivity;
 
-public class ActivityDetailsActivity extends AppCompatActivity {
-
-    private ImageView botonAtras;
+public class ActivityDetailsActivity extends AppCompatActivity implements SecondaryActivity {
 
     private AppDatabase db;
     private ActividadDAO dao;
@@ -32,8 +32,8 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         // Recepcion del id de la actividad a detallar
         Bundle parametro = this.getIntent().getExtras();
 
-        // Inicializacion del boton para volver a la actividad anterior
-        accesoBotonAtras();
+        // Inicializacion Toolbar
+        inicializarToolbar();
 
         if(parametro != null) {
 
@@ -56,8 +56,23 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         }
     }
 
-    protected void accesoBotonAtras() {
-        botonAtras = binding.btnBack;
+    @Override
+    public void inicializarToolbar() {
+        TextView tituloActividad;
+
+        tituloActividad = (TextView) findViewById(R.id.toolbarTitle);
+
+        tituloActividad.setText("Detalles de la actividad");
+
+        accesoBotonAtras();
+    }
+
+    @Override
+    public void accesoBotonAtras() {
+
+        ImageView botonAtras;
+
+        botonAtras = (ImageView) findViewById(R.id.btn_back);
         botonAtras.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Log.d("ActivityDetailsActivity",
