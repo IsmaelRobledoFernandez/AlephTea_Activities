@@ -71,5 +71,5 @@ Publicamos nuestro anteproyecto.
 - Voluntario
 - Monitor
 - Administrador
-- Administrador-Voluntario
-- Administrador-Monitor
+
+Si eres de un tipo de usuario, entonces eso te excluye de ser otro tipo de usuario. Sería necesaria una cuenta diferente para interpretar cada rol.
