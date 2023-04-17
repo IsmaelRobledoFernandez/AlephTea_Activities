@@ -68,8 +68,8 @@ Publicamos nuestro anteproyecto.
 
 ## Posibles combinaciones de usuarios
 
-Voluntario
-Monitor
-Administrador
-Administrador-Voluntario
-Administrador-Monitor
+- Voluntario
+- Monitor
+- Administrador
+- Administrador-Voluntario
+- Administrador-Monitor
