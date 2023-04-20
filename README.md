@@ -73,3 +73,7 @@ Publicamos nuestro anteproyecto.
 - Administrador
 
 Si eres de un tipo de usuario, entonces eso te excluye de ser otro tipo de usuario. Sería necesaria una cuenta diferente para interpretar cada rol.
+
+# Esquema de las bases de datos Firebase y ROOM
+
+![ImagenDB](https://user-images.githubusercontent.com/99476958/233428226-af545745-3a31-4c0a-967c-75a80b10a114.png)
