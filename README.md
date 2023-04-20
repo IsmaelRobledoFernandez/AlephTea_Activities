@@ -66,3 +66,14 @@ Publicamos nuestro anteproyecto.
 
 ![WhatsApp Image 2023-04-05 at 18 57 34](https://user-images.githubusercontent.com/99476958/231225667-97de7930-ad00-49bd-a38d-b3f39bc6aa39.jpeg)
 
+## Posibles combinaciones de usuarios
+
+- Voluntario
+- Monitor
+- Administrador
+
+Si eres de un tipo de usuario, entonces eso te excluye de ser otro tipo de usuario. Sería necesaria una cuenta diferente para interpretar cada rol.
+
+# Esquema de las bases de datos Firebase y ROOM
+
+![ImagenDB](https://user-images.githubusercontent.com/99476958/233428226-af545745-3a31-4c0a-967c-75a80b10a114.png)
