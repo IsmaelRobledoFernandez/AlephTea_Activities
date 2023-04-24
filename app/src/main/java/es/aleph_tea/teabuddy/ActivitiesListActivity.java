@@ -40,6 +40,8 @@ public class ActivitiesListActivity extends AppCompatActivity {
 
         // Inicializacion botón de ajustes
         accesoAjustes();
+        // Inicializacion botón acceso Lista de Actividades de la API
+        accesoAPIListActivities();
 
         // Inicializacion del boton que hace referencia a la cuenta del usuario
         accesoCuentaUsuario();
@@ -57,6 +59,18 @@ public class ActivitiesListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(i);
+            }
+        });
+
+    }
+
+    protected void accesoAPIListActivities(){
+        ajustes = (ImageView) findViewById(R.id.APIActivitiesListButton);
+        ajustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), APIActivitiesListActivity.class);
                 startActivity(i);
             }
         });
