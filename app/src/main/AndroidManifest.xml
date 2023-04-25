@@ -18,6 +18,9 @@
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
+            android:name=".APIActivitiesListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ActivityDetailsActivity"
             android:exported="false"
             android:label="@string/title_activity_details"
