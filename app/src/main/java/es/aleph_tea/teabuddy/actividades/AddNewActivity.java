@@ -1,9 +1,7 @@
-package es.aleph_tea.teabuddy.login;
+package es.aleph_tea.teabuddy.actividades;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,21 +20,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.models.Usuario;
 
-public class RegisterActivity extends AppCompatActivity {
+public class AddNewActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     FirebaseDatabase dbRef;
@@ -48,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     String nombre, apellido, n_telefono, fecha_nacimiento;
     Spinner rol_usuario;
     Button button_registro;
-    EditText emailETXT;
+    EditText emailETXT, passwordETXT;
     EditText nombreETXT, apellidosETXT, n_telefonoETXT, fecha_nacimientoETXT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         n_telefonoETXT = (EditText) findViewById(R.id.n_telefono);
         fecha_nacimientoETXT = (EditText) findViewById(R.id.fecha_nac);
         emailETXT = (EditText) findViewById(R.id.email);
+        passwordETXT = (EditText) findViewById(R.id.password);
         // Si el usuario no existe lo crea, si no hace la gestión del login
         button_registro = findViewById(R.id.boton_registro);
         rol_usuario = findViewById(R.id.tipo_usuario);
@@ -98,14 +89,14 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.d("SIGN IN", "La fecha de nacimiento no es correcta");
                 }else {
                     Usuario user = new Usuario(email, n_telefono, fecha_nacimiento, apellido, nombre, rol);
-                    createAccount(user, password);
+                    createAccount(user);
                 }
             }
         });
     }
 
-    private void createAccount(Usuario user, String password){
-        mAuth.createUserWithEmailAndPassword(user.getEmail(), password)
+    private void createAccount(Usuario user){
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -118,7 +109,6 @@ public class RegisterActivity extends AppCompatActivity {
                                                 Log.d("EMAIL", "EMAIL ENVIADO.");
 
                                                 Map<String, Object> usuario = new HashMap<>();
-                                                usuario.put("email", user.getEmail());
                                                 usuario.put("nombre", user.getNombre());
                                                 usuario.put("apellidos", user.getApellido());
                                                 usuario.put("fecha_nacimiento", user.getFecha_nacimiento());
@@ -127,24 +117,33 @@ public class RegisterActivity extends AppCompatActivity {
                                                 // Ponemos el rol del usuario, por defecto voluntario
                                                 try {
                                                     String uid = mAuth.getCurrentUser().getUid();
-                                                    dbRef.getReference("Usuarios").child(uid).setValue(usuario);
-                                                    DatabaseReference dbReference = dbRef.getReference();
+                                                    dbRef.getReference("Usuarios").child(uid).setValue(usuario);DatabaseReference dbReference = dbRef.getReference();
                                                     //db.collection("users").document(uid).set(usuario);
-
-                                                    Toast.makeText(RegisterActivity.this, rol+" creado", Toast.LENGTH_SHORT).show();
+                                                    dbReference.child("Usuarios").addListenerForSingleValueEvent(new ValueEventListener() { //addValueEventListener
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            String rol_str= snapshot.child(uid).child("rol").toString();
+                                                            Log.d("USUARIO CREADO", "ROL: "+ rol_str);
+                                                        }
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+                                                            Log.d("FALLO", "USUARIO NO SE HA PODIDO CREAR.");
+                                                        }
+                                                    });
+                                                    Toast.makeText(AddNewActivity.this, rol+" creado", Toast.LENGTH_SHORT).show();
                                                     finish();
                                                 }catch (Exception e){
-                                                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(AddNewActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             }else{
-                                                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AddNewActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
                         }
                         else{
                             Log.w("ERROR", "ERROR AL CREAR LA CUENTA");
-                            Toast.makeText(RegisterActivity.this, "Auth failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddNewActivity.this, "Auth failed", Toast.LENGTH_SHORT).show();
 
                         }
                     }

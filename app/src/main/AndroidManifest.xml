@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="es.aleph_tea.teabuddy" >
+    package="es.aleph_tea.teabuddy">
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,29 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.MainColors"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".MostrarInfoActividades"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivityMonitor"
+            android:exported="false"
+            android:label="@string/title_activity_main_monitor"
+            android:theme="@style/Theme.MainColors.NoActionBar" />
+        <activity
+            android:name=".modificacionUsuarios"
+            android:exported="false" />
+        <activity
+            android:name=".MostrarInfoMisActividades"
+            android:exported="false" />
+        <activity
+            android:name=".modificacionActividades"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivityAdmin"
+            android:exported="false"
+            android:label="@string/title_activity_main_admin"
+            android:theme="@style/Theme.MainColors.NoActionBar" />
         <activity
             android:name=".SettingsActivity"
             android:exported="false" />
@@ -42,7 +64,7 @@
         <activity
             android:name=".LoginMainActivity"
             android:exported="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

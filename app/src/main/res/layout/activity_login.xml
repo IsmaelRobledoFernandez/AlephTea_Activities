@@ -92,6 +92,7 @@
             android:textSize="15sp"
             android:clickable="true"
             />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--https://devexperto.com/temas-estilos-android/ TEMAS Y ESTILOS-->
