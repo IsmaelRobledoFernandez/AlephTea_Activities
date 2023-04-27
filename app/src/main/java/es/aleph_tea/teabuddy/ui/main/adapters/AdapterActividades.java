@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.Actividad;
 

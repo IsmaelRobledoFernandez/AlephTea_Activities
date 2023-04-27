@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy.ui.main;
+package es.aleph_tea.teabuddy.ui.main.adapters;
 
 import android.content.Context;
 
@@ -7,10 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import es.aleph_tea.teabuddy.AdminListaActividadesFragment;
-import es.aleph_tea.teabuddy.ListaUsuariosFragment;
-import es.aleph_tea.teabuddy.MonitorListaActividadesFragment;
-import es.aleph_tea.teabuddy.MonitorListaActividadesInscritoFragment;
+import es.aleph_tea.teabuddy.ui.main.usuarios.monitor.MonitorListaActividadesFragment;
+import es.aleph_tea.teabuddy.ui.main.usuarios.monitor.MonitorListaActividadesInscritoFragment;
 
 public class SectionsPagerAdapterMonitor extends FragmentPagerAdapter {
 

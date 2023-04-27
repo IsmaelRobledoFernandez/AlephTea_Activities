@@ -1,9 +1,11 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.monitor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+import es.aleph_tea.teabuddy.R;
 
 public class MostrarInfoActividades extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy.login;
+package es.aleph_tea.teabuddy.ui.main.usuarios;
 
 import android.os.Bundle;
 import android.util.Log;

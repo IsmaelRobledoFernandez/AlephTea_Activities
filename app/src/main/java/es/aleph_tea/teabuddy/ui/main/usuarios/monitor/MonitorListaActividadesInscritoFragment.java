@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.monitor;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
+import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
+import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.Actividad;
 

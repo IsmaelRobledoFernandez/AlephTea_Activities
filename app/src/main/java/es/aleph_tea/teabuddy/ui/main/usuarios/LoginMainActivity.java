@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,9 +25,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import es.aleph_tea.teabuddy.login.CambiarPassActivity;
-import es.aleph_tea.teabuddy.login.RegisterActivity;
+import es.aleph_tea.teabuddy.ActivitiesListActivity;
+import es.aleph_tea.teabuddy.R;
+import es.aleph_tea.teabuddy.ui.main.usuarios.admin.MainActivityAdmin;
 import es.aleph_tea.teabuddy.models.Sesion;
+import es.aleph_tea.teabuddy.ui.main.usuarios.monitor.MainActivityMonitor;
 
 public class
 LoginMainActivity extends AppCompatActivity {

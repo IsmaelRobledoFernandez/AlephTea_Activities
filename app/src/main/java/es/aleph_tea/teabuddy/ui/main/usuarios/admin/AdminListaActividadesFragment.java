@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +9,31 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import es.aleph_tea.teabuddy.ActivitiesListActivity;
+import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
+import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.Actividad;
+import es.aleph_tea.teabuddy.ui.main.usuarios.monitor.MainActivityMonitor;
 
 public class AdminListaActividadesFragment extends Fragment implements RecyclerViewInterface {
 
+    private String data;
+    FirebaseDatabase database;
+    DatabaseReference dbRef;
     RecyclerView listaActividadesRV;
     ArrayList<Actividad> lista_actividades = new ArrayList<>();
 
@@ -42,6 +55,9 @@ public class AdminListaActividadesFragment extends Fragment implements RecyclerV
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference();
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -61,8 +77,21 @@ public class AdminListaActividadesFragment extends Fragment implements RecyclerV
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listaActividadesRV = (RecyclerView) view.findViewById(R.id.listaActividadesRV);
+        dbRef.child("Actividades").addListenerForSingleValueEvent(new ValueEventListener() { //addValueEventListener
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    data = snapshot.toString();
+                    Log.d("OK", data);
+                }
+            }
 
-        Actividad actividad1 = new Actividad("Paseo por el prado", "Paseo por el prado con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Actividad actividad1 = new Actividad("Paseo por el prado Valverde", "Paseo por el prado con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
         Actividad actividad2 = new Actividad("Paseo por el parque", "Paseo por el parque con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
         Actividad actividad3 = new Actividad("Visita al caixaforum", "Visita al caixaforum con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
         Actividad actividad4 = new Actividad("Festival de pintura rupestre", "Festival de pintura rupestre con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
@@ -82,11 +111,11 @@ public class AdminListaActividadesFragment extends Fragment implements RecyclerV
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getContext(), modificacionActividades.class);
-        intent.putExtra("nombre_actividad", lista_actividades.get(position+1).getNombre());
-        intent.putExtra("fecha_actividad", lista_actividades.get(position+1).getFecha());
-        intent.putExtra("hora_actividad", lista_actividades.get(position+1).getHora());
-        intent.putExtra("descripcion_actividad", lista_actividades.get(position+1).getDescripcion());
-        intent.putExtra("localizacion_actividad", lista_actividades.get(position+1).getLocalizacion());
+        intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre());
+        intent.putExtra("fecha_actividad", lista_actividades.get(position).getFecha());
+        intent.putExtra("hora_actividad", lista_actividades.get(position).getHora());
+        intent.putExtra("descripcion_actividad", lista_actividades.get(position).getDescripcion());
+        intent.putExtra("localizacion_actividad", lista_actividades.get(position).getLocalizacion());
         startActivity(intent);
     }
 }

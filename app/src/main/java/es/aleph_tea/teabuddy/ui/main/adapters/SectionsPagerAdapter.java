@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy.ui.main;
+package es.aleph_tea.teabuddy.ui.main.adapters;
 
 import android.content.Context;
 

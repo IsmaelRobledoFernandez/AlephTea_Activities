@@ -1,21 +1,14 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
-import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
 import es.aleph_tea.teabuddy.databinding.ActivityMainAdminBinding;
-import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapterAdmin;
+import es.aleph_tea.teabuddy.ui.main.adapters.SectionsPagerAdapterAdmin;
 
 public class MainActivityAdmin extends AppCompatActivity {
 

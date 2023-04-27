@@ -1,9 +1,11 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.EditText;
+
+import es.aleph_tea.teabuddy.R;
 
 public class modificacionActividades extends AppCompatActivity {
 

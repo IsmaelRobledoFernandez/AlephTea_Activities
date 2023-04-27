@@ -13,24 +13,24 @@
         android:theme="@style/Theme.MainColors"
         tools:targetApi="31">
         <activity
-            android:name=".MostrarInfoActividades"
+            android:name=".ui.main.usuarios.monitor.MostrarInfoActividades"
             android:exported="false" />
         <activity
-            android:name=".MainActivityMonitor"
+            android:name=".ui.main.usuarios.monitor.MainActivityMonitor"
             android:exported="false"
             android:label="@string/title_activity_main_monitor"
             android:theme="@style/Theme.MainColors.NoActionBar" />
         <activity
-            android:name=".modificacionUsuarios"
+            android:name=".ui.main.usuarios.admin.modificacionUsuarios"
             android:exported="false" />
         <activity
-            android:name=".MostrarInfoMisActividades"
+            android:name=".ui.main.usuarios.monitor.MostrarInfoMisActividades"
             android:exported="false" />
         <activity
-            android:name=".modificacionActividades"
+            android:name=".ui.main.usuarios.admin.modificacionActividades"
             android:exported="false" />
         <activity
-            android:name=".MainActivityAdmin"
+            android:name=".ui.main.usuarios.admin.MainActivityAdmin"
             android:exported="false"
             android:label="@string/title_activity_main_admin"
             android:theme="@style/Theme.MainColors.NoActionBar" />
@@ -48,21 +48,21 @@
             android:label="@string/title_activity_activities_list"
             android:theme="@style/Theme.MainColors.NoActionBar" />
         <activity
-            android:name=".login.RegisterActivity"
+            android:name=".ui.main.usuarios.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login.CambiarPassActivity"
+            android:name=".ui.main.usuarios.CambiarPassActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login.ModificarPassActivity"
+            android:name=".ui.main.usuarios.ModificarPassActivity"
             android:exported="false" />
         <activity
-            android:name=".login.AccountDetailsActivity"
+            android:name=".ui.main.usuarios.AccountDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginMainActivity"
+            android:name=".ui.main.usuarios.LoginMainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

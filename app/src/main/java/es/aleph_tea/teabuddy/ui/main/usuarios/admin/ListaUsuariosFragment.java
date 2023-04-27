@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
+import es.aleph_tea.teabuddy.ui.main.adapters.AdapterUsuarios;
+import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.Usuario;
 
@@ -77,12 +79,12 @@ public class ListaUsuariosFragment extends Fragment implements RecyclerViewInter
     public void onItemClick(int position) {
 
         Intent intent = new Intent(getContext(), modificacionUsuarios.class);
-        intent.putExtra("nombre_usuario", usuarios_aleph.get(position+1).getNombre());
-        intent.putExtra("apellido_usuario", usuarios_aleph.get(position+1).getApellido());
-        intent.putExtra("email_usuario", usuarios_aleph.get(position+1).getEmail());
-        intent.putExtra("n_telefono_usuario", usuarios_aleph.get(position+1).getN_telefono());
-        intent.putExtra("fecha_nacimiento_usuario", usuarios_aleph.get(position+1).getFecha_nacimiento());
-        intent.putExtra("rol_usuario", usuarios_aleph.get(position+1).getRol());
+        intent.putExtra("nombre_usuario", usuarios_aleph.get(position).getNombre());
+        intent.putExtra("apellido_usuario", usuarios_aleph.get(position).getApellido());
+        intent.putExtra("email_usuario", usuarios_aleph.get(position).getEmail());
+        intent.putExtra("n_telefono_usuario", usuarios_aleph.get(position).getN_telefono());
+        intent.putExtra("fecha_nacimiento_usuario", usuarios_aleph.get(position).getFecha_nacimiento());
+        intent.putExtra("rol_usuario", usuarios_aleph.get(position).getRol());
         startActivity(intent);
     }
 }
