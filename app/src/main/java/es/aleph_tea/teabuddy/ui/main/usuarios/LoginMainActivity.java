@@ -44,7 +44,7 @@ LoginMainActivity extends AppCompatActivity {
     public static final String STRING_PREFERENCES = "alephapp.aleph";
     public static final String PREFERENCE_ESTADO_BUTTON_SESION = "estado.button.sesion";
 
-    private String rol_str = null;
+    private String rol_str;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Instanciar firebase
