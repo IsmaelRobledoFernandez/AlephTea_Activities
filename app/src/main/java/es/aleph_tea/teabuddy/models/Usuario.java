@@ -1,21 +1,26 @@
 package es.aleph_tea.teabuddy.models;
 
 public class Usuario {
-    private String email;
-    private String password;
-    private String n_telefono;
-    private String fecha_nacimiento;
-    private String apellido;
-    private String nombre;
+    public String email;
+    public String password;
+    public String n_telefono;
+    public String fecha_nacimiento;
+    public String apellido;
+    public String nombre;
 
-    public Usuario(String email, String password, String n_telefono, String fecha_nacimiento, String apellido, String nombre) {
+    public String rol;
+
+    public Usuario(String email, String n_telefono, String fecha_nacimiento, String apellido, String nombre, String rol) {
         this.email = email;
-        this.password = password;
         this.n_telefono = n_telefono;
         this.fecha_nacimiento = fecha_nacimiento;
         this.apellido = apellido;
         this.nombre = nombre;
+        this.rol = rol;
     }
+
+    public String getRol(){return rol;}
+
 
     public String getEmail() {
         return email;
@@ -63,5 +68,9 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

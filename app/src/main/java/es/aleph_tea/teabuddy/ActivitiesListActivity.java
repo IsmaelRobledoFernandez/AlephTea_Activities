@@ -16,8 +16,8 @@ import android.widget.ImageView;
 
 
 import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
-import es.aleph_tea.teabuddy.login.AccountDetailsActivity;
-import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
+import es.aleph_tea.teabuddy.ui.main.usuarios.AccountDetailsActivity;
+import es.aleph_tea.teabuddy.ui.main.adapters.SectionsPagerAdapter;
 
 public class ActivitiesListActivity extends AppCompatActivity {
 

@@ -1,22 +1,25 @@
-package es.aleph_tea.teabuddy.login;
+package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -25,22 +28,24 @@ import java.util.Map;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.models.Usuario;
 
-public class RegisterActivity extends AppCompatActivity {
+public class AddNewActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+    FirebaseDatabase dbRef;
 
-    String email, password;
+    String email, password, rol="Voluntario";
 
     String nombre, apellido, n_telefono, fecha_nacimiento;
-
+    Spinner rol_usuario;
     Button button_registro;
     EditText emailETXT, passwordETXT;
     EditText nombreETXT, apellidosETXT, n_telefonoETXT, fecha_nacimientoETXT;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        dbRef = FirebaseDatabase.getInstance();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         gestionSignUp();
@@ -55,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         passwordETXT = (EditText) findViewById(R.id.password);
         // Si el usuario no existe lo crea, si no hace la gestión del login
         button_registro = findViewById(R.id.boton_registro);
+        rol_usuario = findViewById(R.id.tipo_usuario);
         button_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,14 +68,27 @@ public class RegisterActivity extends AppCompatActivity {
                 apellido = apellidosETXT.getText().toString().trim();
                 n_telefono = n_telefonoETXT.getText().toString().trim();
                 fecha_nacimiento = fecha_nacimientoETXT.getText().toString().trim();
+                //TODO: Cambiar contraseña por defecto por una random imposible de adivinar
+                password="123456";
                 email = emailETXT.getText().toString().trim();
-                password = passwordETXT.getText().toString();
+                rol = rol_usuario.getSelectedItem().toString();
                 //if(email.length()==0||password.length()==0||nombre.length()==0||apellido.length()==0||n_telefono.length()==0||fecha_nacimiento.length()==0){
-                if(email.length()==0||password.length()==0){
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                String fechaPattern = "([0-9][0-9])(\\/)([0-9][0-9])\\/([0-9][0-9][0-9][0-9])";
+                if(email.length()==0){
                     Toast.makeText(getApplicationContext(), "Completa los campos", Toast.LENGTH_SHORT).show();
                     Log.d("SIGN IN", "No se han completado las credenciales");
+                }if(!email.matches(emailPattern)){
+                    Toast.makeText(getApplicationContext(), "El email no es correcto", Toast.LENGTH_SHORT).show();
+                    Log.d("SIGN IN", "El email no es correcto");
+                }if(n_telefono.length()!=9){
+                    Toast.makeText(getApplicationContext(), "El numero de telefono no es correcto", Toast.LENGTH_SHORT).show();
+                    Log.d("SIGN IN", "El numero de telefono no es correcto");
+                }if(!fecha_nacimiento.matches(fechaPattern)) {
+                    Toast.makeText(getApplicationContext(), "La fecha de nacimiento no es correcta", Toast.LENGTH_SHORT).show();
+                    Log.d("SIGN IN", "La fecha de nacimiento no es correcta");
                 }else {
-                    Usuario user = new Usuario(email, password, n_telefono, fecha_nacimiento, apellido, nombre);
+                    Usuario user = new Usuario(email, n_telefono, fecha_nacimiento, apellido, nombre, rol);
                     createAccount(user);
                 }
             }
@@ -94,37 +113,42 @@ public class RegisterActivity extends AppCompatActivity {
                                                 usuario.put("apellidos", user.getApellido());
                                                 usuario.put("fecha_nacimiento", user.getFecha_nacimiento());
                                                 usuario.put("numero_telefono", user.getN_telefono());
-
-                                                // Add a new document with a generated ID
-                                                db.collection("users")
-                                                        .add(usuario)
-                                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                            @Override
-                                                            public void onSuccess(DocumentReference documentReference) {
-                                                                Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.w("TAG", "Error adding document", e);
-                                                            }
-                                                        });
-
-                                                Toast.makeText(RegisterActivity.this, "Registro correcto. Por favor, revise su mail", Toast.LENGTH_SHORT).show();
-                                                finish();
+                                                usuario.put("rol", user.getRol());
+                                                // Ponemos el rol del usuario, por defecto voluntario
+                                                try {
+                                                    String uid = mAuth.getCurrentUser().getUid();
+                                                    dbRef.getReference("Usuarios").child(uid).setValue(usuario);DatabaseReference dbReference = dbRef.getReference();
+                                                    //db.collection("users").document(uid).set(usuario);
+                                                    dbReference.child("Usuarios").addListenerForSingleValueEvent(new ValueEventListener() { //addValueEventListener
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            String rol_str= snapshot.child(uid).child("rol").toString();
+                                                            Log.d("USUARIO CREADO", "ROL: "+ rol_str);
+                                                        }
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+                                                            Log.d("FALLO", "USUARIO NO SE HA PODIDO CREAR.");
+                                                        }
+                                                    });
+                                                    Toast.makeText(AddNewActivity.this, rol+" creado", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }catch (Exception e){
+                                                    Toast.makeText(AddNewActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
                                             }else{
-                                                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AddNewActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
                         }
                         else{
                             Log.w("ERROR", "ERROR AL CREAR LA CUENTA");
-                            Toast.makeText(RegisterActivity.this, "Auth failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddNewActivity.this, "Auth failed", Toast.LENGTH_SHORT).show();
 
                         }
                     }
                 });
     }
 }
+
+// TODO:
