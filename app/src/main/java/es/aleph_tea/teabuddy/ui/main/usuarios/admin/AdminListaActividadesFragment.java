@@ -23,8 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import es.aleph_tea.teabuddy.ActivitiesListActivity;
-import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
 import es.aleph_tea.teabuddy.R;
+import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.Actividad;
 import es.aleph_tea.teabuddy.ui.main.usuarios.monitor.MainActivityMonitor;
@@ -32,6 +32,7 @@ import es.aleph_tea.teabuddy.ui.main.usuarios.monitor.MainActivityMonitor;
 public class AdminListaActividadesFragment extends Fragment implements RecyclerViewInterface {
 
     private String data;
+    private Actividad actividad;
     FirebaseDatabase database;
     DatabaseReference dbRef;
     RecyclerView listaActividadesRV;
@@ -81,11 +82,9 @@ public class AdminListaActividadesFragment extends Fragment implements RecyclerV
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    data = snapshot.toString();
                     Log.d("OK", data);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
