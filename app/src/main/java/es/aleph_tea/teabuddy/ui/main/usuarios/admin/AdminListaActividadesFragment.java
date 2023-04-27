@@ -78,7 +78,7 @@ public class AdminListaActividadesFragment extends Fragment implements RecyclerV
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listaActividadesRV = (RecyclerView) view.findViewById(R.id.listaActividadesRV);
-        
+
         Actividad actividad1 = new Actividad("Paseo por el prado Valverde", "Paseo por el prado con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
         Actividad actividad2 = new Actividad("Paseo por el parque", "Paseo por el parque con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
         Actividad actividad3 = new Actividad("Visita al caixaforum", "Visita al caixaforum con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
