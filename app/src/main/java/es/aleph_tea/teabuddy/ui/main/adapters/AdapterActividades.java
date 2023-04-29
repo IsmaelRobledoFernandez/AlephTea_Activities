@@ -34,9 +34,9 @@ public class AdapterActividades extends RecyclerView.Adapter<AdapterActividades.
     @Override
     public void onBindViewHolder(@NonNull AdapterActividades.ActividadesViewHolder holder, int position) {
         Actividad actividad = listaActividades.get(position);
-        holder.nombre.setText(actividad.getNombre());
-        holder.fecha.setText(actividad.getFecha());
-        holder.hora.setText(actividad.getHora());
+        holder.nombre.setText(actividad.getNombre_actividad_str());
+        holder.fecha.setText(actividad.getFecha_actividad_str());
+        holder.hora.setText(actividad.getHora_actividad_str());
     }
 
     @Override

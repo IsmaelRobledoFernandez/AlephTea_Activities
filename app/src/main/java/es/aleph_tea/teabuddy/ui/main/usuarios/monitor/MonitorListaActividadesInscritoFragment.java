@@ -65,11 +65,11 @@ public class MonitorListaActividadesInscritoFragment extends Fragment implements
 
         // TODO: Obtener actividades a las que esta inscrito el monitor
 
-        Actividad actividad1 = new Actividad("Paseo por el prado", "Paseo por el prado con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
-        Actividad actividad2 = new Actividad("Paseo por el parque", "Paseo por el parque con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
-        Actividad actividad3 = new Actividad("Visita al caixaforum", "Visita al caixaforum con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
-        Actividad actividad4 = new Actividad("Festival de pintura rupestre", "Festival de pintura rupestre con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
-        Actividad actividad5 = new Actividad("Visita a la granjaescuela", "Visita a la granjaescuela con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace",4, 2);
+        Actividad actividad1 = new Actividad("Paseo por el prado", "Paseo por el prado con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
+        Actividad actividad2 = new Actividad("Paseo por el parque", "Paseo por el parque con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
+        Actividad actividad3 = new Actividad("Visita al caixaforum", "Visita al caixaforum con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
+        Actividad actividad4 = new Actividad("Festival de pintura rupestre", "Festival de pintura rupestre con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
+        Actividad actividad5 = new Actividad("Visita a la granjaescuela", "Visita a la granjaescuela con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
 
         lista_actividades.add(actividad1);
         lista_actividades.add(actividad3);
@@ -83,11 +83,11 @@ public class MonitorListaActividadesInscritoFragment extends Fragment implements
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getContext(), MostrarInfoMisActividades.class);
-        intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre());
-        intent.putExtra("fecha_actividad", lista_actividades.get(position).getFecha());
-        intent.putExtra("hora_actividad", lista_actividades.get(position).getHora());
-        intent.putExtra("descripcion_actividad", lista_actividades.get(position).getDescripcion());
-        intent.putExtra("localizacion_actividad", lista_actividades.get(position).getLocalizacion());
+        intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre_actividad_str());
+        intent.putExtra("fecha_actividad", lista_actividades.get(position).getFecha_actividad_str());
+        intent.putExtra("hora_actividad", lista_actividades.get(position).getHora_actividad_str());
+        intent.putExtra("descripcion_actividad", lista_actividades.get(position).getDescripcion_actividad_str());
+        intent.putExtra("localizacion_actividad", lista_actividades.get(position).getLocalizacion_str());
         startActivity(intent);
     }
 

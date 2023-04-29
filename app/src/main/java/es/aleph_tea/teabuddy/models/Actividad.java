@@ -1,77 +1,62 @@
 package es.aleph_tea.teabuddy.models;
 
 public class Actividad {
-    String nombre;
-    String descripcion;
-    String fecha;
-    String hora;
+    String nombre_actividad_str;
+    String descripcion_actividad_str;
+    String fecha_actividad_str;
+    String hora_actividad_str;
+    String localizacion_str;
+//    int numero_voluntarios;
+//    int numero_monitores;
 
-    String localizacion;
-    int numero_voluntarios;
-    int numero_monitores;
+    public Actividad(){
 
-    public Actividad(String nombre, String descripcion, String fecha, String hora, String localizacion, int numero_voluntarios, int numero_monitores) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.numero_voluntarios = numero_voluntarios;
-        this.numero_monitores = numero_monitores;
-        this.localizacion = localizacion;
+    }
+    public Actividad(String nombre_actividad_str, String descripcion_actividad_str, String fecha_actividad_str, String hora_actividad_str, String localizacion_str) {
+        this.nombre_actividad_str = nombre_actividad_str;
+        this.descripcion_actividad_str = descripcion_actividad_str;
+        this.fecha_actividad_str = fecha_actividad_str;
+        this.hora_actividad_str = hora_actividad_str;
+        this.localizacion_str = localizacion_str;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombre_actividad_str() {
+        return nombre_actividad_str;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre_actividad_str(String nombre_actividad_str) {
+        this.nombre_actividad_str = nombre_actividad_str;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescripcion_actividad_str() {
+        return descripcion_actividad_str;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescripcion_actividad_str(String descripcion_actividad_str) {
+        this.descripcion_actividad_str = descripcion_actividad_str;
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getFecha_actividad_str() {
+        return fecha_actividad_str;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFecha_actividad_str(String fecha_actividad_str) {
+        this.fecha_actividad_str = fecha_actividad_str;
     }
 
-    public String getHora() {
-        return hora;
+    public String getHora_actividad_str() {
+        return hora_actividad_str;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setHora_actividad_str(String hora_actividad_str) {
+        this.hora_actividad_str = hora_actividad_str;
     }
 
-    public int getNumero_voluntarios() {
-        return numero_voluntarios;
+    public String getLocalizacion_str() {
+        return localizacion_str;
     }
 
-    public void setNumero_voluntarios(int numero_voluntarios) {
-        this.numero_voluntarios = numero_voluntarios;
-    }
-
-    public int getNumero_monitores() {
-        return numero_monitores;
-    }
-
-    public void setNumero_monitores(int numero_monitores) {
-        this.numero_monitores = numero_monitores;
-    }
-
-    public void setLocalizacion(String localizacion) {
-        this.localizacion = localizacion;
-    }
-    public String getLocalizacion(){
-        return localizacion;
+    public void setLocalizacion_str(String localizacion_str) {
+        this.localizacion_str = localizacion_str;
     }
 }

@@ -29,6 +29,7 @@ import es.aleph_tea.teabuddy.ActivitiesListActivity;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.ui.main.usuarios.admin.MainActivityAdmin;
 import es.aleph_tea.teabuddy.models.Sesion;
+import es.aleph_tea.teabuddy.ui.main.usuarios.admin.RegisterActivity;
 import es.aleph_tea.teabuddy.ui.main.usuarios.monitor.MainActivityMonitor;
 
 public class
@@ -138,7 +139,7 @@ LoginMainActivity extends AppCompatActivity {
                         String uid = mAuth.getCurrentUser().getUid();
 
                         DatabaseReference dbReference = dbRef.getReference();
-                        dbReference.child("Usuarios").addListenerForSingleValueEvent(new ValueEventListener() { //addValueEventListener
+                        dbReference.child("UsuariosAsociacion").addListenerForSingleValueEvent(new ValueEventListener() { //addValueEventListener
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if(snapshot.exists()){
@@ -184,8 +185,5 @@ LoginMainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
         return preferences.getBoolean(PREFERENCE_ESTADO_BUTTON_SESION, false);
     }
-
-
-    //TODO: Crear objeto usuario con los datos del usuario y guardarlos en Shared Preferences
 
 }

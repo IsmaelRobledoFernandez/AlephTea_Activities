@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy.ui.main.usuarios;
+package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                 // Ponemos el rol del usuario, por defecto voluntario
                                                 try {
                                                     String uid = mAuth.getCurrentUser().getUid();
-                                                    dbRef.getReference("Usuarios").child(uid).setValue(usuario);
+                                                    dbRef.getReference("UsuariosAsociacion").child(uid).setValue(usuario);
                                                     DatabaseReference dbReference = dbRef.getReference();
                                                     //db.collection("users").document(uid).set(usuario);
 
@@ -138,5 +138,3 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 }
-
-// TODO:
