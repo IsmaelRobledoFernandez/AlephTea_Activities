@@ -71,7 +71,8 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/n_telefono" />
+            app:layout_constraintTop_toBottomOf="@id/n_telefono"
+            />
 
         <EditText
             android:id="@+id/fecha_nac"
@@ -80,11 +81,14 @@
             android:layout_marginTop="8dp"
             android:hint="Fecha nacimiento"
             android:imeOptions="actionDone"
-            android:inputType="text"
-            android:selectAllOnFocus="true"
+            android:focusableInTouchMode="false"
+            android:inputType="none"
+            android:selectAllOnFocus="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+            />
         <Spinner
             android:id="@+id/tipo_usuario"
             android:layout_width="match_parent"

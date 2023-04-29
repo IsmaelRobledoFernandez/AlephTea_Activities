@@ -1,10 +1,14 @@
 package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -23,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +57,28 @@ public class AddNewActivity extends AppCompatActivity {
         hora_actividad = (EditText) findViewById(R.id.hora_actividad);
         localizacion = (EditText) findViewById(R.id.localizacion);
         añadir_actividad = findViewById(R.id.añadir_actividad);
+
+        fecha_actividad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(fecha_actividad.getWindowToken(), 0);
+
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddNewActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        fecha_actividad.setText(day+"/"+month+"/"+year);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+
+            }
+        });
         añadir_actividad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,9 +1,13 @@
 package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -19,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +62,27 @@ public class RegisterActivity extends AppCompatActivity {
         // Si el usuario no existe lo crea, si no hace la gestión del login
         button_registro = findViewById(R.id.boton_registro);
         rol_usuario = findViewById(R.id.tipo_usuario);
+
+        fecha_nacimientoETXT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(fecha_nacimientoETXT.getWindowToken(), 0);
+
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                            fecha_nacimientoETXT.setText(day+"/"+month+"/"+year);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
         button_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
