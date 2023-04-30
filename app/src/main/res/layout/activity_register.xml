@@ -7,15 +7,20 @@
     tools:context=".ui.main.usuarios.LoginMainActivity"
     android:padding="60dp">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_height="150dp"
-            android:layout_width="250dp"
+        <TextView
+            android:id="@+id/info"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:layout_marginTop="20dp"
-            android:src="@drawable/aleph"
+            android:text="Crear Usuario"
+            android:textSize="33dp"
+            android:textColor="@color/blue_100"
+            android:fontFamily="@font/ysabeaufont_wght"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <EditText
             android:id="@+id/nombre"
@@ -25,9 +30,10 @@
             android:imeOptions="actionDone"
             android:inputType="text"
             android:selectAllOnFocus="true"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logo" />
+            app:layout_constraintTop_toBottomOf="@id/info" />
 
         <EditText
             android:id="@+id/apellido"
@@ -65,7 +71,8 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/n_telefono" />
+            app:layout_constraintTop_toBottomOf="@id/n_telefono"
+            />
 
         <EditText
             android:id="@+id/fecha_nac"
@@ -74,11 +81,14 @@
             android:layout_marginTop="8dp"
             android:hint="Fecha nacimiento"
             android:imeOptions="actionDone"
-            android:inputType="text"
-            android:selectAllOnFocus="true"
+            android:focusableInTouchMode="false"
+            android:inputType="none"
+            android:selectAllOnFocus="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+            />
         <Spinner
             android:id="@+id/tipo_usuario"
             android:layout_width="match_parent"

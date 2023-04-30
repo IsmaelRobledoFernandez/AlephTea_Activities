@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="20dp"
-            android:text="Modificar Actividad"
+            android:text="Registro Actividad"
             android:textSize="33dp"
             android:textColor="@color/blue_100"
             android:fontFamily="@font/ysabeaufont_wght"
@@ -53,11 +53,13 @@
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:hint="Fecha Actividad"
+            android:focusableInTouchMode="false"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:selectAllOnFocus="true"
+            android:selectAllOnFocus="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:drawableEnd="@android:drawable/ic_menu_my_calendar"
             app:layout_constraintTop_toBottomOf="@+id/descripcion_actividad" />
 
         <EditText
@@ -86,45 +88,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hora_actividad"
             />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/añadir_actividad"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="64dp"
+            android:layout_weight=".5"
+            android:backgroundTint="#00679B"
+            android:padding="10dp"
+            android:text="Añadir Actividad"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/localizacion"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/localizacion">
-
-                <Button
-                    android:id="@+id/eliminar_actividad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="56dp"
-                    android:layout_marginBottom="64dp"
-                    android:layout_weight=".5"
-                    android:backgroundTint="#9EFF9800"
-                    android:padding="10dp"
-                    android:text="Eliminar Actividad"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-                <Button
-                    android:id="@+id/alta_actividad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="56dp"
-                    android:layout_marginBottom="64dp"
-                    android:layout_weight=".5"
-                    android:backgroundTint="#5E03A9F4"
-                    android:padding="10dp"
-                    android:text="Actualizar Actividad"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--https://devexperto.com/temas-estilos-android/ TEMAS Y ESTILOS-->

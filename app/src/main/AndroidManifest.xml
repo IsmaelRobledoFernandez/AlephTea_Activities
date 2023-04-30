@@ -29,6 +29,9 @@
             android:name=".ui.main.usuarios.monitor.MostrarInfoMisActividades"
             android:exported="false" />
         <activity
+            android:name=".ui.main.usuarios.admin.AddNewActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.usuarios.admin.modificacionActividades"
             android:exported="false" />
         <activity
@@ -53,7 +56,7 @@
             android:label="@string/title_activity_activities_list"
             android:theme="@style/Theme.MainColors.NoActionBar" />
         <activity
-            android:name=".ui.main.usuarios.RegisterActivity"
+            android:name=".ui.main.usuarios.admin.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

@@ -50,6 +50,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.0'
 
     // Implementacion de la BBDD ROOM
     def room_version = "2.5.0"
