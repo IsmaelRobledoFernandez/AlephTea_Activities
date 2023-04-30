@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                            fecha_nacimientoETXT.setText(day+"/"+month+"/"+year);
+                            fecha_nacimientoETXT.setText(day+"/"+(month+1)+"/"+year);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
