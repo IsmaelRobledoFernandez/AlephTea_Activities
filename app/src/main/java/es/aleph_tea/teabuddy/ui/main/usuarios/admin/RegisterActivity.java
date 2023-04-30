@@ -106,9 +106,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }if(n_telefono.length()!=9){
                     Toast.makeText(getApplicationContext(), "El numero de telefono no es correcto", Toast.LENGTH_SHORT).show();
                     Log.d("SIGN IN", "El numero de telefono no es correcto");
-                }if(!fecha_nacimiento.matches(fechaPattern)) {
-                    Toast.makeText(getApplicationContext(), "La fecha de nacimiento no es correcta", Toast.LENGTH_SHORT).show();
-                    Log.d("SIGN IN", "La fecha de nacimiento no es correcta");
                 }else {
                     Usuario user = new Usuario(email, n_telefono, fecha_nacimiento, apellido, nombre, rol);
                     createAccount(user, password);
