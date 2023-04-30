@@ -18,15 +18,17 @@ import java.util.ArrayList;
 
 import es.aleph_tea.teabuddy.actividadesAPI.ActividadesAPIService;
 import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
-import es.aleph_tea.teabuddy.login.AccountDetailsActivity;
+
 import es.aleph_tea.teabuddy.models.ActividadAPI;
 import es.aleph_tea.teabuddy.models.ActividadAPIRespuesta;
-import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
+
+import es.aleph_tea.teabuddy.ui.main.adapters.SectionsPagerAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class APIActivitiesListActivity extends AppCompatActivity {
 
@@ -81,8 +83,8 @@ public class APIActivitiesListActivity extends AppCompatActivity {
         cuentaUsuario = (ImageView) findViewById(R.id.accountButton);
         cuentaUsuario.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), AccountDetailsActivity.class);
-                startActivity(i);
+                // Intent i = new Intent(getApplicationContext(), AccountDetailsActivity.class);
+               // startActivity(i);
             }
         });
     }
