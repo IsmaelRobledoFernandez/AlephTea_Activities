@@ -1,7 +1,6 @@
 package es.aleph_tea.teabuddy.database.repository;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Query;
 
 import java.util.List;
 
@@ -13,9 +12,7 @@ public interface ActividadRepository {
 
     void deleteAllActividades();
 
-    List<Actividad> getActividadesInscritas();
-
-    Actividad findById(int actividadId);
+    Actividad findByIdActividad(int actividadId);
 
     void insertActividad(Actividad actividad);
 
@@ -25,5 +22,4 @@ public interface ActividadRepository {
 
     LiveData<List<Actividad>> findAllActividades();
 
-    LiveData<List<Actividad>> findActividadesInscritas();
 }

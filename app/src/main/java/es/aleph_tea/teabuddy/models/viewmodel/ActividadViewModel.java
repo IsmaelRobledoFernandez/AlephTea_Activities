@@ -32,7 +32,4 @@ public class ActividadViewModel extends AndroidViewModel {
         return repo.findAllActividades();
     }
 
-    public LiveData<List<Actividad>> getInscritas() {
-        return repo.findActividadesInscritas();
-    }
 }

@@ -46,7 +46,7 @@ public class ActivitiesListActivity extends AppCompatActivity {
 
         // Inicializacion metodos de obtención de datos en tiempo real
         FBRTDatabaseController fbrt = new FBRTDatabaseController(this.getApplicationContext(),
-                binding.getRoot());
+                binding.getRoot(),savedInstanceState.getString("uid"));
 
         fbrt.startService();
     }

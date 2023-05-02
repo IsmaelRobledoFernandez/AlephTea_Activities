@@ -116,8 +116,7 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
             Log.d("ListadoActividadesRoom", "Nombre=" + i.getNombre() +
                     ", Descripcion=" + i.getDescripcion() +
                     ", FechaHora=" + i.getFechaHora() +
-                    ", Localizacion=" + i.getLocalizacion() +
-                    ", EstaInscrito=" + i.getEstaInscrito());
+                    ", Localizacion=" + i.getLocalizacion());
         }
     }
 }

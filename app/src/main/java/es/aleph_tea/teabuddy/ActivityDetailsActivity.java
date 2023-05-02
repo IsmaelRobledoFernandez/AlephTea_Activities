@@ -45,7 +45,7 @@ public class ActivityDetailsActivity extends AppCompatActivity implements Second
             repo = new ActividadRepositoryImpl(dao);
 
             // Obtenemos la actividad que acabamos de clickar
-            Actividad actividadActual = repo.findById(actividadId);
+            Actividad actividadActual = repo.findByIdActividad(actividadId);
 
             // Mostramos los detalles por pantalla
             if (actividadActual != null)

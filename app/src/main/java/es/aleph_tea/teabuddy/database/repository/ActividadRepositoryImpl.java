@@ -27,12 +27,7 @@ public class ActividadRepositoryImpl implements ActividadRepository{
     }
 
     @Override
-    public List<Actividad> getActividadesInscritas() {
-        return dao.getInscritas();
-    }
-
-    @Override
-    public Actividad findById(int actividadId) { return dao.findById(actividadId); }
+    public Actividad findByIdActividad(int actividadId) { return dao.findById(actividadId); }
 
     @Override
     public void insertActividad(Actividad actividad) {
@@ -51,5 +46,4 @@ public class ActividadRepositoryImpl implements ActividadRepository{
 
     public LiveData<List<Actividad>> findAllActividades() { return dao.findAll(); }
 
-   public LiveData<List<Actividad>> findActividadesInscritas() { return dao.findInscritas(); }
 }

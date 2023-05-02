@@ -24,9 +24,6 @@ public interface ActividadDAO {
     @Query("delete from sqlite_sequence")
     void resetTable();
 
-    @Query("select * from Actividad where estaInscrito = 1")
-    List<Actividad> getInscritas();
-
     @Query("select * from Actividad where actividadId = :actividadId")
     Actividad findById(int actividadId);
 
@@ -39,7 +36,5 @@ public interface ActividadDAO {
 
     @Query("select * from Actividad")
     LiveData<List<Actividad>> findAll();
-    @Query("select * from Actividad where estaInscrito = 1")
-    LiveData<List<Actividad>> findInscritas();
 
 }

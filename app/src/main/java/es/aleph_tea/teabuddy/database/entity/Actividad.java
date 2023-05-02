@@ -7,13 +7,12 @@ import androidx.room.PrimaryKey;
 
 public class Actividad {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     int actividadId;
     String nombre;
     String descripcion;
     Long fechaHora;
     String localizacion;
-    boolean estaInscrito;
 
     @Override
     public String toString() {
@@ -60,11 +59,4 @@ public class Actividad {
         this.localizacion = localizacion;
     }
 
-    public boolean getEstaInscrito() {
-        return estaInscrito;
-    }
-
-    public void setEstaInscrito(boolean estaInscrito) {
-        this.estaInscrito = estaInscrito;
-    }
 }
