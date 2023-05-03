@@ -90,6 +90,7 @@ public class AdminListaActividadesFragment extends Fragment implements RecyclerV
                 lista_actividades.clear();
                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                     actividad = childSnapshot.getValue(Actividad.class);
+                    actividad.setUid(childSnapshot.getKey());
                     lista_actividades.add(actividad);
                     Log.d("OK", "Nombre de la tarea: " + actividad.getNombre_actividad_str());
                 }
@@ -109,6 +110,7 @@ public class AdminListaActividadesFragment extends Fragment implements RecyclerV
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getContext(), modificacionActividades.class);
+        intent.putExtra("uid", lista_actividades.get(position).getUid());
         intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre_actividad_str());
         intent.putExtra("fecha_actividad", lista_actividades.get(position).getFecha_actividad_str());
         intent.putExtra("hora_actividad", lista_actividades.get(position).getHora_actividad_str());

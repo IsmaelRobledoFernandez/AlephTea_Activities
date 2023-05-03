@@ -159,12 +159,14 @@ LoginMainActivity extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-
+                                Toast.makeText(LoginMainActivity.this, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     } else {
                         Toast.makeText(LoginMainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(LoginMainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

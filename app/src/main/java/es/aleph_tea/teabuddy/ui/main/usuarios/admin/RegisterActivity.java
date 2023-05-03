@@ -96,7 +96,6 @@ public class RegisterActivity extends AppCompatActivity {
                 rol = rol_usuario.getSelectedItem().toString();
                 //if(email.length()==0||password.length()==0||nombre.length()==0||apellido.length()==0||n_telefono.length()==0||fecha_nacimiento.length()==0){
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                String fechaPattern = "([0-9][0-9])(\\/)([0-9][0-9])\\/([0-9][0-9][0-9][0-9])";
                 if(email.length()==0){
                     Toast.makeText(getApplicationContext(), "Completa los campos", Toast.LENGTH_SHORT).show();
                     Log.d("SIGN IN", "No se han completado las credenciales");

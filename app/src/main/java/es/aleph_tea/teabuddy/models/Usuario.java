@@ -1,6 +1,7 @@
 package es.aleph_tea.teabuddy.models;
 
 public class Usuario {
+    public String uid;
     public String email;
     public String password;
     public String numero_telefono;
@@ -21,9 +22,16 @@ public class Usuario {
         this.nombre = nombre;
         this.rol = rol;
     }
-
     public String getRol(){return rol;}
 
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getEmail() {
         return email;

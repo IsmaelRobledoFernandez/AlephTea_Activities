@@ -84,27 +84,15 @@ public class ListaUsuariosFragment extends Fragment implements RecyclerViewInter
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         listaUsuariosRV = (RecyclerView)view.findViewById(R.id.listaUsuariosRV);
-        /*
-        Usuario usr1 = new Usuario("rdc@gmail.com", "666666666", "11/11/1111", "garcia", "Enrique", "Administrador");
-        Usuario usr2 = new Usuario("rdc@gmail.com", "666666666", "11/11/1111", "garcia", "Maria", "Administrador");
-        Usuario usr3 = new Usuario("rdc@gmail.com", "666666666", "11/11/1111", "garcia", "Esmeralda", "Administrador");
-        usuarios_aleph.add(usr1);
-        usuarios_aleph.add(usr2);
-        usuarios_aleph.add(usr3);
-
-
-        adapterUsuarios = new AdapterUsuarios(usuarios_aleph, this);
-        listaUsuariosRV.setAdapter(adapterUsuarios);
-        listaUsuariosRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        */
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 usuarios_aleph.clear();
                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                     usuario = childSnapshot.getValue(Usuario.class);
+                    usuario.setUid(childSnapshot.getKey());
                     usuarios_aleph.add(usuario);
-                    Log.d("OK", "Nombre de la tarea: " + usuario.getNombre());
+                    Log.d("OK", childSnapshot.toString());
                 }
                 adapterUsuarios = new AdapterUsuarios(usuarios_aleph, ListaUsuariosFragment.this);
                 listaUsuariosRV.setAdapter(adapterUsuarios);
@@ -123,6 +111,7 @@ public class ListaUsuariosFragment extends Fragment implements RecyclerViewInter
     public void onItemClick(int position) {
 
         Intent intent = new Intent(getContext(), modificacionUsuarios.class);
+        intent.putExtra("uid", usuarios_aleph.get(position).getUid());
         intent.putExtra("nombre_usuario", usuarios_aleph.get(position).getNombre());
         intent.putExtra("apellido_usuario", usuarios_aleph.get(position).getApellido());
         intent.putExtra("email_usuario", usuarios_aleph.get(position).getEmail());

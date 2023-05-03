@@ -103,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tipo_usuario">
 
         <Button
-            android:id="@+id/eliminar_actividad"
+            android:id="@+id/eliminar_usuario"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -116,7 +116,7 @@
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/alta_actividad"
+            android:id="@+id/alta_usuario"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

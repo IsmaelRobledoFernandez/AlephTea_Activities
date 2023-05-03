@@ -1,6 +1,7 @@
 package es.aleph_tea.teabuddy.models;
 
 public class Actividad {
+    String uid;
     String nombre_actividad_str;
     String descripcion_actividad_str;
     String fecha_actividad_str;
@@ -18,6 +19,14 @@ public class Actividad {
         this.fecha_actividad_str = fecha_actividad_str;
         this.hora_actividad_str = hora_actividad_str;
         this.localizacion_str = localizacion_str;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getNombre_actividad_str() {
