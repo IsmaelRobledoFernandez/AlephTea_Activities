@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import es.aleph_tea.teabuddy.EnrolledActivitiesFragment;
-import es.aleph_tea.teabuddy.AllActivitiesFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
