@@ -50,6 +50,7 @@ public class APIActivities extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     ActividadAPIRespuesta actividadAPIRespuesta = response.body();
+                    // Lista de actividades de la API
                     ArrayList<ActividadAPI> listaActividades = actividadAPIRespuesta.getData();
                     for (int i = 0; i < 10 /*listaActividades.size()*/; i++) {
                         Log.d(TAG, "actividad: " + listaActividades.get(i).getActividad_extraexcolar_descrip());
