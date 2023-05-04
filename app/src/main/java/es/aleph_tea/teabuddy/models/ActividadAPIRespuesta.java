@@ -3,13 +3,13 @@ import java.util.ArrayList;
 
 public class ActividadAPIRespuesta {
 
-    private ArrayList<ActividadAPI> results;
+    private ArrayList<ActividadAPI> data;
 
-    public ArrayList<ActividadAPI> getResults() {
-        return results;
+    public ArrayList<ActividadAPI> getData() {
+        return data;
     }
 
-    public void setResults(ArrayList<ActividadAPI> results) {
-        this.results = results;
+    public void setData(ArrayList<ActividadAPI> data) {
+        this.data = data;
     }
 }
