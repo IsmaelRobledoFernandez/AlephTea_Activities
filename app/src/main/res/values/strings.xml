@@ -27,4 +27,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_main_monitor">MainActivityMonitor</string>
+    <string name="title_activity_apiactivities_list">APIActivitiesListActivity</string>
 </resources>
