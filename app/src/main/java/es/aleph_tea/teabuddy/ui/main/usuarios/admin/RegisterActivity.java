@@ -57,11 +57,12 @@ public class RegisterActivity extends AppCompatActivity {
         nombreETXT = (EditText) findViewById(R.id.nombre);
         apellidosETXT = (EditText) findViewById(R.id.apellido);
         n_telefonoETXT = (EditText) findViewById(R.id.n_telefono);
-        fecha_nacimientoETXT = (EditText) findViewById(R.id.fecha_nac);
         emailETXT = (EditText) findViewById(R.id.email);
         // Si el usuario no existe lo crea, si no hace la gestión del login
         button_registro = findViewById(R.id.boton_registro);
         rol_usuario = findViewById(R.id.tipo_usuario);
+
+        fecha_nacimientoETXT = (EditText) findViewById(R.id.fecha_nac);
 
         fecha_nacimientoETXT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,8 +138,6 @@ public class RegisterActivity extends AppCompatActivity {
                                                 try {
                                                     String uid = mAuth.getCurrentUser().getUid();
                                                     dbRef.getReference("UsuariosAsociacion").child(uid).setValue(usuario);
-                                                    DatabaseReference dbReference = dbRef.getReference();
-                                                    //db.collection("users").document(uid).set(usuario);
 
                                                     Toast.makeText(RegisterActivity.this, rol+" creado", Toast.LENGTH_SHORT).show();
                                                     finish();

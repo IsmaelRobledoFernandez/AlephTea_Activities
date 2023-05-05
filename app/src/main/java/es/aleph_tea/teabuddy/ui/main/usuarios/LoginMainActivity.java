@@ -34,7 +34,6 @@ import es.aleph_tea.teabuddy.ui.main.usuarios.monitor.MainActivityMonitor;
 
 public class
 LoginMainActivity extends AppCompatActivity {
-    FirebaseAuth mAuth;
     DatabaseReference db;
     TextView textView, cambiar_pass;
     Button button;
@@ -49,7 +48,6 @@ LoginMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Instanciar firebase
-        mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
 
         super.onCreate(savedInstanceState);
@@ -128,6 +126,7 @@ LoginMainActivity extends AppCompatActivity {
     }
     private void loginUser(String emailUser, String passwordUser) {
         // Gestionamos el signIn con Firebase
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(emailUser, passwordUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
