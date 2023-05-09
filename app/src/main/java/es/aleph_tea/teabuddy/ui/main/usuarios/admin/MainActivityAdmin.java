@@ -34,7 +34,7 @@ public class MainActivityAdmin extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         // Inicializacion botón acceso Lista de Actividades de la API
-        accesoAPIListActivities();
+        //accesoAPIListActivities();
 
     }
 

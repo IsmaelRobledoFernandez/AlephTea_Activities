@@ -7,12 +7,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import es.aleph_tea.teabuddy.ui.main.usuarios.admin.AdminListaActividadesApiFragment;
 import es.aleph_tea.teabuddy.ui.main.usuarios.admin.AdminListaActividadesFragment;
 import es.aleph_tea.teabuddy.ui.main.usuarios.admin.ListaUsuariosFragment;
 
 public class SectionsPagerAdapterAdmin extends FragmentPagerAdapter {
 
-    private static final String[] TAB_TITLES = new String[]{"Lista Actividades", "Lista Usuarios"};
+    private static final String[] TAB_TITLES = new String[]{"Lista Actividades", "Lista Usuarios", "Comunidad Madrid"};
     private final Context mContext;
 
     public SectionsPagerAdapterAdmin(Context context, FragmentManager fm) {
@@ -27,6 +28,8 @@ public class SectionsPagerAdapterAdmin extends FragmentPagerAdapter {
                 return new AdminListaActividadesFragment();
             case 1:
                 return new ListaUsuariosFragment();
+            case 2:
+                return new AdminListaActividadesApiFragment();
             default:
                 return new AdminListaActividadesFragment();
         }
@@ -40,7 +43,6 @@ public class SectionsPagerAdapterAdmin extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
-        return 2;
+        return 3;
     }
 }

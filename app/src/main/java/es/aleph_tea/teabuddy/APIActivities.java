@@ -20,14 +20,22 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class APIActivities extends AppCompatActivity {
+public class APIActivities {
     private static final String API_BASE_URL = "https://datos.comunidad.madrid/catalogo/dataset/";
     private Retrofit retrofit;
     private static final String TAG = "ACTIVIDADES";
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_api_activities);
+
+    protected ArrayList<ActividadAPI> listaActividades;
+
+    public ArrayList<ActividadAPI> getListaActividades() {
+        return listaActividades;
+    }
+
+    public APIActivities(){}
+    public void obtenerDatos() {
+        APIService service = retrofit.create(APIService.class);
+        Call<ActividadAPIRespuesta> actividadRespuestaCall = service.obtenerListaActividades();
+
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -37,13 +45,7 @@ public class APIActivities extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        obtenerDatos();
-    }
-
-    private void obtenerDatos() {
-        APIService service = retrofit.create(APIService.class);
-        Call<ActividadAPIRespuesta> actividadRespuestaCall = service.obtenerListaActividades();
-
+        //obtenerDatos();
         actividadRespuestaCall.enqueue(new Callback<ActividadAPIRespuesta>() {
             @Override
             public void onResponse(Call<ActividadAPIRespuesta> call, Response<ActividadAPIRespuesta> response) {
@@ -51,10 +53,12 @@ public class APIActivities extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ActividadAPIRespuesta actividadAPIRespuesta = response.body();
                     // Lista de actividades de la API
-                    ArrayList<ActividadAPI> listaActividades = actividadAPIRespuesta.getData();
-                    for (int i = 0; i < 10 /*listaActividades.size()*/; i++) {
-                        Log.d(TAG, "actividad: " + listaActividades.get(i).getActividad_extraexcolar_descrip());
-                    }
+                    listaActividades = actividadAPIRespuesta.getData();
+                    Log.d("Lista_actividades", listaActividades.toString());
+
+                    //for (int i = 0; i < 10 /*listaActividades.size()*/; i++) {
+                      //  Log.d(TAG, "actividad: " + listaActividades.get(i).getActividad_extraexcolar_descrip());
+                    //}
 
                 } else {
                     Log.e(TAG, " onResponse: " + response.errorBody());
