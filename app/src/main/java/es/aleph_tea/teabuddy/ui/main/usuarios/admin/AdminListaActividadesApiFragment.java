@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import  androidx.recyclerview.widget.RecyclerView.*;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -38,9 +39,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class AdminListaActividadesApiFragment extends Fragment implements RecyclerViewInterface {
     DatabaseReference dbRef;
     RecyclerView listaActividadesRV;
+
+
+    // --
+    private RecyclerView recyclerView;
+    private AdapterActividadesApi listaActvidadesAdapter;
+    // --
     private ArrayList<ActividadAPI> lista_actividades = new ArrayList<>();
     private ActividadAPI actividad;
     AdapterActividadesApi adapterActividades;
@@ -73,7 +85,8 @@ public class AdminListaActividadesApiFragment extends Fragment implements Recycl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dbRef = FirebaseDatabase.getInstance().getReference("ActividadesAsociacion");
+
+        // dbRef = FirebaseDatabase.getInstance().getReference("ActividadesAsociacion");
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -85,6 +98,10 @@ public class AdminListaActividadesApiFragment extends Fragment implements Recycl
                 .build();
 
         obtenerDatos();
+
+        // recyclerView = (RecyclerView) findById(R.id.listaActividadesAPIRV);
+        listaActvidadesAdapter = new AdapterActividadesApi();
+        recyclerView.setAdapter(listaActvidadesAdapter);
 
 
         if (getArguments() != null) {
@@ -111,7 +128,7 @@ public class AdminListaActividadesApiFragment extends Fragment implements Recycl
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                adapterActividades = new AdapterActividadesApi(AdminListaActividadesApiFragment.this, lista_actividades);
+               //  adapterActividades = new AdapterActividadesApi(AdminListaActividadesApiFragment.this, lista_actividades);
                 listaActividadesRV.setAdapter(adapterActividades);
                 adapterActividades.notifyDataSetChanged();
             }
@@ -145,6 +162,8 @@ public class AdminListaActividadesApiFragment extends Fragment implements Recycl
                     ActividadAPIRespuesta actividadAPIRespuesta = response.body();
                     // Lista de actividades de la API
                     ArrayList<ActividadAPI> listaActividades = actividadAPIRespuesta.getData();
+
+                    listaActvidadesAdapter.adiccionarListaActividades(listaActividades);
                     Log.d("Lista Actividades",listaActividades.toString());
                     //for (int i = 0; i < 10 /*listaActividades.size()*/; i++) {
                       //  Log.d(TAG, "actividad: " + listaActividades.get(i).getActividad_extraexcolar_descrip());
