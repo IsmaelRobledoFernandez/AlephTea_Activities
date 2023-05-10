@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
+package es.aleph_tea.teabuddy.ui.main.usuarios;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,42 +14,39 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
-import es.aleph_tea.teabuddy.APIActivities;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.actividadesAPI.APIService;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.ActividadAPI;
 import es.aleph_tea.teabuddy.models.ActividadAPIRespuesta;
-import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
 import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividadesApi;
+import es.aleph_tea.teabuddy.ui.main.usuarios.admin.modificacionActividades;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AdminListaActividadesApiFragment extends Fragment implements RecyclerViewInterface {
+public class ListaActividadesApiFragment extends Fragment implements RecyclerViewInterface {
     DatabaseReference dbRef;
     RecyclerView listaActividadesRV;
-    private ArrayList<ActividadAPI> lista_actividades = new ArrayList<>();
-    private ActividadAPI actividad;
     AdapterActividadesApi adapterActividades;
+
+    private ArrayList<ActividadAPI> listaActividades = new ArrayList<>();
 
 
     // Necesarios para la API
     private static final String API_BASE_URL = "https://datos.comunidad.madrid/catalogo/dataset/";
     private Retrofit retrofit;
-    private static final String TAG = "ACTIVIDADES";
+    //private static final String TAG = "ACTIVIDADES";
+
+    //protected ArrayList<ActividadAPI> listaActividades;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -60,33 +57,18 @@ public class AdminListaActividadesApiFragment extends Fragment implements Recycl
     private String mParam3;
 
 
-    public AdminListaActividadesApiFragment() {
+    public ListaActividadesApiFragment() {
         // Required empty public constructor
     }
 
-    public static AdminListaActividadesApiFragment newInstance(String param1, String param2) {
-        AdminListaActividadesApiFragment fragment = new AdminListaActividadesApiFragment();
+    public static ListaActividadesApiFragment newInstance(String param1, String param2) {
+        ListaActividadesApiFragment fragment = new ListaActividadesApiFragment();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        dbRef = FirebaseDatabase.getInstance().getReference("ActividadesAsociacion");
-
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        obtenerDatos();
-
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -106,59 +88,58 @@ public class AdminListaActividadesApiFragment extends Fragment implements Recycl
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listaActividadesRV = (RecyclerView) view.findViewById(R.id.listaActividadesAPIRV);
 
-        dbRef.addValueEventListener(new ValueEventListener() {
+        // Initialize RecyclerView and Adapter
+        listaActividadesRV = view.findViewById(R.id.listaActividadesAPIRV);
+        adapterActividades = new AdapterActividadesApi(ListaActividadesApiFragment.this, listaActividades);
+        listaActividadesRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        listaActividadesRV.setAdapter(adapterActividades);
+
+        // Load data into listaActividades using obtenerDatos()
+        obtenerDatos();
+    }
+
+    private void obtenerDatos() {
+        // Initialize Retrofit and API Service
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        APIService service = retrofit.create(APIService.class);
+
+        Call<ActividadAPIRespuesta> actividadRespuestaCall = service.obtenerListaActividades();
+        actividadRespuestaCall.enqueue(new Callback<ActividadAPIRespuesta>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                adapterActividades = new AdapterActividadesApi(AdminListaActividadesApiFragment.this, lista_actividades);
-                listaActividadesRV.setAdapter(adapterActividades);
-                adapterActividades.notifyDataSetChanged();
+            public void onResponse(Call<ActividadAPIRespuesta> call, Response<ActividadAPIRespuesta> response) {
+                if (response.isSuccessful()) {
+                    ActividadAPIRespuesta actividadAPIRespuesta = response.body();
+                    // Lista de actividades de la API
+                    listaActividades = actividadAPIRespuesta.getData();
+                    // Set data on adapter and notify adapter of changes
+                    adapterActividades.setData(listaActividades);
+                    adapterActividades.notifyDataSetChanged();
+                } else {
+                    Log.e("TAG", " onResponse: " + response.errorBody());
+                }
             }
+
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("ERROR", "Failed to read value.", error.toException());
+            public void onFailure(Call<ActividadAPIRespuesta> call, Throwable t) {
+                Log.e("TAG", " onFailure: " + t.getMessage());
             }
         });
-        listaActividadesRV.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getContext(), modificacionActividades.class);
-        intent.putExtra("nombre_centro", lista_actividades.get(position).getCentro_nombre());
-        intent.putExtra("nombre_actividad", lista_actividades.get(position).getActividad_extraexcolar_descrip());
-        intent.putExtra("datos_actividad", lista_actividades.get(position).getDat_nombre());
+        intent.putExtra("nombre_centro", listaActividades.get(position).getCentro_nombre());
+        intent.putExtra("nombre_actividad", listaActividades.get(position).getActividad_extraexcolar_descrip());
+        intent.putExtra("datos_actividad", listaActividades.get(position).getDat_nombre());
         startActivity(intent);
     }
-
-    private void obtenerDatos() {
-        APIService service = retrofit.create(APIService.class);
-        Call<ActividadAPIRespuesta> actividadRespuestaCall = service.obtenerListaActividades();
-
-        actividadRespuestaCall.enqueue(new Callback<ActividadAPIRespuesta>() {
-            @Override
-            public void onResponse(Call<ActividadAPIRespuesta> call, Response<ActividadAPIRespuesta> response) {
-
-                if (response.isSuccessful()) {
-                    ActividadAPIRespuesta actividadAPIRespuesta = response.body();
-                    // Lista de actividades de la API
-                    ArrayList<ActividadAPI> listaActividades = actividadAPIRespuesta.getData();
-                    Log.d("Lista Actividades",listaActividades.toString());
-                    //for (int i = 0; i < 10 /*listaActividades.size()*/; i++) {
-                      //  Log.d(TAG, "actividad: " + listaActividades.get(i).getActividad_extraexcolar_descrip());
-                    //}
-
-                } else {
-                    Log.e(TAG, " onResponse: " + response.errorBody());
-                }
-            }
-            @Override
-            public void onFailure(Call<ActividadAPIRespuesta> call, Throwable t) {
-                Log.e(TAG, " onFailure: " + t.getMessage());
-            }
-        });
-    }
-
 }

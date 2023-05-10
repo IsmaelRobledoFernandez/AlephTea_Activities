@@ -24,13 +24,9 @@
                 android:minHeight="?actionBarSize"
                 android:padding="@dimen/appbar_padding"
                 android:text="@string/app_name"
+                android:fontFamily="@font/poppins"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
-            <Button
-                android:id="@+id/APIActivitiesButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Actividades API" />
         </LinearLayout>
 
 

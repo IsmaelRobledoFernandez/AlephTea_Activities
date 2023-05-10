@@ -20,7 +20,6 @@
             android:text="Visita al caixaforum"
             android:textAlignment="textStart"
             android:textSize="20dp"
-            android:textColor="@color/black"
             android:textAllCaps="true"
             android:fontFamily="@font/ysabeaufont_wght"
             android:layout_marginBottom="20dp"/>
@@ -39,7 +38,6 @@
                 android:fontFamily="@font/poppins"
                 android:text="Miercoles, 26 de diciembre"
                 android:textAlignment="textStart"
-                android:textColor="@color/black"
                 android:textSize="17dp" />
 
             <TextView
@@ -50,7 +48,6 @@
                 android:fontFamily="@font/poppins"
                 android:text="16:00 - 20:00"
                 android:textAlignment="textEnd"
-                android:textColor="@color/black"
                 android:textSize="17.5dp" />
         </LinearLayout>
 

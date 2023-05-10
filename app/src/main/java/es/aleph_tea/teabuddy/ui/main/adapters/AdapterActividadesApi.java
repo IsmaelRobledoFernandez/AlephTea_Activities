@@ -17,18 +17,21 @@ import es.aleph_tea.teabuddy.models.ActividadAPI;
 
 public class AdapterActividadesApi extends RecyclerView.Adapter<AdapterActividadesApi.ActividadesViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
-    ArrayList<ActividadAPI> listaActividades;
+    private ArrayList<ActividadAPI> listaActividades;
 
     public AdapterActividadesApi(RecyclerViewInterface recyclerViewInterface, ArrayList<ActividadAPI> listaActividades) {
         this.recyclerViewInterface = recyclerViewInterface;
         this.listaActividades = listaActividades;
     }
 
+    public void setData(ArrayList<ActividadAPI> listaActividades) {
+        this.listaActividades = listaActividades;
+    }
 
     @NonNull
     @Override
     public ActividadesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.datos_actividad, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.datos_actividad_api, parent, false);
         return new ActividadesViewHolder(view, recyclerViewInterface);
     }
 

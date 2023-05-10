@@ -7,6 +7,13 @@ public class ActividadAPI {
 
     private String centro_nombre;
 
+    public ActividadAPI() {}
+
+    public ActividadAPI(String dat_nombre, String actividad_extraexcolar_descrip, String centro_nombre) {
+        this.dat_nombre = dat_nombre;
+        this.actividad_extraexcolar_descrip = actividad_extraexcolar_descrip;
+        this.centro_nombre = centro_nombre;
+    }
     public String getActividad_extraexcolar_descrip() {
         return actividad_extraexcolar_descrip;
     }

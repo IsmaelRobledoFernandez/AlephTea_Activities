@@ -10,7 +10,6 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import es.aleph_tea.teabuddy.APIActivities;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.databinding.ActivityMainAdminBinding;
 import es.aleph_tea.teabuddy.ui.main.adapters.SectionsPagerAdapterAdmin;
@@ -33,20 +32,7 @@ public class MainActivityAdmin extends AppCompatActivity {
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
 
-        // Inicializacion botón acceso Lista de Actividades de la API
-        //accesoAPIListActivities();
 
     }
 
-    protected void accesoAPIListActivities(){
-        APIActivitiesButton = (Button)findViewById(R.id.APIActivitiesButton);
-        APIActivitiesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), APIActivities.class);
-                startActivity(i);
-            }
-        });
-
-    }
 }
