@@ -116,7 +116,7 @@
             android:padding="10dp"
             android:layout_margin="10dp"
             android:text="Eliminar Usuario"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/alta_usuario"
@@ -129,6 +129,6 @@
             android:padding="10dp"
             android:layout_margin="10dp"
             android:text="Actualizar Usuario"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

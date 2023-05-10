@@ -37,10 +37,10 @@ public class ModifyEraseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_actividades);
-        gestionSignUp();
+        modificarUsuario();
     }
 
-    private void gestionSignUp(){
+    private void modificarUsuario(){
         // nombre_actividad, descripcion_actividad, fecha_actividad, hora_actividad, localizacion
         nombre_actividad = (EditText) findViewById(R.id.nombre_actividad);
         descripcion_actividad = (EditText) findViewById(R.id.descripcion_actividad);

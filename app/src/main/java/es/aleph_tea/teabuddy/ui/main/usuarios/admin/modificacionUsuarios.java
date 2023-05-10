@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import es.aleph_tea.teabuddy.R;
+import es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity;
 
 public class modificacionUsuarios extends AppCompatActivity {
 
@@ -122,7 +123,7 @@ public class modificacionUsuarios extends AppCompatActivity {
                 n_telefono_str = n_telefono.getText().toString();
                 email_str = email.getText().toString();
                 fecha_nac_str = fecha_nac.getText().toString();
-                tipo_usuario_str = rol.getTransitionName();
+                tipo_usuario_str = rol.getSelectedItem().toString();
 
                 Map<String, Object> usuario = new HashMap<>();
                 usuario.put("email", email_str);
@@ -132,7 +133,14 @@ public class modificacionUsuarios extends AppCompatActivity {
                 usuario.put("numero_telefono", n_telefono_str);
                 usuario.put("rol", tipo_usuario_str);
 
-                startActivity(new Intent(getApplicationContext(), MainActivityAdmin.class));
+                dbRef.child(uid).setValue(usuario);
+                Log.d("USUARIO_UID",  FirebaseAuth.getInstance().getUid() );
+                if(uid.equals(FirebaseAuth.getInstance().getUid())){
+                    startActivity(new Intent(getApplicationContext(), LoginMainActivity.class));
+                }
+                else{
+                    startActivity(new Intent(getApplicationContext(), MainActivityAdmin.class));
+                }
 
             }
         });

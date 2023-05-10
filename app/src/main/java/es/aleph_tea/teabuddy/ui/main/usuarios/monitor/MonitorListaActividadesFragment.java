@@ -69,14 +69,6 @@ public class MonitorListaActividadesFragment extends Fragment implements Recycle
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_monitor_lista_actividades, container, false);
-        floatingActionButton = view.findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddNewActivity.class);
-                startActivity(intent);
-            }
-        });
         return view;
     }
 

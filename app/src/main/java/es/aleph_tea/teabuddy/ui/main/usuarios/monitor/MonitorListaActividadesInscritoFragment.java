@@ -61,6 +61,7 @@ public class MonitorListaActividadesInscritoFragment extends Fragment implements
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        lista_actividades.clear();
         listaActividadesRV = (RecyclerView) view.findViewById(R.id.listaActividadesMonitorApuntadoRV);
 
         // TODO: Obtener actividades a las que esta inscrito el monitor
