@@ -99,7 +99,7 @@ public class FBRTDatabaseController {
 
                         // Obtenemos los valores en crudo de cada actividad
 
-                        int actividadId = Integer.parseInt(ds.child("actividadId").getValue().toString());
+                        int actividadId = Integer.parseInt(ds.getKey());
 
                         String nombre = ds.child("nombre").getValue().toString();
 
@@ -156,27 +156,24 @@ public class FBRTDatabaseController {
                     // Como hay cambios en firebase, reconstruimos la tabla de inscripciones en ROOM
                     repoUA.deleteActividadesUsuario_Actividad(uidActual);
 
-                    for (DataSnapshot ds : snapshot.getChildren()) {
+                    for (DataSnapshot activity : snapshot.getChildren()) {
 
-                        for (DataSnapshot activity : ds.getChildren()) {
+                        // Obtenemos los valores en crudo de cada actividad
 
-                            // Obtenemos los valores en crudo de cada actividad
+                        int actividadId = Integer.parseInt(activity.getKey());
 
-                            int actividadId = Integer.parseInt(activity.getKey());
+                        Boolean inscrito = (Boolean) activity.getValue();
 
-                            Boolean inscrito = (Boolean) activity.getValue();
+                        // Creamos la relacion obtenida para guardarla en la lista
+                        Usuario_Actividad usuario_actividad = new Usuario_Actividad();
 
-                            // Creamos la relacion obtenida para guardarla en la lista
-                            Usuario_Actividad usuario_actividad = new Usuario_Actividad();
+                        // Ajustamos sus valores
+                        usuario_actividad.setUid(uidActual);
+                        usuario_actividad.setActividadId(actividadId);
+                        usuario_actividad.setInscrito(inscrito);
 
-                            // Ajustamos sus valores
-                            usuario_actividad.setUid(uidActual);
-                            usuario_actividad.setActividadId(actividadId);
-                            usuario_actividad.setInscrito(inscrito);
-
-                            // Añadimos la actividad a la base de datos ROOM
-                            repoUA.insertUsuario_Actividad(usuario_actividad);
-                        }
+                        // Añadimos la actividad a la base de datos ROOM
+                        repoUA.insertUsuario_Actividad(usuario_actividad);
                     }
                     // Activamos los trigger para la actualizacion de la UI
                     repoUA.findUsuarios_ActividadesInscritasAUsuario(uidActual);

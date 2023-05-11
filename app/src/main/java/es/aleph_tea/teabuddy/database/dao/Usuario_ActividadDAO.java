@@ -26,11 +26,13 @@ public interface Usuario_ActividadDAO {
     @Query("delete from Usuario_Actividad where uid = :uid")
     void deleteActividades(String uid);
 
-    // Consulta alternativa: update sqlite_sequence set seq=0 where name='Usuario_Actividad'
-    @Query("delete from sqlite_sequence")
+    /*
+    // Consulta alternativa: update sqlite_sequence set seq=0 where name='usuario_actividad'
+    @Query("update sqlite_sequence set seq=0 where name='usuario_actividad'")
     void resetTable();
+     */
 
-    @Query("select * from Usuario_Actividad where uid = :uid and where actividadId = :actividadId")
+    @Query("select * from Usuario_Actividad where uid = :uid and actividadId = :actividadId")
     Usuario_Actividad findById(String uid,int actividadId);
 
     @Insert

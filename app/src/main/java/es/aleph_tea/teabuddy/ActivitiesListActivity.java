@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
 import es.aleph_tea.teabuddy.login.AccountDetailsActivity;
+import es.aleph_tea.teabuddy.models.Sesion;
 import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
 
 public class ActivitiesListActivity extends AppCompatActivity {
@@ -46,7 +47,7 @@ public class ActivitiesListActivity extends AppCompatActivity {
 
         // Inicializacion metodos de obtención de datos en tiempo real
         FBRTDatabaseController fbrt = new FBRTDatabaseController(this.getApplicationContext(),
-                binding.getRoot(),savedInstanceState.getString("uid"));
+                binding.getRoot(), Sesion.SesionUid);
 
         fbrt.startService();
     }

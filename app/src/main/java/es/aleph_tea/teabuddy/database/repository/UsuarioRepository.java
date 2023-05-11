@@ -21,7 +21,7 @@ public interface UsuarioRepository {
 
     void deleteUsuarioActual(String uid);
 
-    Actividad findByIdUsuario(int uid);
+    Usuario findByIdUsuario(int uid);
 
     @Insert
     void insertUsuario(Usuario usuario);

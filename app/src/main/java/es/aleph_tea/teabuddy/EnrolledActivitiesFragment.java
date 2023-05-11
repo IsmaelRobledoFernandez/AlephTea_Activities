@@ -16,11 +16,24 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
+import es.aleph_tea.teabuddy.database.AppDatabase;
+import es.aleph_tea.teabuddy.database.dao.ActividadDAO;
+import es.aleph_tea.teabuddy.database.dao.Usuario_ActividadDAO;
 import es.aleph_tea.teabuddy.database.entity.Actividad;
+import es.aleph_tea.teabuddy.database.entity.Usuario;
+import es.aleph_tea.teabuddy.database.entity.Usuario_Actividad;
+import es.aleph_tea.teabuddy.database.repository.ActividadRepository;
+import es.aleph_tea.teabuddy.database.repository.ActividadRepositoryImpl;
+import es.aleph_tea.teabuddy.database.repository.Usuario_ActividadRepository;
+import es.aleph_tea.teabuddy.database.repository.Usuario_ActividadRepositoryImpl;
 import es.aleph_tea.teabuddy.interfaces.ListaActividades;
+import es.aleph_tea.teabuddy.models.Sesion;
 import es.aleph_tea.teabuddy.models.viewmodel.ActividadViewModel;
+import es.aleph_tea.teabuddy.models.viewmodel.Usuario_ActividadViewModel;
 
 public class EnrolledActivitiesFragment extends Fragment implements AdapterView.OnItemClickListener, ListaActividades {
 
@@ -37,7 +50,15 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
 
     private ArrayAdapter<String> mAdapter;
 
+    AppDatabase db;
+
+    ActividadDAO dao;
+
+    ActividadRepository repo;
+
     ActividadViewModel actividadViewModel;
+
+    Usuario_ActividadViewModel usuario_actividadViewModel;
 
     public EnrolledActivitiesFragment() {
         // Constructor público requerido
@@ -75,15 +96,53 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
         posicionActividadId = new ArrayList<>();
         nombresActividades = new ArrayList<>();
 
-        // Viewmodel
-        actividadViewModel = ViewModelProviders.of(this).get(ActividadViewModel.class);
-        actividadViewModel.getInscritas().observe(this, new Observer<List<Actividad>>() {
+        // Viewmodel Usuario_Actividad
+        usuario_actividadViewModel = ViewModelProviders.of(this).get(Usuario_ActividadViewModel.class);
+
+        usuario_actividadViewModel.getInscritas(Sesion.SesionUid).observe(this, new Observer<List<Usuario_Actividad>>() {
             @Override
-            public void onChanged(List<Actividad> actividades) {
-                Log.d("onRoomChangeInscritas", actividades.toString());
-                Log.d("onRoomChangeInscritas", "Tamanio: " + actividades.size());
-                // Obtencion y printado de todos los nombres de las actividades inscritas en la lista
-                putActividades(nombresActividades, actividades);
+            public void onChanged(List<Usuario_Actividad> usuario_actividades) {
+                Log.d("onRoomChangeUsuario_Actividad", usuario_actividades.toString());
+                Log.d("onRoomChangeUsuario_Actividad", "Tamanio: " + usuario_actividades.size());
+
+                // Obtencion y printado de todos los nombres de las actividades
+                // inscritas que aparezan en la lista
+
+                // Operamos con la base de datos para obtener las actividades correspondientes
+                // A las inscripciones
+                db = AppDatabase.getInstance(getContext());
+                dao = db.actividadDAO();
+                repo = new ActividadRepositoryImpl(dao);
+
+                // Creamos una nueva lista de actividades inscritas
+                List<Actividad> actividadesInscritas = new LinkedList<Actividad>();
+
+                // Obtenemos la lista
+                // Creamos un iterador para recorrer la lista de actividades
+                List<Actividad> actividades = dao.getAll();
+                Iterator<Actividad> it = actividades.iterator();
+
+                // Creamos una variable de salida para salir del bucle
+                // While cuando encontremos la actividad que contiene el id
+                // de una de las inscritas por el usuario
+                boolean encontrado = false;
+
+                // Encontramos y añadimos las actividades encontradas
+                // a la lista de actividades inscritas
+                for (Usuario_Actividad ua : usuario_actividades) {
+                    if (ua.isInscrito()) {
+                        while (it.hasNext() && !encontrado) {
+                            Actividad a = it.next();
+                            if (a.getActividadId() == ua.getActividadId()) {
+                                actividadesInscritas.add(a);
+                                encontrado = true;
+                            }
+                        }
+                        encontrado = false;
+                        it = actividades.iterator(); // Reestarteamos el iterator
+                    }
+                }
+                putActividades(nombresActividades, actividadesInscritas);
                 setAdapterToView(nombresActividades);
             }
         });
@@ -123,8 +182,7 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
             Log.d("ListadoActividadesRoom", "Nombre=" + i.getNombre() +
                     ", Descripcion=" + i.getDescripcion() +
                     ", FechaHora=" + i.getFechaHora() +
-                    ", Localizacion=" + i.getLocalizacion() +
-                    ", EstaInscrito=" + i.getEstaInscrito());
+                    ", Localizacion=" + i.getLocalizacion() );
         }
     }
 }

@@ -1,14 +1,23 @@
 package es.aleph_tea.teabuddy.database.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
-@Entity(tableName = "actividad",primaryKeys = {"uid","actividadId"})
+@Entity(tableName = "usuario_actividad",primaryKeys = {"uid","actividadId"})
 
 public class Usuario_Actividad {
 
+    @NonNull
     String uid;
+    @NonNull
     int actividadId;
     boolean inscrito;
+
+    @Override
+    public String toString() {
+        return "Id: " + getUid() + " Actividad: " + getActividadId()
+                + " EstaInscrito: " + isInscrito();
+    }
 
     public String getUid() {
         return uid;

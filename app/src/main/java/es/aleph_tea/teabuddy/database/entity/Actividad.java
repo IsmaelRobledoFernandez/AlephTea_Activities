@@ -1,5 +1,6 @@
 package es.aleph_tea.teabuddy.database.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -8,6 +9,7 @@ import androidx.room.PrimaryKey;
 public class Actividad {
 
     @PrimaryKey(autoGenerate = false)
+    @NonNull
     int actividadId;
     String nombre;
     String descripcion;

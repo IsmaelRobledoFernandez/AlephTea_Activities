@@ -23,7 +23,7 @@ public class ActividadRepositoryImpl implements ActividadRepository{
     @Override
     public void deleteAllActividades() {
         dao.deleteAll();
-        dao.resetTable();
+        //dao.resetTable();
     }
 
     @Override

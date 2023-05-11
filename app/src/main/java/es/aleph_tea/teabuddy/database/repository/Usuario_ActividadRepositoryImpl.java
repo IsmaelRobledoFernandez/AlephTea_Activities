@@ -28,7 +28,7 @@ public class Usuario_ActividadRepositoryImpl implements Usuario_ActividadReposit
     @Override
     public void deleteAllUsuarios_Actividades() {
         dao.deleteAll();
-        dao.resetTable();
+       //dao.resetTable();
     }
 
     public void deleteActividadesUsuario_Actividad(String uid) {

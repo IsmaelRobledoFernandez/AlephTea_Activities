@@ -20,9 +20,11 @@ public interface ActividadDAO {
     @Query("delete from Actividad")
     void deleteAll();
 
-    // Consulta alternativa: update sqlite_sequence set seq=0 where name='Actividad'
-    @Query("delete from sqlite_sequence")
+    /*
+    // Consulta alternativa: update sqlite_sequence set seq=0 where name='actividad'
+    @Query("update sqlite_sequence set seq=0 where name='actividad'")
     void resetTable();
+     */
 
     @Query("select * from Actividad where actividadId = :actividadId")
     Actividad findById(int actividadId);

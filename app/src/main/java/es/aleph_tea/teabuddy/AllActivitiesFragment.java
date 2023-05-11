@@ -75,8 +75,8 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
         actividadViewModel.getAll().observe(this, new Observer<List<Actividad>>() {
             @Override
             public void onChanged(List<Actividad> actividades) {
-                Log.d("onRoomChange", actividades.toString());
-                Log.d("onRoomChange", "Tamanio: " + actividades.size());
+                Log.d("onRoomChangeActividad", actividades.toString());
+                Log.d("onRoomChangeActividad", "Tamanio: " + actividades.size());
                 // Obtencion y printado de todos los nombres de las actividades en la lista
                 putActividades(nombresActividades,actividades);
                 setAdapterToView(nombresActividades);

@@ -29,7 +29,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     @Override
     public void deleteAllUsuarios() {
         dao.deleteAll();
-        dao.resetTable();
+        //dao.resetTable();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
-    public Actividad findByIdUsuario(int uid) {
+    public Usuario findByIdUsuario(int uid) {
         return dao.findById(uid);
     }
 
