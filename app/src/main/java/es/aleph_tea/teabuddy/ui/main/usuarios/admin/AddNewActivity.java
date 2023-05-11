@@ -12,10 +12,25 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.util.Scanner;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import es.aleph_tea.teabuddy.interfaces.LocalizacionActividadIn;
+import es.aleph_tea.teabuddy.models.LocalizacionActividad;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,9 +53,9 @@ import es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity;
 
 public class AddNewActivity extends AppCompatActivity {
     DatabaseReference dbRef;
-    String nombre_actividad_str, descripcion_actividad_str, fecha_actividad_str, hora_actividad_str, localizacion_str;
+    String nombre_actividad_str, ciudad_str, descripcion_actividad_str, fecha_actividad_str, hora_actividad_str, localizacion_str;
     Button añadir_actividad;
-    EditText nombre_actividad, descripcion_actividad, fecha_actividad, hora_actividad, localizacion;
+    EditText nombre_actividad, ciudad, descripcion_actividad, fecha_actividad, hora_actividad, localizacion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         dbRef = FirebaseDatabase.getInstance().getReference("ActividadesAsociacion");
@@ -50,6 +65,43 @@ public class AddNewActivity extends AppCompatActivity {
         gestion();
     }
 
+    private String getLinkLocation(String location, String ciudad) {
+        String hiperenlaceGoogleMaps = "";
+        double lat;
+        double lon;
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://nominatim.openstreetmap.org")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        LocalizacionActividadIn api = retrofit.create(LocalizacionActividadIn.class);
+
+
+        String query = location+"+,"+ciudad;
+        String format = "json";
+        int limit = 1;
+        Call<LocalizacionActividad> call = api.seach(query, format, limit);
+        call.enqueue(new Callback<LocalizacionActividad>() {
+            @Override
+            public void onResponse(Call<LocalizacionActividad> call, Response<LocalizacionActividad> response) {
+                if(response.isSuccessful() && response.body()!=null && response.body().length>0){
+                    LocalizacionActividad localizacionActividad = response.body();
+                   // lat = response.body()[0].getLat();
+                    //lon = response.body()[0].getLon();
+                }
+                else{
+                    System.out.println("Error: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LocalizacionActividad[]> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+        return "https://www.google.com/maps/search/?api=1&query="+lat+","+lon;
+    }
+
     private void gestion(){
         nombre_actividad = (EditText) findViewById(R.id.nombre_actividad);
         descripcion_actividad = (EditText) findViewById(R.id.descripcion_actividad);
@@ -57,7 +109,7 @@ public class AddNewActivity extends AppCompatActivity {
         hora_actividad = (EditText) findViewById(R.id.hora_actividad);
         localizacion = (EditText) findViewById(R.id.localizacion);
         añadir_actividad = findViewById(R.id.añadir_actividad);
-
+        ciudad = findViewById(R.id.Ciudad);
         fecha_actividad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +139,7 @@ public class AddNewActivity extends AppCompatActivity {
                 hora_actividad_str = hora_actividad.getText().toString().trim();
                 fecha_actividad_str = fecha_actividad.getText().toString().trim();
                 localizacion_str = localizacion.getText().toString().trim();
+                ciudad_str = ciudad.getText().toString();
 
                 nombre_actividad.setHint("Nombre Actividad");
                 descripcion_actividad.setHint("Descripcion Actividad");
@@ -99,7 +152,11 @@ public class AddNewActivity extends AppCompatActivity {
                 actividad.put("descripcion_actividad_str", descripcion_actividad_str);
                 actividad.put("hora_actividad_str", hora_actividad_str);
                 actividad.put("fecha_actividad_str", fecha_actividad_str);
-                actividad.put("localizacion_str", localizacion_str);
+                try {
+                    actividad.put("localizacion_str", getLinkLocation(localizacion_str, ciudad_str));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
 
                 dbRef.push().setValue(actividad);
 
