@@ -16,9 +16,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import es.aleph_tea.teabuddy.database.AppDatabase;
 import es.aleph_tea.teabuddy.database.dao.ActividadDAO;
@@ -44,8 +46,6 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
 
     private ListView mListView;
 
-    private List<Integer> posicionActividadId;
-
     private List<String> nombresActividades;
 
     private ArrayAdapter<String> mAdapter;
@@ -55,6 +55,8 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
     ActividadDAO dao;
 
     ActividadRepository repo;
+
+    private Map<Integer,Integer> clickAID;
 
     ActividadViewModel actividadViewModel;
 
@@ -89,12 +91,13 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Inicializacion de la ListView, la lista de actividades, el adapter,
-        // y finalmente la lista de mapeo de posiciones de elementos
-        // de la lista con sus actividades inscritas correspondientes
+        List<String> nombresActividades;
+
+        // Inicializacion de la ListView, la lista de actividades, el adapter
+        // y la lista de ID's de actividad
         mListView = (ListView) view.findViewById(R.id.listViewIActivities);
-        posicionActividadId = new ArrayList<>();
         nombresActividades = new ArrayList<>();
+        clickAID = new HashMap<>();
 
         // Viewmodel Usuario_Actividad
         usuario_actividadViewModel = ViewModelProviders.of(this).get(Usuario_ActividadViewModel.class);
@@ -162,7 +165,8 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
         // mapeado a la posicion que ocupa la actividad en la lista
         // de actividades inscritas
         Intent intent = new Intent(getActivity().getApplicationContext(), ActivityDetailsActivity.class);
-        intent.putExtra("actividadId", posicionActividadId.get(position));
+        if (clickAID != null)
+            intent.putExtra("actividadId",clickAID.get(position));
         startActivity(intent);
 
     }
@@ -175,14 +179,17 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
 
     private void putActividades(List<String> actividades, List<Actividad> actividadesInscritas) {
         actividades.clear();
-        for (Actividad i : actividadesInscritas) {
-            Log.d("actividadID", "id: " + i.getActividadId());
-            posicionActividadId.add(i.getActividadId());
-            actividades.add(i.getNombre());
-            Log.d("ListadoActividadesRoom", "Nombre=" + i.getNombre() +
-                    ", Descripcion=" + i.getDescripcion() +
-                    ", FechaHora=" + i.getFechaHora() +
-                    ", Localizacion=" + i.getLocalizacion() );
+        clickAID.clear();
+        int i=0;
+        for (Actividad a : actividadesInscritas) {
+            Log.d("actividadID", "id: " + a.getActividadId());
+            actividades.add(a.getNombre());
+            clickAID.put(i,a.getActividadId());
+            i++;
+            Log.d("ListadoActividadesRoom", "Nombre=" + a.getNombre() +
+                    ", Descripcion=" + a.getDescripcion() +
+                    ", FechaHora=" + a.getFechaHora() +
+                    ", Localizacion=" + a.getLocalizacion() );
         }
     }
 }

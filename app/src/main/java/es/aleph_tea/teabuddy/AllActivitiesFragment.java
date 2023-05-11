@@ -17,7 +17,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.interfaces.ListaActividades;
@@ -33,6 +35,8 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
     private ListView mListView;
 
     private ArrayAdapter<String> mAdapter;
+
+    private Map<Integer,Integer> clickAID;
 
     ActividadViewModel actividadViewModel;
 
@@ -66,9 +70,11 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
 
         List<String> nombresActividades;
 
-        // Inicializacion de la ListView, la lista de actividades y el adapter
+        // Inicializacion de la ListView, la lista de actividades, el adapter
+        // y la lista de ID's de actividad
         mListView = (ListView)view.findViewById(R.id.listViewActivities);
         nombresActividades = new ArrayList<>();
+        clickAID = new HashMap<>();
 
         // Uso de ViewModel para escuchar cambios en la ROOM BD
         actividadViewModel = ViewModelProviders.of(this).get(ActividadViewModel.class);
@@ -98,7 +104,8 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
         // posicion = posicion + 1 porque los indices de la BD ROOM empiezan en 1
         // De no pasar así la posición, no se recuperaría la actividad correctamente
         Intent intent = new Intent(getActivity().getApplicationContext(), ActivityDetailsActivity.class);
-        intent.putExtra("actividadId",position + 1);
+        if (clickAID != null)
+            intent.putExtra("actividadId",clickAID.get(position));
         startActivity(intent);
 
     }
@@ -111,12 +118,16 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
 
     private void putActividades(List<String> actividades,List<Actividad> actividadesTotales) {
         actividades.clear();
-        for (Actividad i: actividadesTotales) {
-            actividades.add(i.getNombre());
-            Log.d("ListadoActividadesRoom", "Nombre=" + i.getNombre() +
-                    ", Descripcion=" + i.getDescripcion() +
-                    ", FechaHora=" + i.getFechaHora() +
-                    ", Localizacion=" + i.getLocalizacion());
+        clickAID.clear();
+        int i=0;
+        for (Actividad a: actividadesTotales) {
+            actividades.add(a.getNombre());
+            clickAID.put(i,a.getActividadId());
+            i++;
+            Log.d("ListadoActividadesRoom", "Nombre=" + a.getNombre() +
+                    ", Descripcion=" + a.getDescripcion() +
+                    ", FechaHora=" + a.getFechaHora() +
+                    ", Localizacion=" + a.getLocalizacion());
         }
     }
 }
