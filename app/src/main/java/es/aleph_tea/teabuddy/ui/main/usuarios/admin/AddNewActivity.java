@@ -41,6 +41,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -52,6 +54,8 @@ import es.aleph_tea.teabuddy.models.Usuario;
 import es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity;
 
 public class AddNewActivity extends AppCompatActivity {
+    private Retrofit retrofit;
+    private LocalizacionActividad localizacionActividad;
     DatabaseReference dbRef;
     String nombre_actividad_str, ciudad_str, descripcion_actividad_str, fecha_actividad_str, hora_actividad_str, localizacion_str;
     Button añadir_actividad;
@@ -69,8 +73,11 @@ public class AddNewActivity extends AppCompatActivity {
         String hiperenlaceGoogleMaps = "";
         double lat;
         double lon;
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
 
-        Retrofit retrofit = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl("https://nominatim.openstreetmap.org")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -84,22 +91,20 @@ public class AddNewActivity extends AppCompatActivity {
         call.enqueue(new Callback<LocalizacionActividad>() {
             @Override
             public void onResponse(Call<LocalizacionActividad> call, Response<LocalizacionActividad> response) {
-                if(response.isSuccessful() && response.body()!=null && response.body().length>0){
-                    LocalizacionActividad localizacionActividad = response.body();
-                   // lat = response.body()[0].getLat();
-                    //lon = response.body()[0].getLon();
+                if(response.isSuccessful()){
+                    localizacionActividad = response.body();
                 }
                 else{
-                    System.out.println("Error: " + response.code());
+                    Log.e("TAG", " onResponse: " + response.errorBody());
                 }
             }
 
             @Override
-            public void onFailure(Call<LocalizacionActividad[]> call, Throwable t) {
-                System.out.println("Error: " + t.getMessage());
+            public void onFailure(Call<LocalizacionActividad> call, Throwable t) {
+                Log.e("TAG", " onFailure: " + t.getMessage());
             }
         });
-        return "https://www.google.com/maps/search/?api=1&query="+lat+","+lon;
+        return "https://www.google.com/maps/search/?api=1&query="+localizacionActividad.getLat()+","+localizacionActividad.getLon();
     }
 
     private void gestion(){
