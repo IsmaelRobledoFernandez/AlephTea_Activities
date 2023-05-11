@@ -41,7 +41,7 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
     ActividadViewModel actividadViewModel;
 
     public AllActivitiesFragment() {
-        // Constructor público requerido
+        // Constructor público requeridoAllActivitiesFragment
     }
 
     public static AllActivitiesFragment newInstance(String param1, String param2) {

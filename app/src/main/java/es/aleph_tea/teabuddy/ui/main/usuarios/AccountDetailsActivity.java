@@ -1,7 +1,7 @@
-package es.aleph_tea.teabuddy.login;
+package es.aleph_tea.teabuddy.ui.main.usuarios;
 
-import static es.aleph_tea.teabuddy.LoginMainActivity.PREFERENCE_ESTADO_BUTTON_SESION;
-import static es.aleph_tea.teabuddy.LoginMainActivity.STRING_PREFERENCES;
+import static es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity.PREFERENCE_ESTADO_BUTTON_SESION;
+import static es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity.STRING_PREFERENCES;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import es.aleph_tea.teabuddy.LoginMainActivity;
 import es.aleph_tea.teabuddy.R;
 
 public class AccountDetailsActivity extends AppCompatActivity {

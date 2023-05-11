@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.usuarios.admin.modificacionActividades"
+    android:padding="30dp">
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:text="Modificar Actividad"
+        android:textSize="33dp"
+        android:textColor="@color/blue_100"
+        android:fontFamily="@font/ysabeaufont_wght"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/nombre_actividad"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Nombre Actividad"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/info" />
+
+    <EditText
+        android:id="@+id/descripcion_actividad"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Descripcion Actividad"
+        android:inputType="textMultiLine"
+        android:imeOptions="actionDone"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nombre_actividad" />
+
+    <EditText
+        android:id="@+id/fecha_actividad"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:hint="Fecha Actividad"
+        android:focusableInTouchMode="false"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:selectAllOnFocus="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+        app:layout_constraintTop_toBottomOf="@+id/descripcion_actividad" />
+
+    <EditText
+        android:id="@+id/hora_actividad"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:hint="Hora Actividad"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fecha_actividad"
+        />
+    <EditText
+        android:id="@+id/localizacion"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:hint="Localizacion Actividad"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hora_actividad"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/localizacion"
+        >
+
+        <Button
+            android:id="@+id/eliminar_actividad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="64dp"
+            android:layout_weight=".5"
+            android:padding="10dp"
+            android:text="Eliminar Actividad"
+            android:textSize="15sp"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/alta_actividad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="64dp"
+            android:layout_weight=".5"
+            android:padding="10dp"
+            android:text="Actualizar Actividad"
+            android:textSize="15sp"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

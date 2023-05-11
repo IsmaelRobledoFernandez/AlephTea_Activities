@@ -8,17 +8,16 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import es.aleph_tea.teabuddy.controllers.FBRTDatabaseController;
 
 import android.view.View;
 import android.widget.ImageView;
 
-
 import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
-import es.aleph_tea.teabuddy.login.AccountDetailsActivity;
+
+import es.aleph_tea.teabuddy.ui.main.usuarios.AccountDetailsActivity;
+import es.aleph_tea.teabuddy.ui.main.adapters.SectionsPagerAdapter;
 import es.aleph_tea.teabuddy.models.Sesion;
-import es.aleph_tea.teabuddy.ui.main.SectionsPagerAdapter;
 
 public class ActivitiesListActivity extends AppCompatActivity {
 

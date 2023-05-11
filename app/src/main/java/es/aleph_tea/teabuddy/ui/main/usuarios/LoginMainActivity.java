@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,13 +19,22 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import es.aleph_tea.teabuddy.login.CambiarPassActivity;
-import es.aleph_tea.teabuddy.login.RegisterActivity;
+import es.aleph_tea.teabuddy.ActivitiesListActivity;
+import es.aleph_tea.teabuddy.R;
+import es.aleph_tea.teabuddy.ui.main.usuarios.admin.MainActivityAdmin;
 import es.aleph_tea.teabuddy.models.Sesion;
+import es.aleph_tea.teabuddy.ui.main.usuarios.admin.RegisterActivity;
+import es.aleph_tea.teabuddy.ui.main.usuarios.monitor.MainActivityMonitor;
 
-public class LoginMainActivity extends AppCompatActivity {
-    FirebaseAuth mAuth;
+public class
+LoginMainActivity extends AppCompatActivity {
+    DatabaseReference db;
     TextView textView, cambiar_pass;
     Button button;
     EditText emailETXT, passwordETXT;
@@ -35,20 +44,28 @@ public class LoginMainActivity extends AppCompatActivity {
     public static final String STRING_PREFERENCES = "alephapp.aleph";
     public static final String PREFERENCE_ESTADO_BUTTON_SESION = "estado.button.sesion";
 
+    private String rol_str;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Instanciar firebase
-        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance().getReference();
+
         super.onCreate(savedInstanceState);
         if(!obtenerEstadoBoton()){
-            //Mostrar la vista del login (activity_main)
             setContentView(R.layout.activity_login);
             gestionLogin();
             registro_usuario();
             cambiar_password();
         }else{
             finish();
-            startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
+            //OK: Consultar tipo de usuario y ver su rol. En base a esto, mostrar mainActivity de su rol
+            if(rol_str.equals("Administrador")) {
+                startActivity(new Intent(getApplicationContext(), MainActivityAdmin.class));
+            } else if(rol_str.equals("Monitor")) {
+                startActivity(new Intent(getApplicationContext(), MainActivityMonitor.class));
+            } else if(rol_str.equals("Voluntario")){
+                startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
+            }
         }
     }
 
@@ -61,7 +78,6 @@ public class LoginMainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void cambiar_password(){
         cambiar_pass = findViewById(R.id.cambiar_password);
         cambiar_pass.setOnClickListener(new View.OnClickListener() {
@@ -110,23 +126,45 @@ public class LoginMainActivity extends AppCompatActivity {
     }
     private void loginUser(String emailUser, String passwordUser) {
         // Gestionamos el signIn con Firebase
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(emailUser, passwordUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     if(mAuth.getCurrentUser().isEmailVerified()){
-                        if(sesion.isMantenerIniciado()){
-                            // Acabamos la actividad de login
-                            finish();
-                        }
-                        Toast.makeText(LoginMainActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
-                        Log.d("SIGN IN", "Usuario ha hecho login correctamente");
+
+                        FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
+
+                        String uid = mAuth.getCurrentUser().getUid();
+
+                        DatabaseReference dbReference = dbRef.getReference();
+                        dbReference.child("UsuariosAsociacion").addListenerForSingleValueEvent(new ValueEventListener() { //addValueEventListener
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    rol_str = snapshot.child(uid).child("rol").getValue().toString();
+
+                                    Log.d("USUARIO", "ROL: " + rol_str);
+
+                                    if(rol_str.equals("Administrador")) {
+                                        startActivity(new Intent(getApplicationContext(), MainActivityAdmin.class));
+                                    } else if(rol_str.equals("Monitor")) {
+                                        startActivity(new Intent(getApplicationContext(), MainActivityMonitor.class));
+                                    } else if(rol_str.equals("Voluntario")){
+                                        startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(LoginMainActivity.this, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(LoginMainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Toast.makeText(LoginMainActivity.this, "Revisa tu email", Toast.LENGTH_SHORT).show();
-                    }
-                }else{
+                } else {
                     Toast.makeText(LoginMainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -148,17 +186,5 @@ public class LoginMainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
         return preferences.getBoolean(PREFERENCE_ESTADO_BUTTON_SESION, false);
     }
-
-    // OK: La primera vez que hace login OK el usuario se guarda la información de que ha hecho login exitosamente
-    // OK: Poner boton para cerrar sesión dentro de la app
-    // OK: Poner boton para borrar cuenta y para cambiar contraseña
-    // OK: Cambiar contraseña desde el login
-
-
-    // https://github.com/firebase/snippets-android/blob/7d6bff60b1f57b13edd34a794619264c14cf0b3d/auth/app/src/main/java/com/google/firebase/quickstart/auth/CustomAuthActivity.java#L54-L60
-
-    // INFO: https://firebase.google.com/docs/auth/android/manage-users?hl=es-419
-    // INFO: https://www.youtube.com/watch?v=06YKlMdWyMM
-    // INFO: (Para mantener sesion del usuario abierta) https://www.youtube.com/watch?v=NOxoBatLXK0
 
 }

@@ -1,20 +1,36 @@
 package es.aleph_tea.teabuddy.models;
 
 public class Usuario {
-    private String email;
-    private String password;
-    private String n_telefono;
-    private String fecha_nacimiento;
-    private String apellido;
-    private String nombre;
+    public String uid;
+    public String email;
+    public String password;
+    public String numero_telefono;
+    public String fecha_nacimiento;
+    public String apellidos;
+    public String nombre;
 
-    public Usuario(String email, String password, String n_telefono, String fecha_nacimiento, String apellido, String nombre) {
+    public String rol;
+
+    public Usuario(){
+
+    }
+    public Usuario(String email, String numero_telefono, String fecha_nacimiento, String apellidos, String nombre, String rol) {
         this.email = email;
-        this.password = password;
-        this.n_telefono = n_telefono;
+        this.numero_telefono = numero_telefono;
         this.fecha_nacimiento = fecha_nacimiento;
-        this.apellido = apellido;
+        this.apellidos = apellidos;
         this.nombre = nombre;
+        this.rol = rol;
+    }
+    public String getRol(){return rol;}
+
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getEmail() {
@@ -34,11 +50,11 @@ public class Usuario {
     }
 
     public String getN_telefono() {
-        return n_telefono;
+        return numero_telefono;
     }
 
     public void setN_telefono(String n_telefono) {
-        this.n_telefono = n_telefono;
+        this.numero_telefono = numero_telefono;
     }
 
     public String getFecha_nacimiento() {
@@ -50,11 +66,11 @@ public class Usuario {
     }
 
     public String getApellido() {
-        return apellido;
+        return apellidos;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellido(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getNombre() {
@@ -63,5 +79,9 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }
