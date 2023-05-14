@@ -8,17 +8,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import es.aleph_tea.teabuddy.R;
+import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
-import es.aleph_tea.teabuddy.models.Actividad;
 
 public class AdapterActividades extends RecyclerView.Adapter<AdapterActividades.ActividadesViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
-    ArrayList<Actividad> listaActividades;
+    List<Actividad> listaActividades;
 
-    public AdapterActividades(RecyclerViewInterface recyclerViewInterface, ArrayList<Actividad> listaActividades) {
+    public AdapterActividades(RecyclerViewInterface recyclerViewInterface, List<Actividad> listaActividades) {
         this.recyclerViewInterface = recyclerViewInterface;
         this.listaActividades = listaActividades;
     }
@@ -34,9 +39,13 @@ public class AdapterActividades extends RecyclerView.Adapter<AdapterActividades.
     @Override
     public void onBindViewHolder(@NonNull AdapterActividades.ActividadesViewHolder holder, int position) {
         Actividad actividad = listaActividades.get(position);
-        holder.nombre.setText(actividad.getNombre_actividad_str());
-        holder.fecha.setText(actividad.getFecha_actividad_str());
-        holder.hora.setText(actividad.getHora_actividad_str());
+        holder.nombre.setText(actividad.getNombre());
+        //Generamos un formato para la fecha
+        DateFormat fecha = new SimpleDateFormat("dd/mm/yyyy");
+        holder.fecha.setText(fecha.format(new Date(new Timestamp(actividad.getFechaHora()).getTime())));
+        //Generamos un formato para la hora
+        DateFormat hora = new SimpleDateFormat("hh:mm");
+        holder.hora.setText(hora.format(new Date(new Timestamp(actividad.getFechaHora()).getTime())));
     }
 
     @Override

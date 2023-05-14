@@ -10,7 +10,7 @@ public class Usuario_Actividad {
     @NonNull
     String uid;
     @NonNull
-    int actividadId;
+    String actividadId;
     boolean inscrito;
 
     @Override
@@ -27,11 +27,11 @@ public class Usuario_Actividad {
         this.uid = uid;
     }
 
-    public int getActividadId() {
+    public String getActividadId() {
         return actividadId;
     }
 
-    public void setActividadId(int actividadId) {
+    public void setActividadId(String actividadId) {
         this.actividadId = actividadId;
     }
 

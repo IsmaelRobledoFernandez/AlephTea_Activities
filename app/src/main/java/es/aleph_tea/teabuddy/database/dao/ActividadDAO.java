@@ -27,7 +27,7 @@ public interface ActividadDAO {
      */
 
     @Query("select * from Actividad where actividadId = :actividadId")
-    Actividad findById(int actividadId);
+    Actividad findById(String actividadId);
 
     @Insert
     void insert(Actividad actividad);

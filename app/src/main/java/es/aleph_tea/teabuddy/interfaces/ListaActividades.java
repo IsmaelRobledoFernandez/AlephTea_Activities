@@ -15,6 +15,6 @@ public interface ListaActividades {
 
    void onViewCreated(View view, Bundle savedInstanceState);
 
-   void onItemClick(AdapterView<?> adapterView, View view, int position, long l);
+   void onItemClick(int position);
 
 }

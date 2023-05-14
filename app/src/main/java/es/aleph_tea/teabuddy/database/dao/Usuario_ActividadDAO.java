@@ -18,7 +18,7 @@ public interface Usuario_ActividadDAO {
     List<Usuario_Actividad> getInscripciones(String uid);
 
     @Query("select * from Usuario_Actividad where actividadId = :actividadId")
-    Usuario_Actividad getUsuariosInscritos(int actividadId);
+    Usuario_Actividad getUsuariosInscritos(String actividadId);
 
     @Query("delete from Usuario_Actividad")
     void deleteAll();
@@ -33,7 +33,7 @@ public interface Usuario_ActividadDAO {
      */
 
     @Query("select * from Usuario_Actividad where uid = :uid and actividadId = :actividadId")
-    Usuario_Actividad findById(String uid,int actividadId);
+    Usuario_Actividad findById(String uid,String actividadId);
 
     @Insert
     void insert(Usuario_Actividad usuario_actividad);
@@ -46,6 +46,6 @@ public interface Usuario_ActividadDAO {
     LiveData<List<Usuario_Actividad>> findInscritas(String uid);
 
     @Query("select * from Usuario_Actividad where actividadId = :actividadId")
-    LiveData<List<Usuario_Actividad>> findUsuariosInscritos(int actividadId);
+    LiveData<List<Usuario_Actividad>> findUsuariosInscritos(String actividadId);
 
 }

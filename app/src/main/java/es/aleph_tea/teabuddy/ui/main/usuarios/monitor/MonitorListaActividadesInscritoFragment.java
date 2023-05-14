@@ -14,17 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
-import es.aleph_tea.teabuddy.models.Actividad;
 
 public class MonitorListaActividadesInscritoFragment extends Fragment implements RecyclerViewInterface{
 
     RecyclerView listaActividadesRV;
 
-    ArrayList<Actividad> lista_actividades = new ArrayList<>();
+    List<Actividad> lista_actividades = new ArrayList<>();
 
     AdapterActividades adapterActividades;
     private static final String ARG_PARAM1 = "param1";
@@ -66,11 +67,24 @@ public class MonitorListaActividadesInscritoFragment extends Fragment implements
 
         // TODO: Obtener actividades a las que esta inscrito el monitor
 
-        Actividad actividad1 = new Actividad("Paseo por el prado", "Paseo por el prado con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
-        Actividad actividad2 = new Actividad("Paseo por el parque", "Paseo por el parque con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
-        Actividad actividad3 = new Actividad("Visita al caixaforum", "Visita al caixaforum con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
-        Actividad actividad4 = new Actividad("Festival de pintura rupestre", "Festival de pintura rupestre con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
-        Actividad actividad5 = new Actividad("Visita a la granjaescuela", "Visita a la granjaescuela con un grupo de mayores de dieciseis y con un equipo de dos monitores", "11/11/11", "12:00-14:00", "hiperenlace");
+        Actividad actividad1 = new Actividad();
+        Actividad actividad3 = new Actividad();
+        Actividad actividad5 = new Actividad();
+
+        actividad1.setNombre("Paseo por el prado");
+        actividad1.setDescripcion("Paseo por el prado con un grupo de mayores de dieciseis y con un equipo de dos monitores");
+        actividad1.setFechaHora(3478465l);
+        actividad1.setLocalizacion("fioror");
+
+        actividad3.setNombre("Paseo por el prado");
+        actividad3.setDescripcion("Paseo por el prado con un grupo de mayores de dieciseis y con un equipo de dos monitores");
+        actividad3.setFechaHora(3478465l);
+        actividad3.setLocalizacion("fioror");
+
+        actividad5.setNombre("Paseo por el prado");
+        actividad5.setDescripcion("Paseo por el prado con un grupo de mayores de dieciseis y con un equipo de dos monitores");
+        actividad5.setFechaHora(3478465l);
+        actividad5.setLocalizacion("fioror");
 
         lista_actividades.add(actividad1);
         lista_actividades.add(actividad3);
@@ -84,11 +98,11 @@ public class MonitorListaActividadesInscritoFragment extends Fragment implements
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getContext(), MostrarInfoMisActividades.class);
-        intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre_actividad_str());
-        intent.putExtra("fecha_actividad", lista_actividades.get(position).getFecha_actividad_str());
-        intent.putExtra("hora_actividad", lista_actividades.get(position).getHora_actividad_str());
-        intent.putExtra("descripcion_actividad", lista_actividades.get(position).getDescripcion_actividad_str());
-        intent.putExtra("localizacion_actividad", lista_actividades.get(position).getLocalizacion_str());
+        intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre());
+        intent.putExtra("fecha_actividad", lista_actividades.get(position).getFechaHora());
+        intent.putExtra("hora_actividad", lista_actividades.get(position).getFechaHora());
+        intent.putExtra("descripcion_actividad", lista_actividades.get(position).getDescripcion());
+        intent.putExtra("localizacion_actividad", lista_actividades.get(position).getLocalizacion());
         startActivity(intent);
     }
 

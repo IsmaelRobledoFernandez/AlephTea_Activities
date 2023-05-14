@@ -32,9 +32,7 @@ public class ActivityDetailsActivity extends AppCompatActivity implements Second
     private ActivityActivityDetailsBinding binding;
 
     // ID de la actividad actual
-    // Lo inicializaremos a -1 para saber cuando este valor fue modificado
-    // Y así evitar errores con los botones de apuntarse y desapuntarse
-    int idActividadActual = -1;
+    String idActividadActual;
 
     // Menu FAB
     FloatingActionMenu actionMenu;
@@ -53,7 +51,7 @@ public class ActivityDetailsActivity extends AppCompatActivity implements Second
 
         if(parametro != null) {
 
-            idActividadActual = parametro.getInt("actividadId");
+            idActividadActual = parametro.getString("actividadId");
 
             // Inicialización BD Room
             db = AppDatabase.getInstance(this.getApplicationContext());
@@ -113,16 +111,16 @@ public class ActivityDetailsActivity extends AppCompatActivity implements Second
     }
 
     public void clickApuntarse(View view) {
-        if(idActividadActual != -1)
+        if(idActividadActual != null)
         mostrarDialogoApuntarse(idActividadActual);
     }
 
     public void clickDesapuntarse(View view) {
-        if(idActividadActual != -1)
+        if(idActividadActual != null)
         mostrarDialogoDesapuntarse(idActividadActual);
     }
 
-    private void mostrarDialogoApuntarse(int actividadId) {
+    private void mostrarDialogoApuntarse(String actividadId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityDetailsActivity.this);
         builder.setTitle("Atención!");
         builder.setMessage("¿Quiere apuntarse a esta actividad?")
@@ -142,7 +140,7 @@ public class ActivityDetailsActivity extends AppCompatActivity implements Second
                 }).show();
     }
 
-    private void mostrarDialogoDesapuntarse(int actividadId) {
+    private void mostrarDialogoDesapuntarse(String actividadId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityDetailsActivity.this);
         builder.setTitle("Atención!");
         builder.setMessage("¿Quiere desapuntarse de esta actividad?")
@@ -162,14 +160,14 @@ public class ActivityDetailsActivity extends AppCompatActivity implements Second
                 }).show();
     }
 
-    private boolean inscribirUsuario(int actividadId) {
+    private boolean inscribirUsuario(String actividadId) {
 
         boolean success;
         // Inicialización FirebaseRTDB
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("Usuario_Actividad").child(Sesion.SesionUid)
-                .child(Integer.toString(actividadId))
+                .child(actividadId)
                 .setValue(true);
 
         success = true;
@@ -177,14 +175,14 @@ public class ActivityDetailsActivity extends AppCompatActivity implements Second
         return success;
     }
 
-    private boolean DesinscribirUsuario(int actividadId) {
+    private boolean DesinscribirUsuario(String actividadId) {
 
         boolean success;
         // Inicialización FirebaseRTDB
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("Usuario_Actividad").child(Sesion.SesionUid)
-                .child(Integer.toString(actividadId))
+                .child(actividadId)
                 .setValue(false);
 
         success = true;

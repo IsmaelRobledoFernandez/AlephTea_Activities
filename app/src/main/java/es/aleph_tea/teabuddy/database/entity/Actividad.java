@@ -10,7 +10,7 @@ public class Actividad {
 
     @PrimaryKey(autoGenerate = false)
     @NonNull
-    int actividadId;
+    String actividadId;
     String nombre;
     String descripcion;
     Long fechaHora;
@@ -21,11 +21,11 @@ public class Actividad {
         return "Id: " + getActividadId() + " Nombre: " + getNombre();
     }
 
-    public int getActividadId() {
+    public String getActividadId() {
         return actividadId;
     }
 
-    public void setActividadId(int actividadId) {
+    public void setActividadId(String actividadId) {
         this.actividadId = actividadId;
     }
 

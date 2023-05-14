@@ -10,13 +10,13 @@ public interface Usuario_ActividadRepository {
 
     List<Usuario_Actividad> getInscripcionesUsuario_Actividad(String uid);
 
-    Usuario_Actividad getUsuario_ActividadUsuariosInscritos(int actividadId);
+    Usuario_Actividad getUsuario_ActividadUsuariosInscritos(String actividadId);
 
     void deleteAllUsuarios_Actividades();
 
     void deleteActividadesUsuario_Actividad(String uid);
 
-    Usuario_Actividad findByIdUsuario_Actividad(String uid,int actividadId);
+    Usuario_Actividad findByIdUsuario_Actividad(String uid,String actividadId);
 
     void insertUsuario_Actividad(Usuario_Actividad usuario_actividad);
 
@@ -25,5 +25,5 @@ public interface Usuario_ActividadRepository {
     void deleteUsuario_Actividad(Usuario_Actividad usuario_actividad);
 
     LiveData<List<Usuario_Actividad>> findUsuarios_ActividadesInscritasAUsuario(String uid);
-    LiveData<List<Usuario_Actividad>> findUsuarios_ActividadesInscritosAActividades(int actividadId);
+    LiveData<List<Usuario_Actividad>> findUsuarios_ActividadesInscritosAActividades(String actividadId);
 }

@@ -5,13 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import es.aleph_tea.teabuddy.R;
 
 public class MostrarInfoActividades extends AppCompatActivity {
 
     TextView nombre_actividad, descripcion_actividad, fecha_actividad, hora_actividad, localizacion;
 
-    String nombre_actividad_str, descripcion_actividad_str, fecha_actividad_str, localizacion_actividad_str, hora_actividad_str;
+    String nombre_actividad_str, descripcion_actividad_str, localizacion_actividad_str;
+    Long fecha_actividad_str, hora_actividad_str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +32,19 @@ public class MostrarInfoActividades extends AppCompatActivity {
 
         nombre_actividad_str = getIntent().getStringExtra("nombre_actividad");
         descripcion_actividad_str = getIntent().getStringExtra("descripcion_actividad");
-        fecha_actividad_str = getIntent().getStringExtra("fecha_actividad");
-        hora_actividad_str = getIntent().getStringExtra("hora_actividad");
+        fecha_actividad_str = getIntent().getLongExtra("fecha_actividad",0l);
+        hora_actividad_str = getIntent().getLongExtra("hora_actividad",0l);
         localizacion_actividad_str = getIntent().getStringExtra("localizacion_actividad");
 
 
         nombre_actividad.setText(nombre_actividad_str);
         descripcion_actividad.setText(descripcion_actividad_str);
-        fecha_actividad.setText(fecha_actividad_str);
-        hora_actividad.setText(hora_actividad_str);
+        //Generamos un formato para la fecha
+        DateFormat fecha = new SimpleDateFormat("dd/mm/yyyy");
+        fecha_actividad.setText(fecha.format(new Date(new Timestamp(fecha_actividad_str).getTime())));
+        //Generamos un formato para la hora
+        DateFormat hora = new SimpleDateFormat("hh:mm");
+        hora_actividad.setText(hora.format(new Date(new Timestamp(hora_actividad_str).getTime())));
         localizacion.setText(localizacion_actividad_str);
     }
 }

@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".EnrolledActivitiesFragment">
 
-    <ListView
-        android:id="@+id/listViewIActivities"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listaActividadesERV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

@@ -23,10 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
-import es.aleph_tea.teabuddy.models.Actividad;
 import es.aleph_tea.teabuddy.ui.main.usuarios.admin.AddNewActivity;
 import es.aleph_tea.teabuddy.ui.main.usuarios.admin.AdminListaActividadesFragment;
 
@@ -88,7 +88,7 @@ public class MonitorListaActividadesFragment extends Fragment implements Recycle
                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                     actividad = childSnapshot.getValue(Actividad.class);
                     lista_actividades.add(actividad);
-                    Log.d("OK", "Nombre de la tarea: " + actividad.getNombre_actividad_str());
+                    Log.d("OK", "Nombre de la tarea: " + actividad.getNombre());
                 }
                 adapterActividades = new AdapterActividades(MonitorListaActividadesFragment.this, lista_actividades);
                 listaActividadesRV.setAdapter(adapterActividades);
@@ -106,11 +106,11 @@ public class MonitorListaActividadesFragment extends Fragment implements Recycle
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getContext(), MostrarInfoActividades.class);
-        intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre_actividad_str());
-        intent.putExtra("fecha_actividad", lista_actividades.get(position).getFecha_actividad_str());
-        intent.putExtra("hora_actividad", lista_actividades.get(position).getHora_actividad_str());
-        intent.putExtra("descripcion_actividad", lista_actividades.get(position).getDescripcion_actividad_str());
-        intent.putExtra("localizacion_actividad", lista_actividades.get(position).getLocalizacion_str());
+        intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre());
+        intent.putExtra("fecha_actividad", lista_actividades.get(position).getFechaHora());
+        intent.putExtra("hora_actividad", lista_actividades.get(position).getFechaHora());
+        intent.putExtra("descripcion_actividad", lista_actividades.get(position).getDescripcion());
+        intent.putExtra("localizacion_actividad", lista_actividades.get(position).getLocalizacion());
         startActivity(intent);
     }
 }

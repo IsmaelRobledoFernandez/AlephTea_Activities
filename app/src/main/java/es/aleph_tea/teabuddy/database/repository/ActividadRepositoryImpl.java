@@ -27,7 +27,7 @@ public class ActividadRepositoryImpl implements ActividadRepository{
     }
 
     @Override
-    public Actividad findByIdActividad(int actividadId) { return dao.findById(actividadId); }
+    public Actividad findByIdActividad(String actividadId) { return dao.findById(actividadId); }
 
     @Override
     public void insertActividad(Actividad actividad) {

@@ -21,7 +21,7 @@ public class Usuario_ActividadRepositoryImpl implements Usuario_ActividadReposit
     }
 
     @Override
-    public Usuario_Actividad getUsuario_ActividadUsuariosInscritos(int actividadId) {
+    public Usuario_Actividad getUsuario_ActividadUsuariosInscritos(String actividadId) {
         return dao.getUsuariosInscritos(actividadId);
     }
 
@@ -36,7 +36,7 @@ public class Usuario_ActividadRepositoryImpl implements Usuario_ActividadReposit
     }
 
     @Override
-    public Usuario_Actividad findByIdUsuario_Actividad(String uid, int actividadId) {
+    public Usuario_Actividad findByIdUsuario_Actividad(String uid, String actividadId) {
         return dao.findById(uid,actividadId);
     }
 
@@ -61,7 +61,7 @@ public class Usuario_ActividadRepositoryImpl implements Usuario_ActividadReposit
     }
 
     @Override
-    public LiveData<List<Usuario_Actividad>> findUsuarios_ActividadesInscritosAActividades(int actividadId) {
+    public LiveData<List<Usuario_Actividad>> findUsuarios_ActividadesInscritosAActividades(String actividadId) {
         return dao.findUsuariosInscritos(actividadId);
     }
 }

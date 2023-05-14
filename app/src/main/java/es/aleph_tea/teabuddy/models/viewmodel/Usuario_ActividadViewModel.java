@@ -33,6 +33,6 @@ public class Usuario_ActividadViewModel extends AndroidViewModel {
     public LiveData<List<Usuario_Actividad>> getInscritas(String uid) {
         return repo.findUsuarios_ActividadesInscritasAUsuario(uid); }
 
-    public LiveData<List<Usuario_Actividad>> getUsuariosInscritos(int actividadId) {
+    public LiveData<List<Usuario_Actividad>> getUsuariosInscritos(String actividadId) {
         return repo.findUsuarios_ActividadesInscritosAActividades(actividadId); }
 }

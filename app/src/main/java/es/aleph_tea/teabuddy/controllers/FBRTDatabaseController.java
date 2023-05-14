@@ -99,7 +99,7 @@ public class FBRTDatabaseController {
 
                         // Obtenemos los valores en crudo de cada actividad
 
-                        int actividadId = Integer.parseInt(ds.getKey());
+                        String actividadId = ds.getKey();
 
                         String nombre = ds.child("nombre").getValue().toString();
 
@@ -160,7 +160,7 @@ public class FBRTDatabaseController {
 
                         // Obtenemos los valores en crudo de cada actividad
 
-                        int actividadId = Integer.parseInt(activity.getKey());
+                        String actividadId = activity.getKey();
 
                         Boolean inscrito = (Boolean) activity.getValue();
 

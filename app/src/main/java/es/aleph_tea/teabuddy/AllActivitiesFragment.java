@@ -6,14 +6,14 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,25 +23,28 @@ import java.util.Map;
 
 import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.interfaces.ListaActividades;
+import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.viewmodel.ActividadViewModel;
+import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
 
-public class AllActivitiesFragment extends Fragment implements AdapterView.OnItemClickListener, ListaActividades {
+public class AllActivitiesFragment extends Fragment implements
+        ListaActividades, RecyclerViewInterface {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
 
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
 
-    private ArrayAdapter<String> mAdapter;
+    private AdapterActividades mAdapter;
 
-    private Map<Integer,Integer> clickAID;
+    private Map<Integer,String> clickAID;
 
     ActividadViewModel actividadViewModel;
 
     public AllActivitiesFragment() {
-        // Constructor público requeridoAllActivitiesFragment
+        // Constructor público requerido AllActivitiesFragment
     }
 
     public static AllActivitiesFragment newInstance(String param1, String param2) {
@@ -72,7 +75,7 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
 
         // Inicializacion de la ListView, la lista de actividades, el adapter
         // y la lista de ID's de actividad
-        mListView = (ListView)view.findViewById(R.id.listViewActivities);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.listaActividadesRV);
         nombresActividades = new ArrayList<>();
         clickAID = new HashMap<>();
 
@@ -85,17 +88,13 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
                 Log.d("onRoomChangeActividad", "Tamanio: " + actividades.size());
                 // Obtencion y printado de todos los nombres de las actividades en la lista
                 putActividades(nombresActividades,actividades);
-                setAdapterToView(nombresActividades);
+                setAdapterToView(actividades);
             }
         });
-
-        setAdapterToView(nombresActividades);
-
-        mListView.setOnItemClickListener(this);
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+    public void onItemClick(int position) {
 
         Toast.makeText(getContext(),"Actividad seleccionada", Toast.LENGTH_SHORT).show();
 
@@ -110,10 +109,11 @@ public class AllActivitiesFragment extends Fragment implements AdapterView.OnIte
 
     }
 
-    private void setAdapterToView(List<String> nombresActividades) {
+    private void setAdapterToView(List<Actividad> actividades) {
         // Seteo del adapter a la view
-        mAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, nombresActividades);
-        mListView.setAdapter(mAdapter);
+        mAdapter = new AdapterActividades(AllActivitiesFragment.this,actividades);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void putActividades(List<String> actividades,List<Actividad> actividadesTotales) {

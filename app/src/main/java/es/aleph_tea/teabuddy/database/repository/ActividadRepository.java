@@ -12,7 +12,7 @@ public interface ActividadRepository {
 
     void deleteAllActividades();
 
-    Actividad findByIdActividad(int actividadId);
+    Actividad findByIdActividad(String actividadId);
 
     void insertActividad(Actividad actividad);
 

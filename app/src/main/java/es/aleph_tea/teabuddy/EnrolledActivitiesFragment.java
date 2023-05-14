@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,22 +35,26 @@ import es.aleph_tea.teabuddy.database.repository.ActividadRepositoryImpl;
 import es.aleph_tea.teabuddy.database.repository.Usuario_ActividadRepository;
 import es.aleph_tea.teabuddy.database.repository.Usuario_ActividadRepositoryImpl;
 import es.aleph_tea.teabuddy.interfaces.ListaActividades;
+import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.Sesion;
 import es.aleph_tea.teabuddy.models.viewmodel.ActividadViewModel;
 import es.aleph_tea.teabuddy.models.viewmodel.Usuario_ActividadViewModel;
+import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
 
-public class EnrolledActivitiesFragment extends Fragment implements AdapterView.OnItemClickListener, ListaActividades {
+public class EnrolledActivitiesFragment extends Fragment implements
+        ListaActividades, RecyclerViewInterface {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
 
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
+
+    private Map<Integer,String> clickAID;
+    private AdapterActividades mAdapter;
 
     private List<String> nombresActividades;
-
-    private ArrayAdapter<String> mAdapter;
 
     AppDatabase db;
 
@@ -56,10 +62,7 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
 
     ActividadRepository repo;
 
-    private Map<Integer,Integer> clickAID;
-
     ActividadViewModel actividadViewModel;
-
     Usuario_ActividadViewModel usuario_actividadViewModel;
 
     public EnrolledActivitiesFragment() {
@@ -95,7 +98,7 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
 
         // Inicializacion de la ListView, la lista de actividades, el adapter
         // y la lista de ID's de actividad
-        mListView = (ListView) view.findViewById(R.id.listViewIActivities);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.listaActividadesERV);
         nombresActividades = new ArrayList<>();
         clickAID = new HashMap<>();
 
@@ -136,7 +139,7 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
                     if (ua.isInscrito()) {
                         while (it.hasNext() && !encontrado) {
                             Actividad a = it.next();
-                            if (a.getActividadId() == ua.getActividadId()) {
+                            if (a.getActividadId().equals(ua.getActividadId())) {
                                 actividadesInscritas.add(a);
                                 encontrado = true;
                             }
@@ -146,17 +149,13 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
                     }
                 }
                 putActividades(nombresActividades, actividadesInscritas);
-                setAdapterToView(nombresActividades);
+                setAdapterToView(actividadesInscritas);
             }
         });
-
-        setAdapterToView(nombresActividades);
-
-        mListView.setOnItemClickListener(this);
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+    public void onItemClick(int position) {
 
         Toast.makeText(getContext(), "Actividad inscrita seleccionada", Toast.LENGTH_SHORT).show();
 
@@ -171,25 +170,25 @@ public class EnrolledActivitiesFragment extends Fragment implements AdapterView.
 
     }
 
-    private void setAdapterToView(List<String> nombresActividades) {
+    private void setAdapterToView(List<Actividad> actividades) {
         // Seteo del adapter a la view
-        mAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, nombresActividades);
-        mListView.setAdapter(mAdapter);
+        mAdapter = new AdapterActividades(EnrolledActivitiesFragment.this,actividades);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void putActividades(List<String> actividades, List<Actividad> actividadesInscritas) {
+    private void putActividades(List<String> actividades,List<Actividad> actividadesTotales) {
         actividades.clear();
         clickAID.clear();
         int i=0;
-        for (Actividad a : actividadesInscritas) {
-            Log.d("actividadID", "id: " + a.getActividadId());
+        for (Actividad a: actividadesTotales) {
             actividades.add(a.getNombre());
             clickAID.put(i,a.getActividadId());
             i++;
-            Log.d("ListadoActividadesRoom", "Nombre=" + a.getNombre() +
+            Log.d("ListadoActividadesInscritasRoom", "Nombre=" + a.getNombre() +
                     ", Descripcion=" + a.getDescripcion() +
                     ", FechaHora=" + a.getFechaHora() +
-                    ", Localizacion=" + a.getLocalizacion() );
+                    ", Localizacion=" + a.getLocalizacion());
         }
     }
 }
