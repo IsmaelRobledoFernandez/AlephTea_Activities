@@ -25,7 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import es.aleph_tea.teabuddy.ActivitiesListActivity;
+import es.aleph_tea.teabuddy.ui.main.usuarios.voluntario.MainActivityVoluntario;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.ui.main.usuarios.admin.MainActivityAdmin;
 import es.aleph_tea.teabuddy.models.Sesion;
@@ -64,7 +64,7 @@ LoginMainActivity extends AppCompatActivity {
             } else if(rol_str.equals("Monitor")) {
                 startActivity(new Intent(getApplicationContext(), MainActivityMonitor.class));
             } else if(rol_str.equals("Voluntario")){
-                startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivityVoluntario.class));
             }
         }
     }
@@ -151,7 +151,7 @@ LoginMainActivity extends AppCompatActivity {
                                     } else if(rol_str.equals("Monitor")) {
                                         startActivity(new Intent(getApplicationContext(), MainActivityMonitor.class));
                                     } else if(rol_str.equals("Voluntario")){
-                                        startActivity(new Intent(getApplicationContext(), ActivitiesListActivity.class));
+                                        startActivity(new Intent(getApplicationContext(), MainActivityVoluntario.class));
                                     }
                                 }
                             }

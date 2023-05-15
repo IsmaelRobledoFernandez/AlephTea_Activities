@@ -9,16 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.aleph_tea.teabuddy.R;
+import es.aleph_tea.teabuddy.database.entity.Usuario;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
-import es.aleph_tea.teabuddy.models.Usuario;
 
 public class AdapterUsuarios extends RecyclerView.Adapter<AdapterUsuarios.UsuariosViewHolder> {
-    ArrayList<Usuario> listaUsuarios;
+    List<Usuario> listaUsuarios;
     private final RecyclerViewInterface recyclerViewInterface;
 
-    public AdapterUsuarios(ArrayList<Usuario> listaUsuarios, RecyclerViewInterface recyclerViewInterface){
+    public AdapterUsuarios(List<Usuario> listaUsuarios, RecyclerViewInterface recyclerViewInterface){
         this.listaUsuarios = listaUsuarios;
         this.recyclerViewInterface = recyclerViewInterface;
     }
@@ -33,7 +34,7 @@ public class AdapterUsuarios extends RecyclerView.Adapter<AdapterUsuarios.Usuari
 
     @Override
     public void onBindViewHolder(@NonNull AdapterUsuarios.UsuariosViewHolder holder, int position) {
-        holder.getNombreTV().setText(listaUsuarios.get(position).getNombre()+" "+listaUsuarios.get(position).getApellido());
+        holder.getNombreTV().setText(listaUsuarios.get(position).getNombre()+" "+listaUsuarios.get(position).getApellidos());
         holder.getCorreoTV().setText(listaUsuarios.get(position).getEmail());
         holder.getRolTV().setText(listaUsuarios.get(position).getRol());
     }

@@ -15,6 +15,8 @@ public class Actividad {
     String descripcion;
     Long fechaHora;
     String localizacion;
+    int numero_voluntarios;
+    int numero_monitores;
 
     @Override
     public String toString() {
@@ -61,4 +63,19 @@ public class Actividad {
         this.localizacion = localizacion;
     }
 
+    public int getNumero_voluntarios() {
+        return numero_voluntarios;
+    }
+
+    public void setNumero_voluntarios(int numero_voluntarios) {
+        this.numero_voluntarios = numero_voluntarios;
+    }
+
+    public int getNumero_monitores() {
+        return numero_monitores;
+    }
+
+    public void setNumero_monitores(int numero_monitores) {
+        this.numero_monitores = numero_monitores;
+    }
 }

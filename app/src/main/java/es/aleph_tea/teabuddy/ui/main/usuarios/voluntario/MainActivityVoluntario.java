@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.voluntario;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import es.aleph_tea.teabuddy.R;
+import es.aleph_tea.teabuddy.SettingsActivity;
+import es.aleph_tea.teabuddy.controllers.FBRTDBControllerVoluntario;
 import es.aleph_tea.teabuddy.controllers.FBRTDatabaseController;
 
 import android.view.View;
@@ -19,7 +22,7 @@ import es.aleph_tea.teabuddy.ui.main.usuarios.AccountDetailsActivity;
 import es.aleph_tea.teabuddy.ui.main.adapters.SectionsPagerAdapter;
 import es.aleph_tea.teabuddy.models.Sesion;
 
-public class ActivitiesListActivity extends AppCompatActivity {
+public class MainActivityVoluntario extends AppCompatActivity {
 
     ImageView ajustes;
     ImageView cuentaUsuario;
@@ -44,8 +47,8 @@ public class ActivitiesListActivity extends AppCompatActivity {
         // Inicializacion del boton que hace referencia a la cuenta del usuario
         accesoCuentaUsuario();
 
-        // Inicializacion metodos de obtención de datos en tiempo real
-        FBRTDatabaseController fbrt = new FBRTDatabaseController(this.getApplicationContext(),
+        // Inicializacion metodos de obtención de datos en tiempo real (Polimorfismo)
+        FBRTDatabaseController fbrt = new FBRTDBControllerVoluntario(this.getApplicationContext(),
                 binding.getRoot(), Sesion.SesionUid);
 
         fbrt.startService();

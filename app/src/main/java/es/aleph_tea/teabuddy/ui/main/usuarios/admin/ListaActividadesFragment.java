@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,32 +28,33 @@ import java.util.List;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
+import es.aleph_tea.teabuddy.models.viewmodel.ActividadViewModel;
 import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
 
-public class AdminListaActividadesFragment extends Fragment implements RecyclerViewInterface {
+public class ListaActividadesFragment extends Fragment implements RecyclerViewInterface {
     DatabaseReference dbRef;
     RecyclerView listaActividadesRV;
-    private List<Actividad> lista_actividades = new ArrayList<>();
-    private Actividad actividad;
     AdapterActividades adapterActividades;
+    private List<Actividad> lista_actividades = new ArrayList<>();
+    ActividadViewModel actividadViewModel;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
 
-    public AdminListaActividadesFragment() {
+    public ListaActividadesFragment() {
         // Required empty public constructor
     }
 
-    public static AdminListaActividadesFragment newInstance(String param1, String param2) {
-        AdminListaActividadesFragment fragment = new AdminListaActividadesFragment();
+    public static ListaActividadesFragment newInstance(String param1, String param2) {
+        ListaActividadesFragment fragment = new ListaActividadesFragment();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        dbRef = FirebaseDatabase.getInstance().getReference("ActividadesAsociacion");
+        dbRef = FirebaseDatabase.getInstance().getReference("Actividades");
 
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -80,34 +83,32 @@ public class AdminListaActividadesFragment extends Fragment implements RecyclerV
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         listaActividadesRV = (RecyclerView) view.findViewById(R.id.listaActividadesRV);
 
-        dbRef.addValueEventListener(new ValueEventListener() {
+        actividadViewModel = ViewModelProviders.of(this).get(ActividadViewModel.class);
+
+        actividadViewModel.getAll().observe(this, new Observer<List<Actividad>>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                lista_actividades.clear();
-                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                    actividad = childSnapshot.getValue(Actividad.class);
-                    actividad.setActividadId(childSnapshot.getKey());
-                    lista_actividades.add(actividad);
-                    Log.d("OK", "Nombre de la tarea: " + actividad.getNombre());
-                }
-                adapterActividades = new AdapterActividades(AdminListaActividadesFragment.this, lista_actividades);
+            public void onChanged(List<Actividad> actividades) {
+
+                lista_actividades = actividades;
+
+                Log.d("ListaActividadesAdmin","Tamanio: " + actividades.size());
+
+                adapterActividades = new AdapterActividades(ListaActividadesFragment.this, lista_actividades);
                 listaActividadesRV.setAdapter(adapterActividades);
                 adapterActividades.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("ERROR", "Failed to read value.", error.toException());
+
             }
         });
+
         listaActividadesRV.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(getContext(), modificacionActividades.class);
+        Intent intent = new Intent(getContext(), ModificacionActividades.class);
         intent.putExtra("uid", lista_actividades.get(position).getActividadId());
         intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre());
         intent.putExtra("fecha_actividad", lista_actividades.get(position).getFechaHora());

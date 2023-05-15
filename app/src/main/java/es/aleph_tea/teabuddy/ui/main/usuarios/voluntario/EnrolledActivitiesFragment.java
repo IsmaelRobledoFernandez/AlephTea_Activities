@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.voluntario;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -24,16 +21,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.database.AppDatabase;
 import es.aleph_tea.teabuddy.database.dao.ActividadDAO;
-import es.aleph_tea.teabuddy.database.dao.Usuario_ActividadDAO;
 import es.aleph_tea.teabuddy.database.entity.Actividad;
-import es.aleph_tea.teabuddy.database.entity.Usuario;
 import es.aleph_tea.teabuddy.database.entity.Usuario_Actividad;
 import es.aleph_tea.teabuddy.database.repository.ActividadRepository;
 import es.aleph_tea.teabuddy.database.repository.ActividadRepositoryImpl;
-import es.aleph_tea.teabuddy.database.repository.Usuario_ActividadRepository;
-import es.aleph_tea.teabuddy.database.repository.Usuario_ActividadRepositoryImpl;
 import es.aleph_tea.teabuddy.interfaces.ListaActividades;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.Sesion;

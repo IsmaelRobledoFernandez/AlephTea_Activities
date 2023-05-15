@@ -26,7 +26,6 @@ import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.ActividadAPI;
 import es.aleph_tea.teabuddy.models.ActividadAPIRespuesta;
 import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividadesApi;
-import es.aleph_tea.teabuddy.ui.main.usuarios.admin.modificacionActividades;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

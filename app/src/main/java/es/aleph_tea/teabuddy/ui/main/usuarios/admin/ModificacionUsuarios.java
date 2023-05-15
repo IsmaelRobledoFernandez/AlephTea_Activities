@@ -2,10 +2,6 @@ package es.aleph_tea.teabuddy.ui.main.usuarios.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -22,8 +18,6 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +25,7 @@ import java.util.Map;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity;
 
-public class modificacionUsuarios extends AppCompatActivity {
+public class ModificacionUsuarios extends AppCompatActivity {
 
     DatabaseReference dbRef;
     EditText nombre, apellido, n_telefono, email, fecha_nac;
@@ -70,7 +64,7 @@ public class modificacionUsuarios extends AppCompatActivity {
                 int month = c.get(Calendar.MONTH);
                 int day = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(modificacionUsuarios.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ModificacionUsuarios.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         fecha_nac.setText(day+"/"+month+"/"+year);

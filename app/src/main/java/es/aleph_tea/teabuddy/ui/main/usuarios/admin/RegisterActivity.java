@@ -19,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import es.aleph_tea.teabuddy.R;
-import es.aleph_tea.teabuddy.models.Usuario;
+import es.aleph_tea.teabuddy.database.entity.Usuario;
 
 public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
@@ -107,7 +106,12 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "El numero de telefono no es correcto", Toast.LENGTH_SHORT).show();
                     Log.d("SIGN IN", "El numero de telefono no es correcto");
                 }else {
-                    Usuario user = new Usuario(email, n_telefono, fecha_nacimiento, apellido, nombre, rol);
+                    Usuario user = new Usuario();
+                    user.setRol(rol);
+                    user.setNombre(nombre);
+                    user.setApellidos(apellido);
+                    user.setNumero_telefono(n_telefono);
+                    user.setFecha_nacimiento(fecha_nacimiento);
                     createAccount(user, password);
                 }
             }
@@ -130,9 +134,9 @@ public class RegisterActivity extends AppCompatActivity {
                                                 Map<String, Object> usuario = new HashMap<>();
                                                 usuario.put("email", user.getEmail());
                                                 usuario.put("nombre", user.getNombre());
-                                                usuario.put("apellidos", user.getApellido());
+                                                usuario.put("apellidos", user.getApellidos());
                                                 usuario.put("fecha_nacimiento", user.getFecha_nacimiento());
-                                                usuario.put("numero_telefono", user.getN_telefono());
+                                                usuario.put("numero_telefono", user.getNumero_telefono());
                                                 usuario.put("rol", user.getRol());
                                                 // Ponemos el rol del usuario, por defecto voluntario
                                                 try {

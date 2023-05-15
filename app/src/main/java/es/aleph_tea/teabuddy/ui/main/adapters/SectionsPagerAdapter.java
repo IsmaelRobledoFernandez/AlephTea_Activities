@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import es.aleph_tea.teabuddy.EnrolledActivitiesFragment;
-import es.aleph_tea.teabuddy.AllActivitiesFragment;
+import es.aleph_tea.teabuddy.ui.main.usuarios.voluntario.EnrolledActivitiesFragment;
+import es.aleph_tea.teabuddy.ui.main.usuarios.voluntario.AllActivitiesFragment;
 import es.aleph_tea.teabuddy.ui.main.usuarios.ListaActividadesApiFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {

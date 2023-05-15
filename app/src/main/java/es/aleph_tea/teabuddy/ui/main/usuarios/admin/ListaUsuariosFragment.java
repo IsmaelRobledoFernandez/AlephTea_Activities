@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,22 +22,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import es.aleph_tea.teabuddy.models.Actividad;
-import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
+import es.aleph_tea.teabuddy.database.entity.Usuario;
+import es.aleph_tea.teabuddy.models.viewmodel.UsuarioViewModel;
 import es.aleph_tea.teabuddy.ui.main.adapters.AdapterUsuarios;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
-import es.aleph_tea.teabuddy.models.Usuario;
+
 
 public class ListaUsuariosFragment extends Fragment implements RecyclerViewInterface {
 
-    DatabaseReference dbRef;
     RecyclerView listaUsuariosRV ;
     AdapterUsuarios adapterUsuarios;
-    private ArrayList<Usuario> usuarios_aleph = new ArrayList<>();
-
-    private Usuario usuario;
+    private List<Usuario> usuarios_aleph = new ArrayList<>();
+    private UsuarioViewModel usuarioViewModel;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -54,7 +55,6 @@ public class ListaUsuariosFragment extends Fragment implements RecyclerViewInter
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        dbRef = FirebaseDatabase.getInstance().getReference("UsuariosAsociacion");
 
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -83,39 +83,36 @@ public class ListaUsuariosFragment extends Fragment implements RecyclerViewInter
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+        
         listaUsuariosRV = (RecyclerView)view.findViewById(R.id.listaUsuariosRV);
-        dbRef.addValueEventListener(new ValueEventListener() {
+
+        usuarioViewModel = ViewModelProviders.of(this).get(UsuarioViewModel.class);
+
+        usuarioViewModel.getAll().observe(this, new Observer<List<Usuario>>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                usuarios_aleph.clear();
-                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                    usuario = childSnapshot.getValue(Usuario.class);
-                    usuario.setUid(childSnapshot.getKey());
-                    usuarios_aleph.add(usuario);
-                    Log.d("OK", childSnapshot.toString());
-                }
+            public void onChanged(List<Usuario> usuarios) {
+                usuarios_aleph = usuarios;
+
+                Log.d("ListaUsuariosAdmin","Tamanio: " + usuarios.size());
+
                 adapterUsuarios = new AdapterUsuarios(usuarios_aleph, ListaUsuariosFragment.this);
                 listaUsuariosRV.setAdapter(adapterUsuarios);
                 adapterUsuarios.notifyDataSetChanged();
             }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("ERROR", "Failed to read value.", error.toException());
-            }
         });
+
         listaUsuariosRV.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override
     public void onItemClick(int position) {
 
-        Intent intent = new Intent(getContext(), modificacionUsuarios.class);
+        Intent intent = new Intent(getContext(), ModificacionUsuarios.class);
         intent.putExtra("uid", usuarios_aleph.get(position).getUid());
         intent.putExtra("nombre_usuario", usuarios_aleph.get(position).getNombre());
-        intent.putExtra("apellido_usuario", usuarios_aleph.get(position).getApellido());
+        intent.putExtra("apellido_usuario", usuarios_aleph.get(position).getApellidos());
         intent.putExtra("email_usuario", usuarios_aleph.get(position).getEmail());
-        intent.putExtra("n_telefono_usuario", usuarios_aleph.get(position).getN_telefono());
+        intent.putExtra("n_telefono_usuario", usuarios_aleph.get(position).getNumero_telefono());
         intent.putExtra("fecha_nacimiento_usuario", usuarios_aleph.get(position).getFecha_nacimiento());
         intent.putExtra("rol_usuario", usuarios_aleph.get(position).getRol());
         startActivity(intent);

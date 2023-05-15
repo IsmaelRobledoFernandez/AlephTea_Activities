@@ -7,7 +7,10 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import es.aleph_tea.teabuddy.controllers.FBRTDBControllerAdmin;
+import es.aleph_tea.teabuddy.controllers.FBRTDatabaseController;
 import es.aleph_tea.teabuddy.databinding.ActivityMainAdminBinding;
+import es.aleph_tea.teabuddy.models.Sesion;
 import es.aleph_tea.teabuddy.ui.main.adapters.SectionsPagerAdapterAdmin;
 
 public class MainActivityAdmin extends AppCompatActivity {
@@ -26,6 +29,12 @@ public class MainActivityAdmin extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
+
+        // Inicializacion metodos de obtención de datos en tiempo real (Polimorfismo)
+        FBRTDatabaseController fbrt = new FBRTDBControllerAdmin(this.getApplicationContext(),
+                binding.getRoot(), Sesion.SesionUid);
+
+        fbrt.startService();
 
     }
 }

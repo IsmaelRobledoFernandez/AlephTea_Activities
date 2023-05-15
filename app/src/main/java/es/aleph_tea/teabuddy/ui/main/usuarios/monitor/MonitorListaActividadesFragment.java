@@ -27,8 +27,6 @@ import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividades;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
-import es.aleph_tea.teabuddy.ui.main.usuarios.admin.AddNewActivity;
-import es.aleph_tea.teabuddy.ui.main.usuarios.admin.AdminListaActividadesFragment;
 
 public class MonitorListaActividadesFragment extends Fragment implements RecyclerViewInterface {
 

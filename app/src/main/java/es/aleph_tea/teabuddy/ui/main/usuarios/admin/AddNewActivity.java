@@ -10,20 +10,21 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.Scanner;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.interfaces.LocalizacionActividadIn;
 import es.aleph_tea.teabuddy.models.LocalizacionActividad;
 import retrofit2.Call;
@@ -31,33 +32,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
-import es.aleph_tea.teabuddy.R;
-import es.aleph_tea.teabuddy.models.Actividad;
-import es.aleph_tea.teabuddy.models.Usuario;
-import es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity;
 
 public class AddNewActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private LocalizacionActividad localizacionActividad;
     DatabaseReference dbRef;
-    String nombre_actividad_str, ciudad_str, descripcion_actividad_str, fecha_actividad_str, hora_actividad_str, localizacion_str;
+    String nombre_actividad_str, ciudad_str, descripcion_actividad_str, localizacion_str;
+
+    // Creamos un atributo para colocar la fecha con formato
+    String fechaF;
+    Long fecha_actividad_str, hora_actividad_str;
     Button añadir_actividad;
     EditText nombre_actividad, ciudad, descripcion_actividad, fecha_actividad, hora_actividad, localizacion;
     @Override
@@ -115,6 +99,7 @@ public class AddNewActivity extends AppCompatActivity {
         localizacion = (EditText) findViewById(R.id.localizacion);
         añadir_actividad = findViewById(R.id.añadir_actividad);
         ciudad = findViewById(R.id.Ciudad);
+
         fecha_actividad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +115,7 @@ public class AddNewActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         fecha_actividad.setText(day+"/"+month+"/"+year);
+                        fechaF = year+"-"+month+"-"+day;
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -141,8 +127,9 @@ public class AddNewActivity extends AppCompatActivity {
             public void onClick(View view) {
                 nombre_actividad_str = nombre_actividad.getText().toString().trim();
                 descripcion_actividad_str = descripcion_actividad.getText().toString().trim();
-                hora_actividad_str = hora_actividad.getText().toString().trim();
-                fecha_actividad_str = fecha_actividad.getText().toString().trim();
+                fecha_actividad_str = Timestamp.valueOf(fechaF
+                        + " " + hora_actividad.getText().toString().trim()
+                        + ":00").getTime();
                 localizacion_str = localizacion.getText().toString().trim();
                 ciudad_str = ciudad.getText().toString();
 
@@ -153,12 +140,11 @@ public class AddNewActivity extends AppCompatActivity {
                 localizacion.setHint("Localizacion");
 
                 Map<String, Object> actividad = new HashMap<>();
-                actividad.put("nombre_actividad_str", nombre_actividad_str);
-                actividad.put("descripcion_actividad_str", descripcion_actividad_str);
-                actividad.put("hora_actividad_str", hora_actividad_str);
-                actividad.put("fecha_actividad_str", fecha_actividad_str);
+                actividad.put("nombre", nombre_actividad_str);
+                actividad.put("descripcion", descripcion_actividad_str);
+                actividad.put("fechaHora", hora_actividad_str);
                 try {
-                    actividad.put("localizacion_str", getLinkLocation(localizacion_str, ciudad_str));
+                    actividad.put("localizacion", getLinkLocation(localizacion_str, ciudad_str));
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -166,7 +152,7 @@ public class AddNewActivity extends AppCompatActivity {
                 dbRef.push().setValue(actividad);
 
                 Toast.makeText(AddNewActivity.this, "Actividad Añadida", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), AdminListaActividadesFragment.class));
+                startActivity(new Intent(getApplicationContext(), ListaActividadesFragment.class));
             }
         });
     }

@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,7 +21,7 @@ import java.util.Map;
 
 import es.aleph_tea.teabuddy.R;
 
-public class modificacionActividades extends AppCompatActivity {
+public class ModificacionActividades extends AppCompatActivity {
 
     DatabaseReference dbRef;
     EditText nombre_actividad, descripcion_actividad, fecha_actividad, hora_actividad, localizacion;
@@ -57,7 +56,7 @@ public class modificacionActividades extends AppCompatActivity {
                 int month = c.get(Calendar.MONTH);
                 int day = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(modificacionActividades.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ModificacionActividades.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         fecha_actividad.setText(day+"/"+month+"/"+year);

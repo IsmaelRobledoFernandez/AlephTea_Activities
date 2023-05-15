@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.voluntario;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.database.entity.Actividad;
 import es.aleph_tea.teabuddy.interfaces.ListaActividades;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;

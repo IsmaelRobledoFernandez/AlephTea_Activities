@@ -14,10 +14,19 @@ public class Usuario {
     String apellidos;
     String fecha_nacimiento;
     String numero_telefono;
+    String email;
     String rol;
 
     public String toString() {
         return "Uid: " + getUid() + " Nombre: " + getNombre();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUid() {

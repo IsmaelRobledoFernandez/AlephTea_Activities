@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy;
+package es.aleph_tea.teabuddy.ui.main.usuarios.voluntario;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.database.AppDatabase;
 import es.aleph_tea.teabuddy.database.dao.ActividadDAO;
 import es.aleph_tea.teabuddy.database.entity.Actividad;

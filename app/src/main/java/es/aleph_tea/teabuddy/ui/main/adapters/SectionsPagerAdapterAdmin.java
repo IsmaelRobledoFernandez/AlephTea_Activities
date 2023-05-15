@@ -7,8 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import es.aleph_tea.teabuddy.ui.main.usuarios.ListaActividadesApiFragment;
-import es.aleph_tea.teabuddy.ui.main.usuarios.admin.AdminListaActividadesFragment;
+import es.aleph_tea.teabuddy.ui.main.usuarios.admin.ListaActividadesFragment;
 import es.aleph_tea.teabuddy.ui.main.usuarios.admin.ListaUsuariosFragment;
 
 public class SectionsPagerAdapterAdmin extends FragmentPagerAdapter {
@@ -25,11 +24,11 @@ public class SectionsPagerAdapterAdmin extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new AdminListaActividadesFragment();
+                return new ListaActividadesFragment();
             case 1:
                 return new ListaUsuariosFragment();
             default:
-                return new AdminListaActividadesFragment();
+                return new ListaActividadesFragment();
         }
     }
 

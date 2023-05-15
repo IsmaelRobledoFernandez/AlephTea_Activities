@@ -24,7 +24,7 @@
             android:label="@string/title_activity_main_monitor"
             android:theme="@style/Theme.MainColors.NoActionBar" />
         <activity
-            android:name=".ui.main.usuarios.admin.modificacionUsuarios"
+            android:name=".ui.main.usuarios.admin.ModificacionUsuarios"
             android:exported="false" />
         <activity
             android:name=".ui.main.usuarios.monitor.MostrarInfoMisActividades"
@@ -33,7 +33,7 @@
             android:name=".ui.main.usuarios.admin.AddNewActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.usuarios.admin.modificacionActividades"
+            android:name=".ui.main.usuarios.admin.ModificacionActividades"
             android:exported="false" />
         <activity
             android:name=".ui.main.usuarios.admin.MainActivityAdmin"
@@ -44,12 +44,12 @@
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivityDetailsActivity"
+            android:name=".ui.main.usuarios.voluntario.ActivityDetailsActivity"
             android:exported="false"
             android:label="@string/title_activity_details"
             android:theme="@style/Theme.MainColors.NoActionBar" />
         <activity
-            android:name=".ActivitiesListActivity"
+            android:name=".ui.main.usuarios.voluntario.MainActivityVoluntario"
             android:exported="false"
             android:label="@string/title_activity_activities_list"
             android:theme="@style/Theme.MainColors.NoActionBar" />
