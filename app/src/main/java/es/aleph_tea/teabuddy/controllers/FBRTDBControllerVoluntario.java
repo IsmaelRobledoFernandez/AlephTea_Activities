@@ -164,29 +164,28 @@ public class FBRTDBControllerVoluntario extends FBRTDatabaseController {
                             // Como hay cambios en firebase, reconstruimos la tabla de inscripciones en ROOM
                             repoU.deleteUsuarioActual(uidActual);
 
-                            for (DataSnapshot ds : snapshot.getChildren()) {
-
                                 // Obtenemos los valores en crudo de cada actividad
-                                String nombre = ds.child("nombre").getValue().toString();
-                                String apellidos = ds.child("apellidos").getValue().toString();
-                                String email = ds.child("email").getValue().toString();
-                                String fecha_nacimiento = ds.child("fecha_nacimiento").getValue().toString();
-                                String numero_telefono = ds.child("numero_telefono").getValue().toString();
-                                String rol = ds.child("rol").getValue().toString();
+                                String nombre = snapshot.child("nombre").getValue().toString();
+                                String apellidos = snapshot.child("apellidos").getValue().toString();
+                                String email = snapshot.child("email").getValue().toString();
+                                String fecha_nacimiento = snapshot.child("fecha_nacimiento").getValue().toString();
+                                String numero_telefono = snapshot.child("numero_telefono").getValue().toString();
+                                String rol = snapshot.child("rol").getValue().toString();
 
                                 // Creamos el usuario obtenido para guardarlo en la lista
                                 Usuario usuario = new Usuario();
 
                                 // Ajustamos sus valores
+                                usuario.setUid(uidActual);
                                 usuario.setNombre(nombre);
                                 usuario.setApellidos(apellidos);
+                                usuario.setEmail(email);
                                 usuario.setFecha_nacimiento(fecha_nacimiento);
                                 usuario.setNumero_telefono(numero_telefono);
                                 usuario.setRol(rol);
 
                                 // Añadimos el usuario modificado a la base de datos ROOM
                                 repoU.insertUsuario(usuario);
-                            }
                             // Activamos los trigger para la actualizacion de la UI
                             repoU.findUsuarioActual(uidActual);
                         }

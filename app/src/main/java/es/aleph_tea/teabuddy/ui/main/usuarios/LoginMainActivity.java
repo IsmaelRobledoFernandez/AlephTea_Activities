@@ -41,10 +41,16 @@ LoginMainActivity extends AppCompatActivity {
     String email, password;
     CheckBox keepLogin;
     Sesion sesion = new Sesion(false);
+
+    // Nombre fichero shared_preferences principal
     public static final String STRING_PREFERENCES = "alephapp.aleph";
     public static final String PREFERENCE_ESTADO_BUTTON_SESION = "estado.button.sesion";
+    public static final String PREFERENCE_USUARIO_ACTUAL = "uid.actual";
 
     private String rol_str;
+
+    private String uidActual;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Instanciar firebase
@@ -57,15 +63,50 @@ LoginMainActivity extends AppCompatActivity {
             registro_usuario();
             cambiar_password();
         }else{
-            finish();
-            //OK: Consultar tipo de usuario y ver su rol. En base a esto, mostrar mainActivity de su rol
-            if(rol_str.equals("Administrador")) {
-                startActivity(new Intent(getApplicationContext(), MainActivityAdmin.class));
-            } else if(rol_str.equals("Monitor")) {
-                startActivity(new Intent(getApplicationContext(), MainActivityMonitor.class));
-            } else if(rol_str.equals("Voluntario")){
-                startActivity(new Intent(getApplicationContext(), MainActivityVoluntario.class));
+            // Accedemos a los valores de shared_preferences para obtener el usuario actual
+            if (!obtenerUidActual().equals("default")) {
+                // Realizamos una consulta a Firebase para obtener el rol del usuario actual
+                db.child("UsuariosAsociacion").child(obtenerUidActual())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            rol_str = snapshot.child("rol").getValue().toString();
+                            // Guardamos el Uid del shared_preferences en la sesion actual
+                            Sesion.SesionUid = obtenerUidActual();
+                            // OK: Consultar tipo de usuario y ver su rol. En base a esto, mostrar mainActivity de su rol
+                            if (rol_str.equals("Administrador")) {
+                                startActivity(new Intent(getApplicationContext(), MainActivityAdmin.class));
+                            } else if (rol_str.equals("Monitor")) {
+                                startActivity(new Intent(getApplicationContext(), MainActivityMonitor.class));
+                            } else if (rol_str.equals("Voluntario")) {
+                                startActivity(new Intent(getApplicationContext(), MainActivityVoluntario.class));
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(),"Error en la obtención de datos de usuario (FB)",
+                                        Toast.LENGTH_SHORT).show();
+                                sesion.setMantenerIniciado(false);
+                                guardarEstadoBoton();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getApplicationContext(),"Error en la obtención de datos de usuario (FB)",
+                                Toast.LENGTH_SHORT).show();
+                        sesion.setMantenerIniciado(false);
+                        guardarEstadoBoton();
+                    }
+                });
             }
+            else {
+                Toast.makeText(getApplicationContext(),"Error en la obtención de datos de usuario (SP)",
+                        Toast.LENGTH_SHORT).show();
+                sesion.setMantenerIniciado(false);
+                guardarEstadoBoton();
+            }
+            finish();
         }
     }
 
@@ -119,12 +160,12 @@ LoginMainActivity extends AppCompatActivity {
                     Log.d("SIGN IN", "Contraseña demasiado corta");
                 }else {
                     loginUser(email, password);
-                    guardarEstadoBoton();
                 }
             }
         });
     }
     private void loginUser(String emailUser, String passwordUser) {
+
         // Gestionamos el signIn con Firebase
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(emailUser, passwordUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -137,7 +178,18 @@ LoginMainActivity extends AppCompatActivity {
 
                         String uid = mAuth.getCurrentUser().getUid();
 
+                        // Obtención del rol del usuario almacenado en Firebase RTDB
                         DatabaseReference dbReference = dbRef.getReference();
+
+                        // Guardamos estado del botón de iniciar sesión
+                        guardarEstadoBoton();
+                        if (obtenerEstadoBoton()) {
+                            Sesion.SesionUid = uid;
+                            Log.d("Sesion.SesionUid", Sesion.SesionUid);
+                            guardarUidActual();
+                        }
+
+                        // Obtenemos el rol asociado al usuario con el que se ha iniciado sesión
                         dbReference.child("UsuariosAsociacion").addListenerForSingleValueEvent(new ValueEventListener() { //addValueEventListener
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -146,6 +198,7 @@ LoginMainActivity extends AppCompatActivity {
 
                                     Log.d("USUARIO", "ROL: " + rol_str);
 
+                                    // OK: Consultar tipo de usuario y ver su rol. En base a esto, mostrar mainActivity de su rol
                                     if(rol_str.equals("Administrador")) {
                                         startActivity(new Intent(getApplicationContext(), MainActivityAdmin.class));
                                     } else if(rol_str.equals("Monitor")) {
@@ -182,9 +235,19 @@ LoginMainActivity extends AppCompatActivity {
         preferences.edit().putBoolean(PREFERENCE_ESTADO_BUTTON_SESION, sesion.isMantenerIniciado()).apply();
     }
 
+    protected void guardarUidActual(){
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        preferences.edit().putString(PREFERENCE_USUARIO_ACTUAL,Sesion.SesionUid).apply();
+    }
+
     protected boolean obtenerEstadoBoton(){
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
         return preferences.getBoolean(PREFERENCE_ESTADO_BUTTON_SESION, false);
+    }
+
+    protected String obtenerUidActual(){
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        return preferences.getString(PREFERENCE_USUARIO_ACTUAL,"default");
     }
 
 }
