@@ -83,8 +83,22 @@ public class MonitorListaActividadesFragment extends Fragment implements Recycle
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 lista_actividades.clear();
+                actividad = new Actividad();
                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                    actividad = childSnapshot.getValue(Actividad.class);
+                    actividad.setActividadId(childSnapshot.getKey());
+                    actividad.setNombre(childSnapshot.child("nombre").toString());
+                    actividad.setDescripcion(childSnapshot.child("descripcion").toString());
+                    actividad.setLocalizacion(childSnapshot.child("localizacion").toString());
+                    actividad.setFechaHora(Long.parseLong(
+                            childSnapshot.child("fechaHora").getValue().toString()));
+                    actividad.setNumero_voluntarios(Integer.parseInt(
+                            childSnapshot.child("numero_voluntarios").getValue().toString()));
+                    actividad.setNumero_monitores(Integer.parseInt(
+                            childSnapshot.child("numero_monitores").getValue().toString()));
+                    actividad.setNumero_voluntarios_max(Integer.parseInt(
+                            childSnapshot.child("numero_voluntarios_max").getValue().toString()));
+                    actividad.setNumero_monitores_max(Integer.parseInt(
+                            childSnapshot.child("numero_monitores_max").getValue().toString()));
                     lista_actividades.add(actividad);
                     Log.d("OK", "Nombre de la tarea: " + actividad.getNombre());
                 }

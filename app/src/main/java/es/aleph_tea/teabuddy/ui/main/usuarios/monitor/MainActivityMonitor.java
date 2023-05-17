@@ -20,8 +20,6 @@ public class MainActivityMonitor extends AppCompatActivity {
     private ActivityMainMonitorBinding binding;
     FloatingActionButton fab;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +36,7 @@ public class MainActivityMonitor extends AppCompatActivity {
 
     }
     protected void correo(){
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fabM);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
