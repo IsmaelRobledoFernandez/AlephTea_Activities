@@ -30,6 +30,7 @@ public class MainActivityMonitor extends AppCompatActivity {
 
         binding = ActivityMainMonitorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        correo();
 
         SectionsPagerAdapterMonitor sectionsPagerAdapter = new SectionsPagerAdapterMonitor(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;

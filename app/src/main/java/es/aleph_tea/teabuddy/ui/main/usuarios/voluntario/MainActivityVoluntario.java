@@ -49,6 +49,7 @@ public class MainActivityVoluntario extends AppCompatActivity {
 
         // Inicializacion botón de ajustes
         accesoAjustes();
+        correo();
 
         // Inicializacion del boton que hace referencia a la cuenta del usuario
         accesoCuentaUsuario();
