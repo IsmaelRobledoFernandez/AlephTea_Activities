@@ -98,6 +98,8 @@
                 android:fontFamily="serif"
                 android:gravity="bottom"
                 android:text="Lugar"
+                android:autoLink="web"
+                android:clickable="true"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="15sp" />

@@ -4,7 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.github.clans.fab.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
@@ -30,7 +30,7 @@ import es.aleph_tea.teabuddy.models.Sesion;
 public class MainActivityVoluntario extends AppCompatActivity {
 
     ImageView ajustes;
-    FloatingActionButton fab;
+    com.google.android.material.floatingactionbutton.FloatingActionButton fab;
     ImageView cuentaUsuario;
     private ActivityActivitiesListBinding binding;
 
