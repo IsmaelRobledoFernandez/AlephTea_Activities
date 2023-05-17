@@ -47,7 +47,6 @@ public class ModificacionActividades extends AppCompatActivity {
         eliminar_actividad = findViewById(R.id.eliminar_actividad);
         modificar_actividad = findViewById(R.id.alta_actividad);
 
-        fecha_actividad = (EditText) findViewById(R.id.fecha_actividad);
 
         fecha_actividad.setOnClickListener(new View.OnClickListener() {
             @Override

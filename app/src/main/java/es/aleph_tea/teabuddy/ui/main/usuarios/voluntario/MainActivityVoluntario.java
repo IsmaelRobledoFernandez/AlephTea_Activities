@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+<<<<<<< HEAD
+=======
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+>>>>>>> refs/remotes/origin/isma
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -24,7 +27,7 @@ import es.aleph_tea.teabuddy.ui.main.usuarios.EnviarCorreoActivity;
 public class MainActivityVoluntario extends AppCompatActivity {
 
     ImageView ajustes;
-    FloatingActionButton fab;
+    com.google.android.material.floatingactionbutton.FloatingActionButton fab;
     ImageView cuentaUsuario;
     private ActivityActivitiesListBinding binding;
 
