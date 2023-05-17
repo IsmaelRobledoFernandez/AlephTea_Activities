@@ -41,9 +41,11 @@ public class AddNewActivity extends AppCompatActivity {
 
     // Creamos un atributo para colocar la fecha con formato
     String fechaF;
+    int numero_monitores, numero_voluntarios;
     Long fecha_actividad_str, hora_actividad_str;
     Button añadir_actividad;
     EditText nombre_actividad, ciudad, descripcion_actividad, fecha_actividad, hora_actividad, localizacion;
+    EditText n_monitores, n_voluntarios;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         dbRef = FirebaseDatabase.getInstance().getReference("ActividadesAsociacion");
@@ -51,44 +53,6 @@ public class AddNewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_actividades);
         gestion();
-    }
-
-    private String getLinkLocation(String location, String ciudad) {
-        String hiperenlaceGoogleMaps = "";
-        double lat;
-        double lon;
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://nominatim.openstreetmap.org")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        LocalizacionActividadIn api = retrofit.create(LocalizacionActividadIn.class);
-
-
-        String query = location+"+,"+ciudad;
-        String format = "json";
-        int limit = 1;
-        Call<LocalizacionActividad> call = api.seach(query, format, limit);
-        call.enqueue(new Callback<LocalizacionActividad>() {
-            @Override
-            public void onResponse(Call<LocalizacionActividad> call, Response<LocalizacionActividad> response) {
-                if(response.isSuccessful()){
-                    localizacionActividad = response.body();
-                }
-                else{
-                    Log.e("TAG", " onResponse: " + response.errorBody());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LocalizacionActividad> call, Throwable t) {
-                Log.e("TAG", " onFailure: " + t.getMessage());
-            }
-        });
-        return "https://www.google.com/maps/search/?api=1&query="+localizacionActividad.getLat()+","+localizacionActividad.getLon();
     }
 
     private void gestion(){
@@ -99,6 +63,8 @@ public class AddNewActivity extends AppCompatActivity {
         localizacion = (EditText) findViewById(R.id.localizacion);
         añadir_actividad = findViewById(R.id.añadir_actividad);
         ciudad = findViewById(R.id.Ciudad);
+        n_monitores = findViewById(R.id.n_monitores);
+        n_voluntarios = findViewById(R.id.n_voluntarios);
 
         fecha_actividad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,17 +108,17 @@ public class AddNewActivity extends AppCompatActivity {
                 Map<String, Object> actividad = new HashMap<>();
                 actividad.put("nombre", nombre_actividad_str);
                 actividad.put("descripcion", descripcion_actividad_str);
-                actividad.put("fechaHora", hora_actividad_str);
-                try {
-                    actividad.put("localizacion", getLinkLocation(localizacion_str, ciudad_str));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                actividad.put("fechaHora", "47384784478");
+                actividad.put("localizacion", "https://www.google.com/maps/search/?api=1&query="+localizacion_str.replace(" ", "+")+","+ciudad_str);
+                actividad.put("numero_monitores", 0);
+                actividad.put("numero_voluntarios", 0);
+                actividad.put("numero_monitores_max", numero_monitores);
+                actividad.put("numero_voluntarios_max", numero_voluntarios);
 
                 dbRef.push().setValue(actividad);
 
                 Toast.makeText(AddNewActivity.this, "Actividad Añadida", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), ListaActividadesFragment.class));
+                startActivity(new Intent(getApplicationContext(), MainActivityAdmin.class));
             }
         });
     }

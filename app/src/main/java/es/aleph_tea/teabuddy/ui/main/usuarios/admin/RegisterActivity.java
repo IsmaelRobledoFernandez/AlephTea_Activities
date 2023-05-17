@@ -108,6 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }else {
                     Usuario user = new Usuario();
                     user.setRol(rol);
+                    user.setEmail(email);
                     user.setNombre(nombre);
                     user.setApellidos(apellido);
                     user.setNumero_telefono(n_telefono);

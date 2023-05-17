@@ -1,20 +1,25 @@
 package es.aleph_tea.teabuddy.ui.main.usuarios.voluntario;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import es.aleph_tea.teabuddy.EnviarCorreo;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.SettingsActivity;
 import es.aleph_tea.teabuddy.controllers.FBRTDBControllerVoluntario;
 import es.aleph_tea.teabuddy.controllers.FBRTDatabaseController;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
 
@@ -25,6 +30,7 @@ import es.aleph_tea.teabuddy.models.Sesion;
 public class MainActivityVoluntario extends AppCompatActivity {
 
     ImageView ajustes;
+    FloatingActionButton fab;
     ImageView cuentaUsuario;
     private ActivityActivitiesListBinding binding;
 
@@ -54,6 +60,17 @@ public class MainActivityVoluntario extends AppCompatActivity {
         fbrt.startService();
     }
 
+    protected void correo(){
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), EnviarCorreo.class);
+                startActivity(i);
+            }
+        });
+    }
+
     protected void accesoAjustes(){
         ajustes = (ImageView) findViewById(R.id.settingsButton);
         ajustes.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +92,5 @@ public class MainActivityVoluntario extends AppCompatActivity {
             }
         });
     }
-
 
 }
