@@ -6,7 +6,7 @@ import retrofit2.http.GET;
 
 public interface APIService {
 
-    @GET("52a6591b-d851-4290-b71f-fa354e25767f/resource/6718e9f2-11b1-4381-8ad2-b71a2485e69f/download/actividades_extraescolares_institucionales.json")
+    @GET("share/events-share-new/29427")
     Call<ActividadAPIRespuesta> obtenerListaActividades();
 
 }
