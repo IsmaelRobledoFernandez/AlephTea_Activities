@@ -28,9 +28,11 @@ import es.aleph_tea.teabuddy.R;
 public class ModificacionActividades extends AppCompatActivity {
 
     DatabaseReference dbRef;
-    EditText nombre_actividad, descripcion_actividad, fecha_actividad, hora_actividad, localizacion;
+    EditText nombre_actividad, descripcion_actividad, fecha_actividad,
+            hora_actividad, localizacion, numero_monitores_max, numero_voluntarios_max;
     String uid, nombre_actividad_str, descripcion_actividad_str, fecha_actividad_str, localizacion_actividad_str, hora_actividad_str;
 
+    int numero_voluntarios_max_int, numero_monitores_max_int;
     Button eliminar_actividad, modificar_actividad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class ModificacionActividades extends AppCompatActivity {
         fecha_actividad = findViewById(R.id.fecha_actividad);
         hora_actividad = findViewById(R.id.hora_actividad);
         localizacion = findViewById(R.id.localizacion);
+        numero_voluntarios_max = findViewById(R.id.numero_voluntarios_maximo);
+        numero_monitores_max = findViewById(R.id.numero_monitores_maximo);
         eliminar_actividad = findViewById(R.id.eliminar_actividad);
         modificar_actividad = findViewById(R.id.alta_actividad);
 
@@ -80,6 +84,8 @@ public class ModificacionActividades extends AppCompatActivity {
         hora_actividad_str = hora.format(new Date(new Timestamp(
                 getIntent().getLongExtra("fecha_actividad",0l)).getTime()));
         localizacion_actividad_str = getIntent().getStringExtra("localizacion_actividad");
+        numero_voluntarios_max_int = getIntent().getIntExtra("numero_voluntarios_max",0);
+        numero_monitores_max_int = getIntent().getIntExtra("numero_monitores_max",0);
 
 
         nombre_actividad.setText(nombre_actividad_str);
@@ -87,6 +93,8 @@ public class ModificacionActividades extends AppCompatActivity {
         fecha_actividad.setText(fecha_actividad_str);
         hora_actividad.setText(hora_actividad_str);
         localizacion.setText(localizacion_actividad_str);
+        numero_voluntarios_max.setText(new Integer(numero_voluntarios_max_int).toString());
+        numero_monitores_max.setText(new Integer(numero_monitores_max_int).toString());
 
         eliminar_actividad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,14 +110,20 @@ public class ModificacionActividades extends AppCompatActivity {
                 descripcion_actividad_str = descripcion_actividad.getText().toString();
                 fecha_actividad_str = fecha_actividad.getText().toString();
                 hora_actividad_str = hora_actividad.getText().toString();
+                numero_voluntarios_max_int = Integer.parseInt(numero_voluntarios_max.getText().toString());
+                numero_monitores_max_int = Integer.parseInt(numero_monitores_max.getText().toString());
                 localizacion_actividad_str = localizacion.getText().toString();
 
                 Map<String, Object> actividad = new HashMap<>();
-                actividad.put("nombre_actividad_str", nombre_actividad_str);
-                actividad.put("descripcion_actividad_str", descripcion_actividad_str);
-                actividad.put("hora_actividad_str", hora_actividad_str);
-                actividad.put("fecha_actividad_str", fecha_actividad_str);
-                actividad.put("localizacion_str", localizacion_actividad_str);
+                actividad.put("nombre", nombre_actividad_str);
+                actividad.put("descripcion", descripcion_actividad_str);
+                actividad.put("fechaHora", getIntent()
+                        .getLongExtra("fecha_actividad",0l));
+                actividad.put("localizacion", localizacion_actividad_str);
+                actividad.put("numero_voluntarios",0);
+                actividad.put("numero_voluntarios_max",numero_voluntarios_max_int);
+                actividad.put("numero_monitores",0);
+                actividad.put("numero_monitores_max",numero_monitores_max_int);
 
                 dbRef.child(uid).setValue(actividad);
                 startActivity(new Intent(getApplicationContext(), MainActivityAdmin.class));
