@@ -18,6 +18,9 @@ public class Actividad {
     int numero_voluntarios;
     int numero_monitores;
 
+    int numero_voluntarios_max;
+
+    int numero_monitores_max;
     @Override
     public String toString() {
         return "Id: " + getActividadId() + " Nombre: " + getNombre();
@@ -77,5 +80,21 @@ public class Actividad {
 
     public void setNumero_monitores(int numero_monitores) {
         this.numero_monitores = numero_monitores;
+    }
+
+    public int getNumero_voluntarios_max() {
+        return numero_voluntarios_max;
+    }
+
+    public void setNumero_voluntarios_max(int numero_voluntarios_max) {
+        this.numero_voluntarios_max = numero_voluntarios_max;
+    }
+
+    public int getNumero_monitores_max() {
+        return numero_monitores_max;
+    }
+
+    public void setNumero_monitores_max(int numero_monitores_max) {
+        this.numero_monitores_max = numero_monitores_max;
     }
 }

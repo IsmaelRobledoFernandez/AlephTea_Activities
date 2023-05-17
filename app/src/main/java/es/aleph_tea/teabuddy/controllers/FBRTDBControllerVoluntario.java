@@ -73,6 +73,11 @@ public class FBRTDBControllerVoluntario extends FBRTDatabaseController {
                         int numero_monitores = Integer.parseInt(
                                 ds.child("numero_monitores").getValue().toString());
 
+                        int numero_voluntarios_max = Integer.parseInt(
+                                ds.child("numero_voluntarios_max").getValue().toString());
+                        int numero_monitores_max = Integer.parseInt(
+                                ds.child("numero_monitores_max").getValue().toString());
+
                         // Creamos la actividad obtenida para guardarla en la lista
                         Actividad actividad = new Actividad();
 
@@ -82,6 +87,10 @@ public class FBRTDBControllerVoluntario extends FBRTDatabaseController {
                         actividad.setDescripcion(descripcion);
                         actividad.setFechaHora(fechaHora);
                         actividad.setLocalizacion(localizacion);
+                        actividad.setNumero_monitores(numero_monitores);
+                        actividad.setNumero_voluntarios(numero_voluntarios);
+                        actividad.setNumero_monitores_max(numero_monitores_max);
+                        actividad.setNumero_voluntarios_max(numero_voluntarios_max);
 
                         // Añadimos la actividad a la base de datos ROOM
                         repoA.insertActividad(actividad);
