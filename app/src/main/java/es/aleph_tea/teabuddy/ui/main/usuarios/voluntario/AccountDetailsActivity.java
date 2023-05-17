@@ -1,4 +1,4 @@
-package es.aleph_tea.teabuddy.ui.main.usuarios;
+package es.aleph_tea.teabuddy.ui.main.usuarios.voluntario;
 
 import static es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity.PREFERENCE_ESTADO_BUTTON_SESION;
 import static es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity.STRING_PREFERENCES;
@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import es.aleph_tea.teabuddy.R;
+import es.aleph_tea.teabuddy.ui.main.usuarios.LoginMainActivity;
+import es.aleph_tea.teabuddy.ui.main.usuarios.ModificarPassActivity;
 
 public class AccountDetailsActivity extends AppCompatActivity {
     TextView email, nombre, apellido, fecha_nac, n_telefono;

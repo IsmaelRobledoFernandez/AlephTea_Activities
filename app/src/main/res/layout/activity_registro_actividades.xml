@@ -62,6 +62,37 @@
             android:drawableEnd="@android:drawable/ic_menu_my_calendar"
             app:layout_constraintTop_toBottomOf="@+id/descripcion_actividad" />
 
+
+        <LinearLayout
+            android:id="@+id/numeros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/fecha_actividad">
+
+                <EditText
+                    android:id="@+id/n_voluntarios"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="Voluntarios"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true" />
+
+                <EditText
+                    android:id="@+id/n_monitores"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="Monitores"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:selectAllOnFocus="true" />
+        </LinearLayout>
+
         <EditText
             android:id="@+id/hora_actividad"
             android:layout_width="0dp"
@@ -73,7 +104,7 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fecha_actividad"
+            app:layout_constraintTop_toBottomOf="@+id/numeros"
             />
         <EditText
             android:id="@+id/localizacion"
@@ -107,8 +138,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="56dp"
-            android:layout_marginBottom="64dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="4dp"
             android:layout_weight=".5"
             android:backgroundTint="#00679B"
             android:padding="10dp"

@@ -4,47 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
+    android:layout_marginBottom="70dp"
     tools:context=".ui.main.usuarios.AccountDetailsActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        >
-        <Button
-            android:id="@+id/btn_cambiar_pass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue_200"
-            android:padding="20dp"
-            android:text="Cambiar contraseña"
-            android:textSize="20dp"
-            android:layout_margin="20dp"
-            />
+        app:layout_constraintBottom_toTopOf="@+id/btn_cambiar_pass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btn_cerrar_sesion"
+        <TextView
+            android:id="@+id/nombre"
+            android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/yellow_100"
-            android:padding="20dp"
-            android:text="Cerrar sesion"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:layout_margin="20dp"
-            />
+            android:fontFamily="@font/dosis"
+            android:padding="5dp"
+            android:text="Nombre_Usuario"
+            android:textColor="@color/blue_100"
+            android:textSize="28sp" />
 
-        <Button
-            android:id="@+id/btn_borrar_cuenta"
+        <TextView
+            android:id="@+id/apellido"
+            android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#D5291D"
-            android:padding="20dp"
-            android:text="Borrar cuenta"
-            android:textSize="20dp"
-            android:layout_margin="20dp"
-            />
+            android:layout_marginBottom="50sp"
+            android:fontFamily="@font/dosis"
+            android:padding="5dp"
+            android:text="Apellido_Usuario"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/fecha_nac"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis"
+            android:padding="5dp"
+            android:text="Fecha_nacimiento_usuario"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/n_telefono"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis"
+            android:padding="5dp"
+            android:text="N_telefono_usuario"
+            android:textSize="22sp" />
+        <TextView
+            android:id="@+id/email"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis"
+            android:padding="5dp"
+            android:text="correo@usuario.com"
+            android:textSize="22sp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_cambiar_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/blue_200"
+        android:padding="20dp"
+        android:text="Cambiar contraseña"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cerrar_sesion" />
+
+    <Button
+        android:id="@+id/btn_cerrar_sesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#1586A8"
+        android:padding="20dp"
+        android:text="Cerrar sesión"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_borrar_cuenta" />
+
+    <Button
+        android:id="@+id/btn_borrar_cuenta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#202B6A"
+        android:padding="20dp"
+        android:text="Borrar cuenta"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
