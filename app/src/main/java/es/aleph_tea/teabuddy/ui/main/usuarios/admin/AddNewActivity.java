@@ -96,6 +96,9 @@ public class AddNewActivity extends AppCompatActivity {
                 fecha_actividad_str = Timestamp.valueOf(fechaF
                         + " " + hora_actividad.getText().toString().trim()
                         + ":00").getTime();
+                Log.d("TimestampNuevaActividad", fechaF
+                        + " " + hora_actividad.getText().toString().trim()
+                        + ":00");
                 localizacion_str = localizacion.getText().toString().trim();
                 ciudad_str = ciudad.getText().toString();
 

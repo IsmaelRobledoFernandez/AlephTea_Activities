@@ -73,6 +73,11 @@
             android:name=".ui.main.usuarios.AccountDetailsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.main.usuarios.EnviarCorreoActivity"
+            android:exported="false"
+            android:label="@string/title_activity_enviar_correo"
+            android:theme="@style/Theme.MainColors.NoActionBar" />
+        <activity
             android:name=".ui.main.usuarios.LoginMainActivity"
             android:exported="true"
             android:screenOrientation="portrait" >

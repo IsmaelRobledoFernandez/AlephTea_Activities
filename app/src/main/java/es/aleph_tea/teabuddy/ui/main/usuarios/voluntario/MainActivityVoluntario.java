@@ -1,31 +1,28 @@
 package es.aleph_tea.teabuddy.ui.main.usuarios.voluntario;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
+<<<<<<< HEAD
+=======
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
+>>>>>>> refs/remotes/origin/isma
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-import es.aleph_tea.teabuddy.EnviarCorreo;
 import es.aleph_tea.teabuddy.R;
 import es.aleph_tea.teabuddy.SettingsActivity;
 import es.aleph_tea.teabuddy.controllers.FBRTDBControllerVoluntario;
 import es.aleph_tea.teabuddy.controllers.FBRTDatabaseController;
-
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import es.aleph_tea.teabuddy.databinding.ActivityActivitiesListBinding;
-
-import es.aleph_tea.teabuddy.ui.main.usuarios.AccountDetailsActivity;
-import es.aleph_tea.teabuddy.ui.main.adapters.SectionsPagerAdapter;
 import es.aleph_tea.teabuddy.models.Sesion;
+import es.aleph_tea.teabuddy.ui.main.adapters.SectionsPagerAdapter;
+import es.aleph_tea.teabuddy.ui.main.usuarios.AccountDetailsActivity;
+import es.aleph_tea.teabuddy.ui.main.usuarios.EnviarCorreoActivity;
 
 public class MainActivityVoluntario extends AppCompatActivity {
 
@@ -66,7 +63,7 @@ public class MainActivityVoluntario extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), EnviarCorreo.class);
+                Intent i = new Intent(getApplicationContext(), EnviarCorreoActivity.class);
                 startActivity(i);
             }
         });

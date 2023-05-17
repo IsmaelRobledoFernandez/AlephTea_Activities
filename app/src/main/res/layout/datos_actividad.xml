@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/ysabeaufont_wght"
-                android:paddingTop="10dp"
+                android:paddingTop="15dp"
                 android:text="Visita al caixaforum"
                 android:textAlignment="textStart"
                 android:textAllCaps="true"
@@ -40,10 +40,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ysabeaufont_wght"
-                    android:paddingLeft="44dp"
                     android:paddingBottom="10dp"
                     android:text="V: 0/0"
-                    android:textAlignment="textStart"
+                    android:textAlignment="textEnd"
                     android:textAllCaps="true"
                     android:textSize="20sp" />
 
@@ -52,10 +51,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ysabeaufont_wght"
-                    android:paddingLeft="38dp"
                     android:paddingBottom="30dp"
                     android:text="M: 0/0"
-                    android:textAlignment="textStart"
+                    android:textAlignment="textEnd"
                     android:textAllCaps="true"
                     android:textSize="20sp" />
 
