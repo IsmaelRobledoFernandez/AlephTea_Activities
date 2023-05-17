@@ -112,7 +112,6 @@ public class ListaActividadesFragment extends Fragment implements RecyclerViewIn
         intent.putExtra("uid", lista_actividades.get(position).getActividadId());
         intent.putExtra("nombre_actividad", lista_actividades.get(position).getNombre());
         intent.putExtra("fecha_actividad", lista_actividades.get(position).getFechaHora());
-        intent.putExtra("hora_actividad", lista_actividades.get(position).getFechaHora());
         intent.putExtra("descripcion_actividad", lista_actividades.get(position).getDescripcion());
         intent.putExtra("localizacion_actividad", lista_actividades.get(position).getLocalizacion());
         startActivity(intent);

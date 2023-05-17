@@ -15,6 +15,10 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,8 +72,14 @@ public class ModificacionActividades extends AppCompatActivity {
         uid = getIntent().getStringExtra("uid");
         nombre_actividad_str = getIntent().getStringExtra("nombre_actividad");
         descripcion_actividad_str = getIntent().getStringExtra("descripcion_actividad");
-        fecha_actividad_str = getIntent().getStringExtra("fecha_actividad");
-        hora_actividad_str = getIntent().getStringExtra("hora_actividad");
+        //Generamos un formato para la fecha
+        DateFormat fecha = new SimpleDateFormat("dd/mm/yyyy");
+        //Generamos un formato para la hora
+        DateFormat hora = new SimpleDateFormat("hh:mm");
+        fecha_actividad_str =  fecha.format(new Date(new Timestamp(
+                getIntent().getLongExtra("fecha_actividad",0l)).getTime()));
+        hora_actividad_str = hora.format(new Date(new Timestamp(
+                getIntent().getLongExtra("fecha_actividad",0l)).getTime()));
         localizacion_actividad_str = getIntent().getStringExtra("localizacion_actividad");
 
 
