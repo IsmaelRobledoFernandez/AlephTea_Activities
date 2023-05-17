@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-<<<<<<< HEAD
-=======
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
->>>>>>> refs/remotes/origin/isma
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
