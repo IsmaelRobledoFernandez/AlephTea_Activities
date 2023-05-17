@@ -40,8 +40,10 @@ public class AdapterActividades extends RecyclerView.Adapter<AdapterActividades.
     public void onBindViewHolder(@NonNull AdapterActividades.ActividadesViewHolder holder, int position) {
         Actividad actividad = listaActividades.get(position);
         holder.nombre.setText(actividad.getNombre());
-        holder.numero_voluntarios.setText(actividad.getNumero_voluntarios() + 
+        holder.numero_voluntarios.setText("V: " + actividad.getNumero_voluntarios() +
                 "/" + actividad.getNumero_voluntarios_max());
+        holder.numero_monitores.setText("M: " + actividad.getNumero_monitores() + "/"
+                + actividad.getNumero_monitores_max());
         //Generamos un formato para la fecha
         DateFormat fecha = new SimpleDateFormat("dd/mm/yyyy");
         holder.fecha.setText(fecha.format(new Date(new Timestamp(actividad.getFechaHora()).getTime())));
@@ -56,11 +58,12 @@ public class AdapterActividades extends RecyclerView.Adapter<AdapterActividades.
     }
 
     public static class ActividadesViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre, numero_voluntarios, fecha, hora;
+        TextView nombre, numero_voluntarios, numero_monitores, fecha, hora;
         public ActividadesViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             nombre = itemView.findViewById(R.id.nombre_activity);
             numero_voluntarios = itemView.findViewById(R.id.numero_voluntarios);
+            numero_monitores = itemView.findViewById(R.id.numero_monitores);
             fecha = itemView.findViewById(R.id.fecha_activity);
             hora = itemView.findViewById(R.id.hora_activity);
 
