@@ -25,6 +25,7 @@ import es.aleph_tea.teabuddy.actividadesAPI.APIService;
 import es.aleph_tea.teabuddy.interfaces.RecyclerViewInterface;
 import es.aleph_tea.teabuddy.models.ActividadAPI;
 import es.aleph_tea.teabuddy.models.ActividadAPIRespuesta;
+import es.aleph_tea.teabuddy.models.ActividadWrapper;
 import es.aleph_tea.teabuddy.ui.main.adapters.AdapterActividadesApi;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,10 +39,10 @@ public class ListaActividadesApiFragment extends Fragment implements RecyclerVie
     AdapterActividadesApi adapterActividades;
 
     private ArrayList<ActividadAPI> listaActividades = new ArrayList<>();
-
+    private ArrayList<ActividadWrapper> listaWrapper = new ArrayList<>();
 
     // Necesarios para la API
-    private static final String API_BASE_URL = "https://datos.comunidad.madrid/catalogo/dataset/";
+    private static final String API_BASE_URL = "https://www.comunidad.madrid/";
     private Retrofit retrofit;
     //private static final String TAG = "ACTIVIDADES";
 
@@ -116,13 +117,20 @@ public class ListaActividadesApiFragment extends Fragment implements RecyclerVie
             public void onResponse(Call<ActividadAPIRespuesta> call, Response<ActividadAPIRespuesta> response) {
                 if (response.isSuccessful()) {
                     ActividadAPIRespuesta actividadAPIRespuesta = response.body();
-                    // Lista de actividades de la API
-                    listaActividades = actividadAPIRespuesta.getData();
-                    // Set data on adapter and notify adapter of changes
-                    adapterActividades.setData(listaActividades);
-                    adapterActividades.notifyDataSetChanged();
+                    if (actividadAPIRespuesta != null) {
+                        listaWrapper = actividadAPIRespuesta.getData();
+                        if (listaWrapper != null) {
+                            for (ActividadWrapper actividad : listaWrapper) {
+                                listaActividades.add(new ActividadAPI(actividad.getEvent().getname(), actividad.getEvent().getdescription(), actividad.getEvent().geturl()));
+                            }
+                            adapterActividades.setData(listaActividades);
+                            adapterActividades.notifyDataSetChanged();
+                        }
+                    } else {
+                        Log.e("API NULA", " onResponse: " + response.errorBody());
+                    }
                 } else {
-                    Log.e("TAG", " onResponse: " + response.errorBody());
+                    Log.e("API ERROR", " onResponse: " + response.errorBody());
                 }
             }
 
@@ -136,9 +144,9 @@ public class ListaActividadesApiFragment extends Fragment implements RecyclerVie
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getContext(), MostrarInfoActividadesAPI.class);
-        intent.putExtra("nombre_centro", listaActividades.get(position).getCentro_nombre());
-        intent.putExtra("nombre_actividad", listaActividades.get(position).getActividad_extraexcolar_descrip());
-        intent.putExtra("datos_actividad", listaActividades.get(position).getDat_nombre());
+        intent.putExtra("name", listaActividades.get(position).getname());
+        intent.putExtra("description", listaActividades.get(position).getdescription());
+        intent.putExtra("url", listaActividades.get(position).geturl());
         startActivity(intent);
     }
 }

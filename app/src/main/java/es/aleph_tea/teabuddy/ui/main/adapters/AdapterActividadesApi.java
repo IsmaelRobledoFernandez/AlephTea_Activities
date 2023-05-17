@@ -37,9 +37,7 @@ public class AdapterActividadesApi extends RecyclerView.Adapter<AdapterActividad
     @Override
     public void onBindViewHolder(@NonNull ActividadesViewHolder holder, int position) {
         ActividadAPI actividad = listaActividades.get(position);
-        holder.nombre_activity.setText(actividad.getActividad_extraexcolar_descrip());
-        holder.centro_nombre.setText(actividad.getCentro_nombre());
-        holder.dat_nombre.setText(actividad.getDat_nombre());
+        holder.nombre_actividad_api.setText(actividad.getname());
     }
 
     @Override
@@ -48,12 +46,10 @@ public class AdapterActividadesApi extends RecyclerView.Adapter<AdapterActividad
     }
 
     public static class ActividadesViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre_activity, centro_nombre, dat_nombre;
+        TextView nombre_actividad_api;
         public ActividadesViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
-            nombre_activity = itemView.findViewById(R.id.nombre_activity);
-            centro_nombre = itemView.findViewById(R.id.centro_nombre);
-            dat_nombre = itemView.findViewById(R.id.dat_nombre);
+            nombre_actividad_api = itemView.findViewById(R.id.nombre_actividad_api);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
